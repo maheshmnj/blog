@@ -31,8 +31,8 @@ github_username: maheshmnj
 
 # Build settings
 # theme: jekyll-theme-hacker
-theme: minimal-mistakes-jekyll
-# remote_theme: "mmistakes/minimal-mistakes@4.24.0"
+# theme: minimal-mistakes-jekyll
+remote_theme: "mmistakes/minimal-mistakes@4.24.0"
 minimal_mistakes_skin: "dark"
 plugins:
   - jekyll-feed
