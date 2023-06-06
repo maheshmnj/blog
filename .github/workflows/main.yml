@@ -12,11 +12,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Set up Node
+        uses: actions/setup-node@v2
         with:
           node-version: 16.x
-          cache: yarn
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
         run: yarn install --frozen-lockfile --non-interactive
       - name: Build
