@@ -9,7 +9,6 @@ const config = {
   title: 'Mahesh\'s Blog',
   tagline: 'Under Construction',
   favicon: 'img/favicon.ico',
-
   // Set the production url of your site here
   url: 'https://blog.maheshjamdade.com',
   // Set the /<baseUrl>/ pathname under which your site is served
@@ -60,19 +59,20 @@ const config = {
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
-        title: 'My Site',
+        title: 'Mahesh Jamdade',
         logo: {
           alt: 'My Site Logo',
-          src: 'img/logo.svg',
+          src: 'https://maheshjamdade.com/img/profile_pic.jpg',
+          href: 'https://maheshjamdade.com',
         },
         items: [
-          {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
-            position: 'left',
-            label: 'Tutorial',
-          },
-          { to: '/blog', label: 'Blog', position: 'left' },
+          // {
+          //   type: 'docSidebar',
+          //   sidebarId: 'tutorialSidebar',
+          //   position: 'left',
+          //   label: 'Tutorial',
+          // },
+          // { to: '/blog', label: 'Blog', position: 'left' },
           {
             href: 'https://github.com/maheshmnj/blog',
             label: 'GitHub',
