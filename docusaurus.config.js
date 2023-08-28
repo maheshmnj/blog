@@ -43,6 +43,9 @@ const config = {
         },
         blog: {
           showReadingTime: true,
+          feedOptions: {
+            type: 'all',
+          },
           editUrl:
             'https://github.com/maheshmnj/blog/tree/main/',
         },
