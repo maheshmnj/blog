@@ -28,10 +28,26 @@ const config = {
         featured: true
       },
       {
+        title: 'Hello World',
+        description: 'This is my first post!',
+        path: '/blog/hello-world',
+        date: '2021-09-01',
+        tags: ['second', 'helo', 'post'],
+        featured: true
+      },
+      {
+        title: 'Hello World',
+        description: 'This is my first post!',
+        path: '/blog/hello-world',
+        date: '2021-09-01',
+        tags: ['second', 'helo', 'post'],
+        featured: true
+      },
+      {
         title: 'Work in Progress',
         description: 'This is my third post!',
         path: '/blog/work-in-progress',
-        date: '2021-09-02',
+        date: '2022-09-02',
         tags: ['third', 'wip', 'post'],
         featured: false
       }

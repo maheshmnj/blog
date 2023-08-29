@@ -1,5 +1,6 @@
 @media screen and (max-width: 996px) {
     .blogcard {
+
         margin: 6rem;
         padding: 6rem;
         width: 100%;
@@ -7,7 +8,14 @@
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         transition: all 0.2s ease-in-out;
+        justify-content: center;
+
     }
+
+    .blogContainer {
+        width: 100%;
+    }
+
 }
 
 /* blog card hover effect */
@@ -16,12 +24,27 @@
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
+.blogList {
+    padding: 20px;
+    flex: 1;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-decoration: none;
+}
+
 .blogcard {
     margin: 1rem;
     padding: 1rem;
-    width: 60%;
+    width: 100%;
     border: 1px solid #eaeaea;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: all 0.2s ease-in-out;
+}
+
+.blogContainer {
+    width: 80%;
 }

@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Navbar from '../components/Navbar';
 import styles from './index.module.css';
+import '../components/Posts/posts.module.css';
 import Layout from '@theme/Layout';
 import BlogList from '../components/Posts';
 
@@ -45,7 +46,7 @@ export default function Home() {
       title={`Hello from ${siteConfig.title}`}
       description="Description will go into a meta tag in <head />">
       <HomepageHeader />
-      <BlogList />
+      <BlogList/>
     </Layout>
   </>
 }
