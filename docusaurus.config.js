@@ -9,12 +9,39 @@ const config = {
   title: 'Mahesh\'s Blog',
   tagline: 'Under Construction',
   favicon: 'img/favicon.ico',
+  customFields: {
+    allPosts: [
+      {
+        title: 'Welcome',
+        description: 'This is my first post!',
+        path: '/blog/welcome',
+        date: '2020-12-24',
+        tags: ['welcome', 'first', 'post'],
+        featured: true
+      },
+      {
+        title: 'Hello World',
+        description: 'This is my first post!',
+        path: '/blog/hello-world',
+        date: '2021-09-01',
+        tags: ['second', 'helo', 'post'],
+        featured: true
+      },
+      {
+        title: 'Work in Progress',
+        description: 'This is my third post!',
+        path: '/blog/work-in-progress',
+        date: '2021-09-02',
+        tags: ['third', 'wip', 'post'],
+        featured: false
+      }
+    ]
+  },
   // Set the production url of your site here
   url: 'https://blog.maheshjamdade.com',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
-
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'maheshmnj', // Usually your GitHub org/user name.

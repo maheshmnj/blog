@@ -1,0 +1,27 @@
+@media screen and (max-width: 996px) {
+    .blogcard {
+        margin: 6rem;
+        padding: 6rem;
+        width: 100%;
+        border: 1px solid #eaeaea;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.2s ease-in-out;
+    }
+}
+
+/* blog card hover effect */
+.blogcard:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.blogcard {
+    margin: 1rem;
+    padding: 1rem;
+    width: 60%;
+    border: 1px solid #eaeaea;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease-in-out;
+}
