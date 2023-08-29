@@ -24,7 +24,7 @@ const config = {
         description: 'This is my first post!',
         path: '/blog/hello-world',
         date: '2021-09-01',
-        tags: ['second', 'helo', 'post'],
+        tags: ['second', 'hello', 'post'],
         featured: true
       },
       {
@@ -32,7 +32,7 @@ const config = {
         description: 'This is my first post!',
         path: '/blog/hello-world',
         date: '2021-09-01',
-        tags: ['second', 'helo', 'post'],
+        tags: ['second', 'hello', 'post'],
         featured: true
       },
       {
@@ -40,7 +40,7 @@ const config = {
         description: 'This is my first post!',
         path: '/blog/hello-world',
         date: '2021-09-01',
-        tags: ['second', 'helo', 'post'],
+        tags: ['second', 'hello', 'post'],
         featured: true
       },
       {
@@ -85,10 +85,7 @@ const config = {
             'https://github.com/maheshmnj/blog/tree/main/'
         },
         blog: {
-          showReadingTime: true,
-          feedOptions: {
-            type: 'all',
-          },
+          blogSidebarCount: 0,
           editUrl:
             'https://github.com/maheshmnj/blog/tree/main/',
         },

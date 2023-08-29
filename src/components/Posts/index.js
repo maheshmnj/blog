@@ -1,11 +1,27 @@
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './posts.module.css';
 import Link from '@docusaurus/Link';
 
-export default function BlogList(props) {
+export default async function BlogList(props) {
     const { siteConfig } = useDocusaurusContext();
-    const allPosts = siteConfig.customFields.allPosts;
+    //  make a api call to get all posts
+
+    const [posts, setPosts] = useState([])
+
+    const fetchPosts = async () => {
+        const feeds = await fetch('https://blog.maheshjamdade.com/blog/feed.json');
+        allPosts = await feeds.json();
+        const data = await response.json();
+        return data.items;
+    };
+
+    useEffect(() => {
+        fetchPosts()
+    }, []);
+
+    console.log("allPost are", allPosts.length);
+
     return <div className={styles.blogList}>
         {allPosts.map((post, index) => {
             // if consecutive posts have same year, don't show year
