@@ -2,25 +2,26 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import React, { useState } from 'react';
 import styles from './posts.module.css';
 import Link from '@docusaurus/Link';
+import { useEffect } from 'react';
 
-export default async function BlogList(props) {
+export default function BlogList(props) {
     const { siteConfig } = useDocusaurusContext();
     //  make a api call to get all posts
-
-    const [posts, setPosts] = useState([])
-
+    const [allPosts, setPosts] = useState([])
     const fetchPosts = async () => {
         const feeds = await fetch('https://blog.maheshjamdade.com/blog/feed.json');
-        allPosts = await feeds.json();
-        const data = await response.json();
-        return data.items;
+        feeds.json().then(data => {
+            // setPosts(data[items]);
+            // console.log("json data=", data['items']);
+            setPosts(data['items']);
+        });
     };
+    console.log("posts=", allPosts);
 
     useEffect(() => {
         fetchPosts()
     }, []);
 
-    console.log("allPost are", allPosts.length);
 
     return <div className={styles.blogList}>
         {allPosts.map((post, index) => {
@@ -57,8 +58,6 @@ export default async function BlogList(props) {
         })
         }
     </div>
-
-
 }
 
 export function BlogListCard(props) {
