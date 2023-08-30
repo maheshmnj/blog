@@ -22,7 +22,6 @@ export default function BlogList(props) {
         fetchPosts()
     }, []);
 
-
     return <div className={styles.blogList}>
         {allPosts.map((post, index) => {
             // if consecutive posts have same year, don't show year
@@ -65,9 +64,9 @@ export function BlogListCard(props) {
         year: "numeric",
         month: "long",
         day: "numeric",
-
     });
-    return <Link to={props.path}>
+    return <Link to={props.path}
+        target={props.target || '_self'}>
         <div key={props.index} className={styles.blogcard}>
             <div className="cardHeader">
                 <h3>{props.title}</h3>
