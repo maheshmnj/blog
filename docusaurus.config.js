@@ -88,6 +88,9 @@ const config = {
           blogSidebarCount: 0,
           editUrl:
             'https://github.com/maheshmnj/blog/tree/main/',
+          feedOptions: {
+            type: 'json',
+          }
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
