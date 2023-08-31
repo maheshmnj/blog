@@ -1,11 +1,10 @@
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import React, { useState } from 'react';
 import styles from './posts.module.css';
-import Link from '@docusaurus/Link';
 import { useEffect } from 'react';
+import {BlogListCard} from './BlogListCard';
 
 export default function BlogList(props) {
-    const { siteConfig } = useDocusaurusContext();
     //  make a api call to get all posts
     const [allPosts, setPosts] = useState([])
     const fetchPosts = async () => {
@@ -35,7 +34,7 @@ export default function BlogList(props) {
             }
             const yearEqual = oldDate.getFullYear() === date.getFullYear()
             if (yearEqual && index != 0) {
-                return <div key={index} className={styles.blogContainer}>
+                return <div key={index} className='blogDiv'>
                     <BlogListCard
                         index={index}
                         tags={post.tags}
@@ -46,7 +45,7 @@ export default function BlogList(props) {
                     />
                 </div>
             } else {
-                return <div key={index} className={styles.blogContainer}>
+                return <div key={index} className='blogDiv' >
                     <h2>{date.getFullYear()}</h2>
                     <BlogListCard
                         index={index}
@@ -64,25 +63,3 @@ export default function BlogList(props) {
         }
     </div>
 }
-
-export function BlogListCard(props) {
-    const date = new Date(props.date).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-    });
-    return <Link to={props.path}
-        target={props.target || '_self'}>
-        <div key={props.index} className={styles.blogcard}>
-            <div className="cardHeader">
-                <h3>{props.title}</h3>
-                <p>{props.description}</p>
-            </div>
-            <div className="cardButton">
-                <small>{date}</small>
-            </div>
-        </div>
-    </Link>
-
-}
-
