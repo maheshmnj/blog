@@ -17,7 +17,6 @@ export default function BlogList(props) {
         });
     };
     console.log("posts=", allPosts);
-
     useEffect(() => {
         fetchPosts()
     }, []);
@@ -39,6 +38,7 @@ export default function BlogList(props) {
                 return <div key={index} className={styles.blogContainer}>
                     <BlogListCard
                         index={index}
+                        tags={post.tags}
                         title={`${post.title}`}
                         description={post.description}
                         path={post.url}
@@ -51,6 +51,7 @@ export default function BlogList(props) {
                     <BlogListCard
                         index={index}
                         className={`card ${index}`}
+                        tags={post.tags}
                         title={`${post.title}`}
                         description={post.description}
                         path={post.url}
