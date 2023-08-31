@@ -21,16 +21,21 @@ export default function BlogList(props) {
     useEffect(() => {
         fetchPosts()
     }, []);
-
+    // allPosts.sort((a, b) => {
+    //     const date1 = new Date(a.date_modified);
+    //     const date2 = new Date(b.date_modified);
+    //     return date2 - date1;
+    // });
     return <div className={styles.blogList}>
         {allPosts.map((post, index) => {
             // if consecutive posts have same year, don't show year
             var oldDate = new Date(post.date_modified)
             const date = new Date(post.date_modified);
             if (index != 0) {
-                oldDate = new Date(allPosts[index - 1].date);
+                oldDate = new Date(allPosts[index - 1].date_modified);
             }
-            if (oldDate.getFullYear() == date.getFullYear() && index != 0) {
+            const yearEqual = oldDate.getFullYear() === date.getFullYear()
+            if (yearEqual && index != 0) {
                 return <div key={index} className={styles.blogContainer}>
                     <BlogListCard
                         index={index}
