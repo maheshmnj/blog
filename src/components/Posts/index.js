@@ -2,7 +2,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import React, { useState } from 'react';
 import styles from './posts.module.css';
 import { useEffect } from 'react';
-import {BlogListCard} from './BlogListCard';
+import { BlogListCard } from './BlogListCard';
 
 export default function BlogList(props) {
     //  make a api call to get all posts
@@ -33,31 +33,31 @@ export default function BlogList(props) {
                 oldDate = new Date(allPosts[index - 1].date_modified);
             }
             const yearEqual = oldDate.getFullYear() === date.getFullYear()
-            if (yearEqual && index != 0) {
-                return <div key={index} className='blogDiv'>
-                    <BlogListCard
-                        index={index}
-                        tags={post.tags}
-                        title={`${post.title}`}
-                        description={post.description}
-                        path={post.url}
-                        date={post.date_modified}
-                    />
-                </div>
-            } else {
-                return <div key={index} className='blogDiv' >
-                    <h2>{date.getFullYear()}</h2>
-                    <BlogListCard
-                        index={index}
-                        className={`card ${index}`}
-                        tags={post.tags}
-                        title={`${post.title}`}
-                        description={post.description}
-                        path={post.url}
-                        date={post.date_modified}
-                    />
-                </div>
-            }
+            // if (yearEqual && index != 0) {
+            return <div key={index} className='blogDiv'>
+                <BlogListCard
+                    index={index}
+                    tags={post.tags}
+                    title={`${post.title}`}
+                    description={post.description}
+                    path={post.url}
+                    date={post.date_modified}
+                />
+            </div>
+            // } else {
+            //     return <div key={index} className='blogDiv' >
+            //         <h2>{date.getFullYear()}</h2>
+            //         <BlogListCard
+            //             index={index}
+            //             className={`card ${index}`}
+            //             tags={post.tags}
+            //             title={`${post.title}`}
+            //             description={post.description}
+            //             path={post.url}
+            //             date={post.date_modified}
+            //         />
+            //     </div>
+            // }
 
         })
         }
