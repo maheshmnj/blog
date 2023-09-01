@@ -14,7 +14,6 @@
   .heroBanner {
     padding: 2rem;
   }
-
 }
 
 
@@ -46,13 +45,10 @@
   overflow: hidden;
 }
 
-
-::selection { background-color: #C3CFE2; }
-
 .gradient {
-	text-transform: uppercase;
-	background: linear-gradient(to right, #30CFD0 0%, #330867 100%);
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-    font-family: 'Poppins', 'sans-serif';
+  text-transform: uppercase;
+  background: linear-gradient(to right, #30CFD0 0%, #330867 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: 'Poppins', 'sans-serif';
 }

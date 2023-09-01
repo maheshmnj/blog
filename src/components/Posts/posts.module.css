@@ -2,24 +2,20 @@
 @media screen and (max-width: 996px) {
     .blogList {
         padding: 20px;
-        flex: 1;
-        max-width: 100%;
+        max-width: 80%;
         display: flex;
         justify-content: center;
         flex-direction: column;
         text-decoration: none;
     }
-
 }
 
 .blogList {
     padding: 20px;
-    flex: 1;
     max-width: 100%;
     display: flex;
     justify-content: center;
     flex-direction: column;
-    /* background-color: aquamarine; */
     text-decoration: none;
 }
 
