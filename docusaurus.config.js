@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Mahesh\'s Blog',
-  tagline: 'Under Construction',
+  // tagline: 'Under Construction',
   favicon: 'img/favicon.ico',
   customFields: {
     allPosts: [
