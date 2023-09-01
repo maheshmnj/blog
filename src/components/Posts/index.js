@@ -25,7 +25,7 @@ export default function BlogList(props) {
     //     const date2 = new Date(b.date_modified);
     //     return date2 - date1;
     // });
-    return <div className={styles.blogList}>
+    return <div className={`${styles.blogList} `}>
         {allPosts.map((post, index) => {
             // if consecutive posts have same year, don't show year
             var oldDate = new Date(post.date_modified)
@@ -35,7 +35,7 @@ export default function BlogList(props) {
             }
             const yearEqual = oldDate.getFullYear() === date.getFullYear()
             if (yearEqual && index != 0) {
-                return <div key={index} className={styles.blogContainer}>
+                return <div key={index}>
                     <BlogListCard
                         index={index}
                         tags={post.tags}
@@ -46,7 +46,7 @@ export default function BlogList(props) {
                     />
                 </div>
             } else {
-                return <div key={index} className={styles.blogContainer}>
+                return <div key={index}>
                     <h2>{date.getFullYear()}</h2>
                     <BlogListCard
                         index={index}
