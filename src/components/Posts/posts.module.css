@@ -2,7 +2,7 @@
 @media screen and (max-width: 996px) {
     .blogList {
         padding: 20px;
-        max-width: 80%;
+        max-width: 100%;
         display: flex;
         justify-content: center;
         flex-direction: column;
