@@ -6,7 +6,7 @@ function PostCard(props) {
         day: "numeric",
     });
     return <div className="postcard" onClick={() => {
-        window.open(`/blog/${props.title}`, '_blank');
+        window.open(props.path, "_blank");
     }}>
         <p>{date}</p>
         <div style={{ width: '20px' }}></div>
