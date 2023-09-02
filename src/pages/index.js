@@ -9,11 +9,10 @@ import Layout from '@theme/Layout';
 import BlogList from '../components/Posts';
 
 function HomepageHeader() {
-  const { siteConfig } = useDocusaurusContext();
   return (
     <header className={clsx('hero hero', styles.heroBanner)}>
       <div className="container">
-        <p> Hello there! I'm Mahesh. Welcome to my personal blog. Here, I share my insights and reflections on life, career, and the world of technology. Feel free to explore and enjoy!</p>
+        <p> Hello there! I'm Mahesh. Welcome to my personal blog. Here, I share my insights and reflections on life, career, and the world of technology. Feel free to explore and enjoy!. Everything I have ever written on the internet in its original form.</p>
         <h2 className={styles.gradient}>I am still knitting some threads come back soon!</h2>
         <div className={styles.buttons}>
           <Button
@@ -47,7 +46,7 @@ export default function Home() {
       title={`${siteConfig.title}`}
       description="Description will go into a meta tag in <head />">
       <HomepageHeader />
-      <BlogList/>
+      <BlogList />
     </Layout>
   </>
 }

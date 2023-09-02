@@ -20,36 +20,18 @@ const config = {
         featured: true
       },
       {
-        title: 'Hello World',
-        description: 'This is my first post!',
-        path: '/blog/hello-world',
-        date: '2021-09-01',
-        tags: ['second', 'hello', 'post'],
-        featured: true
+        slug: "miraculous-day",
+        title: "The Miraculous Day",
+        authors: "Mahesh",
+        created_at: "2016-01-05T00:00:00Z",
+        tags: ['life', 'motivation']
       },
       {
-        title: 'Hello World',
-        description: 'This is my first post!',
-        path: '/blog/hello-world',
-        date: '2021-09-01',
-        tags: ['second', 'hello', 'post'],
-        featured: true
-      },
-      {
-        title: 'Hello World',
-        description: 'This is my first post!',
-        path: '/blog/hello-world',
-        date: '2021-09-01',
-        tags: ['second', 'hello', 'post'],
-        featured: true
-      },
-      {
-        title: 'Work in Progress',
-        description: 'This is my third post!',
-        path: '/blog/work-in-progress',
-        date: '2022-09-02',
-        tags: ['third', 'wip', 'post'],
-        featured: false
+        slug: "positive-vibe-reminder",
+        title: "A Positive Vibe 2018, You are not enough Motivated!",
+        authors: "Mahesh",
+        created_at: "2018-01-03T00:00:00Z",
+        tags: ['life', 'motivation']
       }
     ]
   },
@@ -76,7 +58,7 @@ const config = {
 
   presets: [
     [
-      'classic',
+      '@docusaurus/preset-classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
@@ -86,6 +68,8 @@ const config = {
         },
         blog: {
           blogSidebarCount: 0,
+          routeBasePath: 'blog',
+          include: ['**/*.{md,mdx}'],
           editUrl:
             'https://github.com/maheshmnj/blog/tree/main/',
           feedOptions: {

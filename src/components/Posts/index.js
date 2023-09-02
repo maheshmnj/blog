@@ -1,7 +1,6 @@
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import React, { useState } from 'react';
 import styles from './posts.module.css';
-import BlogListCard from './FeaturedCard';
 import { useEffect } from 'react';
 import FeaturedList from './FeaturedList';
 import Headline from './Headline';
@@ -14,8 +13,6 @@ export default function BlogList(props) {
     const fetchPosts = async () => {
         const feeds = await fetch('https://blog.maheshjamdade.com/blog/feed.json');
         feeds.json().then(data => {
-            // setPosts(data[items]);
-            // console.log("json data=", data['items']);
             setPosts(data['items']);
         });
     };
