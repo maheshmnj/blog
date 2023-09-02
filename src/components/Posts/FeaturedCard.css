@@ -1,5 +1,5 @@
 @media screen and (max-width: 996px) {
-    .blogcard {
+    .featcard {
         margin: 1rem;
         padding: 1rem;
         border: 1px solid #eaeaea;
@@ -10,7 +10,7 @@
     }
 }
 
-.blogcard {
+.featcard {
     margin: 1rem;
     padding: 1rem;
     border: 1px solid #eaeaea;
@@ -20,12 +20,12 @@
     cursor: pointer;
 }
 
-.blogcard:hover {
+.featcard:hover {
     transform: scale(1.05);
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
-.blogDiv {
+.featDiv {
     /* background-color: aqua; */
     width: 80%;
 }
