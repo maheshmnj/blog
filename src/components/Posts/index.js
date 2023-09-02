@@ -25,7 +25,6 @@ export default function BlogList(props) {
     }, []);
 
     const featured = allPosts.filter(post => post.tags.includes('featured'));
-
     return <div className={`${styles.blogList} `}>
         <FeaturedList featured={featured} allPosts={allPosts} />
         <div style={{ height: '30px' }}></div>
