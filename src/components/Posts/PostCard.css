@@ -9,7 +9,7 @@
 }
 
 .postcard:hover {
-    background-color: #8f97da;
+    background-color: #8a97ff;
     border-radius: 10px;
     transition: background-color 0.5s ease;
 }
