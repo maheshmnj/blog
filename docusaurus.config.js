@@ -12,12 +12,18 @@ const config = {
   customFields: {
     allPosts: [
       {
-        title: 'Welcome',
-        description: 'This is my first post!',
-        path: '/blog/welcome',
-        date: '2020-12-24',
-        tags: ['welcome', 'first', 'post'],
-        featured: true
+        slug: "truth-about-bitcoin-holders",
+        title: "The Truth you should know about the top 100 Bitcoin Holders",
+        authors: "Mahesh",
+        created_at: "2020-02-13",
+        tags: ['bitcoin', 'cryptocurrency', 'blockchain', 'thoughts']
+      },
+      {
+        slug: "india-bans-crypto",
+        title: "The FUD about the Crypto Fall, India bans Crypto!",
+        authors: "Mahesh",
+        created_at: "2020-05-01",
+        tags: ['bitcoin', 'cryptocurrency', 'blockchain', 'thoughts']
       },
       {
         slug: "miraculous-day",
