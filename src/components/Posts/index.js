@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import FeaturedList from './FeaturedList';
 import Headline from './Headline';
 import PostCard from './PostCard';
+const { useColorMode } = require('@docusaurus/theme-common');
 
 export default function BlogList(props) {
     const { siteConfig } = useDocusaurusContext();
@@ -54,8 +55,8 @@ export default function BlogList(props) {
                 selectedTag={selectedTag}
                 tags={tags} onTagClick={(x) => {
                     console.log("tag clicked", x);
-                    fetchPosts(x)
                     setSelected(x)
+                    fetchPosts(x)
                 }} />
         </div>
         <div className={`${styles.blogList} `}>
@@ -105,27 +106,28 @@ export function Tags(props) {
         props.onTagClick(tag);
     };
 
+    const dark = useColorMode().colorMode === 'dark';
+
     return (
         <div style={{
             display: 'flex',
             alignItems: 'center',
             flexWrap: 'wrap',
-            marginLeft: '20px'
+            marginLeft: '20px',
         }}>
             {props.tags.map((tag) => (
-                <div className='tag' style={{
-                    margin: '5px',
-                    padding: '5px 10px',
-                    borderRadius: '8px',
-                    border: '1px solid #ffffff',
-                    background: props.selectedTag === tag ? '#ffffff' : null,
-                    color: '#000000',
-                    cursor: 'pointer'
-
+                <div className={`${styles.tag} `} style={{
+                    border: props.selectedTag === tag ? '2px solid var(--ifm-color-primary)' : '1px solid var(--ifm-color-primary)',
+                    background: props.selectedTag === tag ? 'var(--ifm-color-primary)' : null,
                 }}>
-                    <a onClick={() => handleTagClick(tag)}>{tag}</a>
+                    <a
+                        style={{
+                            color: props.selectedTag === tag ? 'white' : 'var(--ifm-color-primary)',
+                        }}
+                        onClick={() => handleTagClick(tag)}>{tag}</a>
                 </div>
-            ))}
-        </div>
+            ))
+            }
+        </div >
     );
 }

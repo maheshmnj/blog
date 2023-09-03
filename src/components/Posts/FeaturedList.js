@@ -1,9 +1,13 @@
 import React from 'react';
 import FeaturedCard from './FeaturedCard';
 import Headline from './Headline';
+import siteConfig from '../../../docusaurus.config';
 
 export default function FeaturedList(props) {
-    const featured = props.allPosts.filter(post => post.tags.includes('featured'));
+    var localPosts = siteConfig.customFields.allPosts;
+    const featured = localPosts.filter(post => post.featured === true);
+    console.log("localPosts", localPosts);
+    console.log("featured", featured);
     if (featured.length === 0) {
         return <></>
     }
@@ -18,8 +22,8 @@ export default function FeaturedList(props) {
                             tags={post.tags}
                             title={`${post.title}`}
                             description={post.description}
-                            path={post.url}
-                            date={post.date_modified}
+                            path={`/blog/${post.slug}`}
+                            date={post.created_at}
                         />
                     </div>
                 })

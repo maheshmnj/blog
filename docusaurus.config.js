@@ -16,6 +16,7 @@ const config = {
         title: "How to sync files in between computer and Google Drive Automatically",
         authors: "Mahesh",
         created_at: "2018-08-17",
+        featured: true,
         tags: ['technology', 'software', 'youtube', 'hack']
       },
       {
@@ -23,18 +24,21 @@ const config = {
         title: "The story behind every software development process",
         authors: 'Mahesh',
         created_at: '2018-02-24',
+        featured: true,
         tags: ['technology', 'software', 'agile']
       },
       {
         slug: "relaxing-short-trip",
         title: "A relaxing short trip",
         authors: "Mahesh",
+        featured: true,
         created_at: "2018-02-24",
         tags: ['life', 'travel', 'blog']
       },
       {
         slug: "thoughts-on-life-and-death",
         title: "Thoughts on Life After Death",
+        featured: false,
         authors: "Mahesh",
         created_at: "2018-02-24",
         tags: ['life', 'thoughts']
@@ -44,6 +48,7 @@ const config = {
         title: "The Truth you should know about the top 100 Bitcoin Holders",
         authors: "Mahesh",
         created_at: "2020-02-13",
+        featured: false,
         tags: ['bitcoin', 'cryptocurrency', 'blockchain', 'thoughts']
       },
       {
@@ -51,6 +56,7 @@ const config = {
         title: "The FUD about the Crypto Fall, India bans Crypto!",
         authors: "Mahesh",
         created_at: "2020-05-01",
+        featured: false,
         tags: ['bitcoin', 'cryptocurrency', 'blockchain', 'thoughts']
       },
       {
@@ -58,6 +64,7 @@ const config = {
         title: "Is Bitcoin Bubble about to burst?",
         authors: 'Mahesh',
         created_at: '2020-05-01',
+        featured: false,
         tags: ['bitcoin', 'cryptocurrency', 'blockchain', 'thoughts']
       },
       {
@@ -65,12 +72,14 @@ const config = {
         title: "A Positive Vibe 2018, You are not enough Motivated!",
         authors: "Mahesh",
         created_at: "2018-01-03T00:00:00Z",
+        featured: false,
         tags: ['life', 'motivation']
       },
       {
         slug: "miraculous-day",
         title: "The Miraculous Day",
         authors: "Mahesh",
+        featured: false,
         created_at: "2016-01-05T00:00:00Z",
         tags: ['life', 'motivation']
       },
@@ -125,78 +134,70 @@ const config = {
   ],
 
   themeConfig:
-    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
-    ({
-      // Replace with your project's social card
-      image: 'img/docusaurus-social-card.jpg',
-      navbar: {
-        title: 'Mahesh\'s Blog',
-        logo: {
-          // alt: 'My Site Logo',
-          src: 'https://maheshjamdade.com/img/profile_pic.jpg',
-          href: '/',
+  {
+    // Replace with your project's social card
+    image: 'img/docusaurus-social-card.jpg',
+    navbar: {
+      title: 'Mahesh\'s Blog',
+      logo: {
+        // alt: 'My Site Logo',
+        src: 'https://maheshjamdade.com/img/profile_pic.jpg',
+        href: '/',
+      },
+      items: [
+        {
+          href: 'https://github.com/maheshmnj/blog',
+          label: 'GitHub',
+          position: 'right',
         },
-        items: [
-          // {
-          //   type: 'docSidebar',
-          //   sidebarId: 'tutorialSidebar',
-          //   position: 'left',
-          //   label: 'Tutorial',
-          // },
-          // { to: '/blog', label: 'Blog', position: 'left' },
-          {
-            href: 'https://github.com/maheshmnj/blog',
-            label: 'GitHub',
-            position: 'right',
-          },
-        ],
-      },
-      footer: {
-        style: 'dark',
-        links: [
-          // {
-          //   title: 'Docs',
-          //   items: [
-          //     {
-          //       label: 'Tutorial',
-          //       to: '/docs/intro',
-          //     },
-          //   ],
-          // },
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/users/8253662/mahesh-jamdade',
-              },
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/maheshmnj',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              // {
-              //   label: 'Blog',
-              //   to: '/blog',
-              // },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/maheshmnj',
-              },
-            ],
-          },
-        ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
-      },
-      prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
-      },
-    }),
+      ],
+    },
+    footer: {
+      style: 'dark',
+      links: [
+        {
+          title: 'Community',
+          items: [
+            {
+              label: 'Stack Overflow',
+              href: 'https://stackoverflow.com/users/8253662/mahesh-jamdade',
+            },
+            {
+              label: 'Twitter',
+              href: 'https://twitter.com/maheshmnj',
+            },
+          ],
+        },
+        {
+          title: 'More',
+          items: [
+            // {
+            //   label: 'Blog',
+            //   to: '/blog',
+            // },
+            {
+              label: 'GitHub',
+              href: 'https://github.com/maheshmnj',
+            },
+          ],
+        },
+      ],
+      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+    },
+    colorMode: {
+      defaultMode: 'dark',
+    },
+    lightTheme: {
+      primaryColor: '#007BFF', // Light theme primary color
+    },
+    darkTheme: {
+      primaryColor: '#6C757D', // Dark theme primary color
+    },
+    prism: {
+      theme: lightCodeTheme,
+      darkTheme: darkCodeTheme,
+    },
+  },
 };
 
 module.exports = config;
