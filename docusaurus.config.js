@@ -12,6 +12,13 @@ const config = {
   customFields: {
     allPosts: [
       {
+        slug: "truth-about-software-development",
+        title: "The story behind every software development process",
+        authors: 'Mahesh',
+        created_at: '2018-02-24',
+        tags: ['technology', 'software', 'agile']
+      },
+      {
         slug: "relaxing-short-trip",
         title: "A relaxing short trip",
         authors: "Mahesh",
