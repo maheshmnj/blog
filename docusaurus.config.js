@@ -12,6 +12,20 @@ const config = {
   customFields: {
     allPosts: [
       {
+        slug: "relaxing-short-trip",
+        title: "A relaxing short trip",
+        authors: "Mahesh",
+        created_at: "2018-02-24",
+        tags: ['life', 'travel', 'blog']
+      },
+      {
+        slug: "thoughts-on-life-and-death",
+        title: "Thoughts on Life After Death",
+        authors: "Mahesh",
+        created_at: "2018-02-24",
+        tags: ['life', 'thoughts']
+      },
+      {
         slug: "truth-about-bitcoin-holders",
         title: "The Truth you should know about the top 100 Bitcoin Holders",
         authors: "Mahesh",
