@@ -10,7 +10,7 @@ function PostCard(props) {
     }}>
         <p className='postdate'>{date}</p>
         <div style={{ width: '20px' }}></div>
-        <h3>{props.title}</h3>
+        <p className='title'>{props.title}</p>
     </div>
 }
 

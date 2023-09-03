@@ -50,14 +50,16 @@ export default function BlogList(props) {
             }
         }>
             {console.log("tags=", tags)}
-            <Headline title="All Posts" size="large" />
-            <Tags
-                selectedTag={selectedTag}
-                tags={tags} onTagClick={(x) => {
-                    console.log("tag clicked", x);
-                    setSelected(x)
-                    fetchPosts(x)
-                }} />
+            <div className={styles.filterContainer}>
+                <Headline title="All Posts" size="large" />
+                <Tags
+                    selectedTag={selectedTag}
+                    tags={tags} onTagClick={(x) => {
+                        console.log("tag clicked", x);
+                        setSelected(x)
+                        fetchPosts(x)
+                    }} />
+            </div>
         </div>
         <div className={`${styles.blogList} `}>
             {allPosts.map((post, index) => {
@@ -105,28 +107,21 @@ export function Tags(props) {
     const handleTagClick = (tag) => {
         props.onTagClick(tag);
     };
-
-    const dark = useColorMode().colorMode === 'dark';
-
     return (
-        <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            marginLeft: '20px',
-        }}>
-            {props.tags.map((tag) => (
-                <div className={`${styles.tag} `} style={{
-                    border: props.selectedTag === tag ? '2px solid var(--ifm-color-primary)' : '1px solid var(--ifm-color-primary)',
-                    background: props.selectedTag === tag ? 'var(--ifm-color-primary)' : null,
-                }}>
-                    <a
-                        style={{
-                            color: props.selectedTag === tag ? 'white' : 'var(--ifm-color-primary)',
-                        }}
-                        onClick={() => handleTagClick(tag)}>{tag}</a>
-                </div>
-            ))
+        <div className={styles.tagsContainer}>
+            {
+                props.tags.map((tag) => (
+                    <div className={`${styles.tag} `} style={{
+                        border: props.selectedTag === tag ? '2px solid var(--ifm-color-primary)' : '1px solid var(--ifm-color-primary)',
+                        background: props.selectedTag === tag ? 'var(--ifm-color-primary)' : null,
+                    }}>
+                        <a
+                            style={{
+                                color: props.selectedTag === tag ? 'white' : 'var(--ifm-color-primary)',
+                            }}
+                            onClick={() => handleTagClick(tag)}>{tag}</a>
+                    </div>
+                ))
             }
         </div >
     );

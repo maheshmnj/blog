@@ -1,5 +1,6 @@
 import React from 'react';
 import FeaturedCard from './FeaturedCard';
+import './FeaturedList.css';
 import Headline from './Headline';
 import siteConfig from '../../../docusaurus.config';
 
@@ -12,7 +13,7 @@ export default function FeaturedList(props) {
         return <></>
     }
     else {
-        return <>
+        return <div className='featuredContainer'>
             <Headline title="Featured" size="large" />
             {
                 featured.map((post, index) => {
@@ -28,6 +29,6 @@ export default function FeaturedList(props) {
                     </div>
                 })
             }
-        </>
+        </div>
     }
 }
