@@ -12,6 +12,13 @@ const config = {
   customFields: {
     allPosts: [
       {
+        slug: "sync-files-between-windows-and-drive",
+        title: "How to sync files in between computer and Google Drive Automatically",
+        authors: "Mahesh",
+        created_at: "2018-08-17",
+        tags: ['technology', 'software', 'youtube', 'hack']
+      },
+      {
         slug: "truth-about-software-development",
         title: "The story behind every software development process",
         authors: 'Mahesh',
