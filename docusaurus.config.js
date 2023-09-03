@@ -16,7 +16,7 @@ const config = {
         title: "How to sync files in between computer and Google Drive Automatically",
         authors: "Mahesh",
         created_at: "2018-08-17",
-        featured: true,
+        featured: false,
         tags: ['technology', 'software', 'youtube', 'hack']
       },
       {
