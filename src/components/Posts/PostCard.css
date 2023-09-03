@@ -4,13 +4,13 @@
     flex-direction: row;
     align-items: center;
     margin: 10px;
-    /* top padding: 50 px */
     padding: 20px 0px 0px 20px;
 }
 
 .postcard:hover {
     background-color: #8a97ff;
     border-radius: 10px;
+    color: aliceblue;
     transition: background-color 0.5s ease;
 }
 

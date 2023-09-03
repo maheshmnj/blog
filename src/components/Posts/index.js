@@ -10,22 +10,54 @@ export default function BlogList(props) {
     const { siteConfig } = useDocusaurusContext();
     //  make a api call to get all posts
     const [allPosts, setPosts] = useState([])
-    const fetchPosts = async () => {
+    const [tags, setTags] = useState(['All'])
+    const [selectedTag, setSelected] = useState(() => {
+        return 'All'
+    })
+    const fetchPosts = async (tag) => {
         const feeds = await fetch('https://blog.maheshjamdade.com/blog/feed.json');
         feeds.json().then(data => {
-            setPosts(data['items']);
+            if (tag === 'All') {
+                setPosts(data.items);
+            } else {
+                setPosts(data.items.filter(post => post.tags.includes(tag)));
+            }
         });
     };
     console.log("posts=", allPosts);
     useEffect(() => {
-        fetchPosts()
+        var localPosts = siteConfig.customFields.allPosts;
+        localPosts.forEach((post) => {
+            if (post.tags) {
+                post.tags.forEach((tag) => {
+                    if (!tags.includes(tag)) {
+                        tags.push(tag);
+                    }
+                })
+            }
+        });
+        fetchPosts(selectedTag)
     }, []);
 
-    const featured = allPosts.filter(post => post.tags.includes('featured'));
     return <div className={`${styles.blogList} `}>
-        <FeaturedList featured={featured} allPosts={allPosts} />
+        <FeaturedList allPosts={allPosts} />
         <div style={{ height: '30px' }}></div>
-        <Headline title="All Posts" size="large" />
+        <div style={
+            {
+                display: 'flex',
+                alignItems: 'center',
+            }
+        }>
+            {console.log("tags=", tags)}
+            <Headline title="All Posts" size="large" />
+            <Tags
+                selectedTag={selectedTag}
+                tags={tags} onTagClick={(x) => {
+                    console.log("tag clicked", x);
+                    fetchPosts(x)
+                    setSelected(x)
+                }} />
+        </div>
         <div className={`${styles.blogList} `}>
             {allPosts.map((post, index) => {
                 // if consecutive posts have same year, don't show year
@@ -65,4 +97,35 @@ export default function BlogList(props) {
             }
         </div>
     </div>
+}
+
+
+export function Tags(props) {
+    const handleTagClick = (tag) => {
+        props.onTagClick(tag);
+    };
+
+    return (
+        <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            marginLeft: '20px'
+        }}>
+            {props.tags.map((tag) => (
+                <div className='tag' style={{
+                    margin: '5px',
+                    padding: '5px 10px',
+                    borderRadius: '8px',
+                    border: '1px solid #ffffff',
+                    background: props.selectedTag === tag ? '#ffffff' : null,
+                    color: '#000000',
+                    cursor: 'pointer'
+
+                }}>
+                    <a onClick={() => handleTagClick(tag)}>{tag}</a>
+                </div>
+            ))}
+        </div>
+    );
 }

@@ -54,11 +54,11 @@ const config = {
         tags: ['bitcoin', 'cryptocurrency', 'blockchain', 'thoughts']
       },
       {
-        slug: "miraculous-day",
-        title: "The Miraculous Day",
-        authors: "Mahesh",
-        created_at: "2016-01-05T00:00:00Z",
-        tags: ['life', 'motivation']
+        slug: "bitcoin-bubble-burst",
+        title: "Is Bitcoin Bubble about to burst?",
+        authors: 'Mahesh',
+        created_at: '2020-05-01',
+        tags: ['bitcoin', 'cryptocurrency', 'blockchain', 'thoughts']
       },
       {
         slug: "positive-vibe-reminder",
@@ -66,7 +66,14 @@ const config = {
         authors: "Mahesh",
         created_at: "2018-01-03T00:00:00Z",
         tags: ['life', 'motivation']
-      }
+      },
+      {
+        slug: "miraculous-day",
+        title: "The Miraculous Day",
+        authors: "Mahesh",
+        created_at: "2016-01-05T00:00:00Z",
+        tags: ['life', 'motivation']
+      },
     ]
   },
   // Set the production url of your site here
