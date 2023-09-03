@@ -8,7 +8,7 @@ function PostCard(props) {
     return <div className="postcard" onClick={() => {
         window.open(props.path, "_blank");
     }}>
-        <p>{date}</p>
+        <p className='postdate'>{date}</p>
         <div style={{ width: '20px' }}></div>
         <h3>{props.title}</h3>
     </div>

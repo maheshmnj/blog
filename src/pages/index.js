@@ -12,7 +12,7 @@ function HomepageHeader() {
   return (
     <header className={clsx('hero hero', styles.heroBanner)}>
       <div className="container">
-        <p> Hello there! I'm Mahesh. Welcome to my personal blog. Here, I share my insights and reflections on life, career, and the world of technology. Feel free to explore and enjoy!. Everything I have ever written on the internet in its original form.</p>
+        <p> Hello there! I'm Mahesh. Welcome to my personal blog. Here, I share my insights and reflections on life, career, and the world of technology. Everything I have ever written on the internet in its original form..<br/> Feel free to explore and enjoy!.</p>
         <h2 className={styles.gradient}>I am still knitting some threads come back soon!</h2>
         <div className={styles.buttons}>
           <Button
