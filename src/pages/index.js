@@ -9,26 +9,24 @@ import BlogList from '../components/Posts';
 
 function HomepageHeader() {
   return (
-    <header className={clsx('hero hero', styles.heroBanner)}>
-      <div className="container">
-        <p style={{
-          fontFamily: 'poppins sans-serif',
-          fontSize: '1.5rem',
-        }}> Hello there! I'm Mahesh. Welcome to my personal blog. Here, I share my insights and reflections on life, career, and the world of technology. Everything I have ever written on the internet in its original form.<br /> Feel free to explore and enjoy!</p>
-        <h2 className={styles.gradient}>Almost ready giving final touch come back soon!</h2>
-        <div className={styles.buttons}>
-          <Button
-            onClick={() => {
-              window.open("https://maheshjamdade.com/", "_blank")
-            }}>About Me</Button>
-          <div style={{ width: 20 }}></div>
-          <Button
-            onClick={() => {
-              window.open("https://twitter.com/maheshmnj", "_blank")
-            }}
-            className={styles.button}>Twitter</Button>
-        </div>
-      </div >
+    <header className={styles.heroBanner}>
+      <p style={{
+        fontFamily: 'poppins sans-serif',
+        fontSize: '1.4rem',
+      }}> Hello there! I'm Mahesh. Welcome to my personal blog. Here, I share my insights and reflections on life, career, and the world of technology. Everything I have ever written on the internet in its original form.<br /> Feel free to explore and enjoy!</p>
+      <h2 className={styles.gradient}>Almost ready giving final touch come back soon!</h2>
+      <div className={styles.buttons}>
+        <Button
+          onClick={() => {
+            window.open("https://maheshjamdade.com/", "_blank")
+          }}>About Me</Button>
+        <div style={{ width: 20 }}></div>
+        <Button
+          onClick={() => {
+            window.open("https://twitter.com/maheshmnj", "_blank")
+          }}
+          className={styles.button}>Twitter</Button>
+      </div>
     </header >
   );
 }
