@@ -11,9 +11,8 @@ function HomepageHeader() {
   return (
     <header className={styles.heroBanner}>
       <p style={{
-        fontFamily: 'poppins sans-serif',
         fontSize: '1.4rem',
-      }}> Hello there! I'm Mahesh. Welcome to my personal blog. Here, I share my insights and reflections on life, career, and the world of technology. Everything I have ever written on the internet in its original form.<br /> Feel free to explore and enjoy!</p>
+      }}> Hello there! I'm Mahesh. Welcome to my personal blog. Here, I share my insights and reflections on life, career, and the world of technology. Everything I have ever written on the web at one place.<br /> Feel free to explore and enjoy!</p>
       <h2 className={styles.gradient}>Almost ready giving final touch come back soon!</h2>
       <div className={styles.buttons}>
         <Button
