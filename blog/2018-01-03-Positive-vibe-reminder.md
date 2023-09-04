@@ -8,7 +8,7 @@ created_at: "2018-01-03T00:00:00Z"
 tags: [life, motivation]
 ---
 
-Do you know one of the biggest reason to failure ?? it isn't lack of efforts,
+> Do you know one of the biggest reason to failure ?? it isn't lack of efforts,
 
 ![Positive Vibe](https://steemitimages.com/DQmP6HUsCP97tsM3fnt7UnXWEdg1d72Vxaym8FBPUoSCNvE/mv.png)
 
@@ -25,7 +25,7 @@ To stay confident and motivated you need to spend time for yourself, Make sure y
 
 ### How are you feeling right now??
 
-If Happy then let it continue and if not then change your mood that’s so simple as switching a TV channel , think of your happy moments from the past, think of a child you love, your favorite food you would love to have , the person who had a great influence on you or the person who you admire the most , or think of your life where you will be after 5 years 10 years and 20 years (be positive of course).
+If Happy then let it continue and if not then change your mood that’s so simple as switching a TV channel, think of your happy moments from the past, think of a child you love, your favorite food you would love to have, the person who had a great influence on you or the person who you admire the most, or think of your life where you will be after 5 years 10 years and 20 years (be positive of course).
 
 No matter what has happened with you or How bad state or situation you are going through, there are people in the world in the worst state you can hardly imagine and theres always a way to make things better.
 
