@@ -52,6 +52,7 @@ export default function BlogList(props) {
             {console.log("tags=", tags)}
             <div className={styles.filterContainer}>
                 <Headline title="All Posts" size="large" />
+                <div style={{ width: '20px' }}></div>
                 <Tags
                     selectedTag={selectedTag}
                     tags={tags} onTagClick={(x) => {
