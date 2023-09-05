@@ -1,0 +1,304 @@
+---
+slug: flutter-automated-testing
+title: Flutter Automated Testing
+authors: Mahesh
+created_at: 2019-05-12
+tags: [flutter, technology, testing, medium]
+---
+
+#### BDD testing using Cucumber
+
+I will try to keep things as simple as possible, Before we dive into the topic, I think it is important to understand a few terms and clear some misconceptions. This post is going to be quite long so bear with me, By the end of this postm I will make sure you get something valuable out of it. By the end of this post you will understand, How we can use BDD to write the specifications of the product's behavior. That means these specifications act as test cases to ensure the product behaves as expected. By just reading these specifications you will be able to understand what this app is supposed to do. The way it differs from normal Integration testing is, these specifications are in plain English texts which anyone could understand.
+
+### BDD is not a Testing Technique
+
+The common mistake most people make is, they think BDD/TDD are testing techniques but the thing is,
+
+> It is the process of approaching your design and forcing you to think about the desired outcome and API before you code. So that you are clear about what you are building and these tests make sure the product behaves the way it is supposed to.
+
+In other words, BDD is about testing the behavior of your product, you still don't understand what I am talking about 😇?
+
+Don't worry as we write test cases you will get an idea of what I am talking about. Let's First Understand the underlying things.
+
+### Cucumber and Gherkin's language
+
+I am certainly not talking about this Cucumber 🥒 (Bad Joke😬)
+
+Cucumber is a tool that supports [Behaviour-Driven Development(BDD)](https://cucumber.io/docs/bdd). In Cucumber, the BDD specifications are written in plain, simple English which is defined by the Gherkins language. In other words, Gherkin is a language that Cucumber understands. Gherkin presents the behavior of the application used, from which Cucumber can generate the acceptance test cases.
+
+To give you a little taste this is how gherkin's language looks
+
+```
+Feature:check if button tap takes to homepage
+  Scenario:When the button is tapped
+    Given I have "button" on screen
+    When I tap the 'button'
+    Then I should see 'homepage' on screen
+```
+
+### Writing Gherkin's feature file
+
+We write the test specifications for our app in gherkins language in a feature file(file with .feature extension). The file must be written in a syntax that the cucumber understands. Here are some of the minimal keywords you need to know to start writing the specifications. As you read each keyword, I recommend you to look at the above example of gherkin's language for better understanding.
+
+_Feature:_ The first primary keyword in a Gherkin document must always be aFeature, followed by a : and a short text that describes the feature. You can add free-form text underneath Feature to add more description.
+
+These description lines are ignored by Cucumber at runtime but are available for reporting.
+
+*Scenario:*The keyword Scenario is a synonym of the keyword Example. You can have as many steps as you like, but it is recommended to keep the number at 3–5 per example. your examples are an executable specification of the system.
+
+Examples follow this same pattern:
+
+- Describe an initial context (Given steps)
+- Describe an event (When steps)
+- Describe an expected outcome (Then steps)
+
+_Step Definition:_ Step definitions are the coded representation of a textual step in a feature file. Each step starts with either Given, Then, When, And or But.
+_Given:_ Given steps are used to describe the initial context of the system - the scene of the scenario. It is typically something that happened in the past.
+
+_When:_ When steps are used to describe an event, or an action. This can be a person interacting with the system, or it can be an event triggered by another system.
+
+_Then:_ Then steps are used to describe an expected outcome, or result.
+And,But: If you have several Given's, When's, or Thens, you could use And or But wherever required e.g
+
+```
+Example: Multiple Givens
+  Given one thing
+   And another thing
+     And yet another thing
+       When I open my eyes
+       Then I should see something
+       But I shouldn't see something else
+```
+
+that's all you need to write the feature file and get started, again this is not the complete guide to feature file I am just introducing you to the minimal syntax which gets your work done and optimal for this post too, you can learn more about [gherkin's syntax here](https://cucumber.io/docs/gherkin/reference/)
+
+Now that you know the essential stuff lets get to work I will be writing test specifications for this sample app source code at the bottom of this post.
+
+did you miss that word "Test Specifications" it simply means test cases for the app that we write to fail the app, and if it passes the case that means our app behaves as it is supposed too.
+
+To give you a little idea about this app,As you can see below this sample app takes email and password, if email is in a specified format(abc@xyz.com) and password with a special character (\*,/,\_)then we can go to next page on pressing the login button. And on the next page the thumbs up button of an item increases the claps and thumb_down button decreases the claps and on pressing the favourate icon the favourate elements gets added to the favourate tab bar thats a simple working of this sample app.
+
+<center>
+  <img
+    width="350"
+    src="https://cdn-images-1.medium.com/max/1600/1*M6glHX94iVAt6knhupzHPA.gif"
+  />
+</center>
+
+Now lets start working on writing specifications by gathering the things we need
+
+### Installation
+
+1. Add the Gherkin's plugin to the pubsec.yaml
+
+```yaml
+dependencies:
+  flutter_gherkin: ^1.0.5
+```
+
+2. add the flutter_driver dependency in dev \_dependencies
+
+```yaml
+dev_dependencies:
+  flutter_driver:
+    sdk: flutter
+```
+
+3. Create a directory as `test_driver` in the root folder of your project.
+
+4. Create two more directories with name features and steps in test_driver we will only be writing specifications and feature files and everything will happen in the test_driver directory.
+   the feature directory contains all the `.feature` files and steps directory contains all the `.dart` files which implement the specifications written in the feature files.
+
+5. Create two files called app.dart and test_config.dart in the root of test_driver steps folder. oops a lot of files and folders take a deeeep breath its done and you did a great job.And make sure your files and folders are located in this way so that everything further works fine.
+   your_project_directory 📁
+
+```
+  ...
+  ...
+  test_driver 📁
+     feature 📁
+        Login_test.feature 📄
+     steps 📁
+        test_steps.dart 📄
+   app.dart 📄
+   test_config.dart 📄
+```
+
+### Enable flutter driver extension
+
+Add the following code to enable the flutter driver and specify which class to test.I have specified the MyApp() class from main.dart the first page of this app.
+
+```dart
+ import 'package:flutter_driver/driver_extension.dart';
+ import 'package:counter_app/main.dart' as app;
+ void main() {
+   // This line enables the extension.
+   enableFlutterDriverExtension();
+   runApp(MyApp());
+ }
+```
+
+Now is the time to write the specifications in feature and implement them in steps class lets start first with the feature files.
+
+### Creating a Test Scenario
+
+First try to understand the scenario,I have two textfields and a button on screen what it does is simply checks if the email and passwords are in desired format,if so then you can go to next page by clicking on the login button.Remember I told you we will be writing test cases to make our app fail.This is what I meant.
+
+So this is How I want my tests to go through
+
+```
+check if email textfield is present on Screen
+check if password textfield is present on Screen
+add a input to email field in specified format
+add a input to password field in a specified format
+when I click on Login button
+I should see home screen
+```
+
+Now to interact with each widget on screen we need to give them an identity "Key" almost every widget in flutter has this key property which helps the widget to be uniquely identified, so just go to all the widgets and give them a unique key. e.g for email text field I have added as
+
+```dart
+TextField(
+  key: Key("emailfield"),
+  ....
+  ....
+)
+```
+
+### Writing the Feature File
+
+Now to implement above steps I have added the below code in my feature file so my feature file kind of looks like this ,if you are using vs code the editor senses the feature file and asks you to download the feature file plugin from market place,I recommend installing one. for a better formatting by clicking (ctrl+shift+i on linux) and (alt+shift+f on windows).
+
+![](https://cdn-images-1.medium.com/max/1600/1*5r_QBF4nBf2j8ZsVoP_f6A.png)
+
+> Note that the identifier in quotes(" ") are the widget keys with which the flutter driver interacts.
+
+Now that we have added the steps,its time to implement them, open your test_steps.dart and add the below code. To implement the first step from the feature file(on line no 4).
+
+`Given I have "emailfield" and "passfield" and "LoginButton"`
+
+this step checks if these three widgets are present on screen, you need to look for two things in any step before implementing that step
+
+1. Type of statement (Given/Then/When)
+2. how many widget keys or identifiers in statements and their types
+
+(e.g in above step we have 3 widget keys of type string each) so while implementing the step my class will extend from a class Given3WithWorld<String, String, String, FlutterWorld> so the step file looks someting likes this lets take a look at each step
+
+```dart
+import 'package:flutter_driver/flutter_driver.dart';
+import 'package:flutter_gherkin/flutter_gherkin.dart';
+import 'package:gherkin/gherkin.dart';
+
+class CheckGivenWidgets extends Given3WithWorld<String,String,String,FlutterWorld> {
+ @override
+ Future<void> executeStep(String input1, String input2, String input3) async {
+    // TODO: implement executeStep
+    final textinput1 = find.byValueKey(input1);
+    final textinput2 = find.byValueKey(input2);
+    final button = find.byValueKey(input3);
+    bool input1Exists = await FlutterDriverUtils.isPresent(world.driver, textinput1);
+    bool input2Exists = await FlutterDriverUtils.isPresent(world.driver,textinput2);
+    bool buttonExists = await FlutterDriverUtils.isPresent(world.driver, button);
+    expect(input1Exists, true);
+    expect(input2Exists, true);
+    expect(buttonExists, true);
+}
+
+ @override
+ // TODO: implement pattern
+ RegExp get pattern => RegExp(r"I have {string} and {string} and {string}");
+}
+```
+
+As you can see the class inherits from When3WithWorld and specifies the types of the three input parameters. The fourth type FlutterWorld is a special Flutter context object that allows access to the Flutter driver instance within the step. Then we have to override the executeStep method and find the widgets by key using a finder.
+
+`final loginfinder = find.byValueKey(loginbtn);`
+
+similarly for other widgets and now we use the flutter driver to actually see if the widgets are present on screen by passing in the finder and the driver as input to the FlutterDriverUtils.isPresent() since these are all asynchronous tasks and are not immediately executed so we will make use of async and await.
+
+`await FlutterDriverUtils.isPresent(world.driver, textinput1);`
+
+and at last the Regular Expression is same as in feature file, But just indicating the type of the input parameters instead of the key or value. Also make sure the Regular Expression is exact as defined in feature file
+
+```dart
+RegExp get pattern => RegExp(r"I have {string} and {string} and {string}");
+```
+
+it is important to note that we dont need to implement steps(using Flutter Driver) like add text in textfield or open a drawer etc, These are already predefined so below two steps will be automatically executed.
+
+```dart
+When I fill the "emailfield" field with "myemail@gmail.com"
+And I fill the "passfield" field with "passwordwith_@"
+```
+
+so what we need to implement now is a tap function on a widget with key "LoginButton" i.e the login button on screen.
+
+```dart
+Then I tap the "LoginButton" button
+```
+
+so I will add a new class in the same tests_step.dart file. I would suggest you to look closely at this file and try to relate with the previous class file explanation it is kind of similar.
+
+```dart
+class ClickLoginButton extends Then1WithWorld<String, FlutterWorld> {
+    @override
+    Future<void> executeStep(String loginbtn) async {
+    // TODO: implement executeStep
+        final loginfinder = find.byValueKey(loginbtn);
+        await FlutterDriverUtils.tap(world.driver, loginfinder);
+    }
+
+    @override
+    RegExp get pattern => RegExp(r"I tap the {string} button");
+}
+```
+
+so if you still didn't get it the statement is of type "Then" with 1 paramter of type String so its extends from Then1WithWorld<String, FlutterWorld> then we found the widget using its key in the input parameter and told the driver to tap on the widget.
+
+`await FlutterDriverUtils.tap(world.driver, loginfinder);`
+
+Now that we have a feature file ready and also implemented it in a step file its time to put to test.
+
+But wait how will the flutter driver know where to start for the execution 🤔? for this we need to add a config file that tells the driver to execute classes in order as specified so add the below code to `test_config.dart`.
+
+```dart
+import 'dart:async';
+import 'package:flutter_gherkin/flutter_gherkin.dart';
+import 'package:gherkin/gherkin.dart';
+import 'package:glob/glob.dart';
+import 'steps/test_steps.dart';
+
+Future<void> main() {
+    final config = FlutterTestConfiguration()
+    ..features = [Glob(r"test_driver/features/**.feature")]
+    ..reporters = [ProgressReporter()]
+    ..stepDefinitions = [CheckGivenWidgets(),ClickLoginButton()]
+    ..restartAppBetweenScenarios = true
+    ..targetAppPath = "test_driver/app.dart"
+    ..exitAfterTestRun = true;
+    return GherkinRunner().execute(config);
+}
+```
+
+Let us try running the test by running the command
+
+`dart test_driver/test_config.dart`
+
+you can see the console for the test results, it should look something like this
+
+![](https://cdn-images-1.medium.com/max/1600/1*xoWgSLTsW-Cq_xRWd0xnpw.png)
+
+One more last step for this post is to check when we have tapped on the login button are we really on the homepage. Well, I would live this to you as an exercise as this post is getting too long.
+Heres the result of some additional tests that I have added
+
+![](https://cdn-images-1.medium.com/max/1600/1*wK1t1ozhmPRkM7C6gim_tw.gif)
+
+References:
+
+- [Flutter Gherkin's plugin and Documentation](https://pub.dev/packages/flutter_gherkin)
+- [Code Open Sourced on Github](https://github.com/maheshmnj/flutter-Testing)
+- [Gherkin Reference:Cucumber](https://cucumber.io/docs/gherkin/reference/)
+
+Thank you very much for investing your time in reading this post I hope I was able to provide you something valuable. If this post really helped you out give a 👏🏻 and do you know you can clap more than once, the more you clap the more it inspires me to learn new things and share some great content. Cheers, and Have a great day 😊.
+
+Hasta la vista, baby😎!

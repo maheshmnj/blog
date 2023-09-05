@@ -12,7 +12,14 @@ const config = {
   customFields: {
     allPosts: [
       {
-        slug: "bdeploying-flutter-app-to-github-pages",
+        slug: "flutter-automated-testing",
+        title: "Flutter Automated Testing",
+        authors: "Mahesh",
+        created_at: "2019-08-07",
+        tags: ['flutter', 'technology', 'testing', 'medium']
+      },
+      {
+        slug: "deploying-flutter-app-to-github-pages",
         title: "Deploying your Flutter WebApp to GitHub Pages",
         authors: "Mahesh",
         created_at: "2019-05-12",
