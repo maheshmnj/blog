@@ -12,11 +12,18 @@ const config = {
   customFields: {
     allPosts: [
       {
+        slug: "bdeploying-flutter-app-to-github-pages",
+        title: "Deploying your Flutter WebApp to GitHub Pages",
+        authors: "Mahesh",
+        created_at: "2019-05-12",
+        tags: ['flutter', 'technology', 'web', 'medium']
+      },
+      {
         slug: "building-first-flutter-web-page",
         title: "Building your first Flutter web page",
         authors: "Mahesh",
-        created_at: "2019-05-19",
-        tags: ['flutter', 'technology', 'software', 'medium']
+        created_at: "2019-05-09",
+        tags: ['flutter', 'technology', 'web', 'medium']
       },
       {
         slug: "cupertino-picker-in-flutter",

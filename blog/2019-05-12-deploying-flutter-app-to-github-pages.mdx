@@ -1,0 +1,68 @@
+---
+slug: deploying-flutter-app-to-github-pages
+title: Deploying your Flutter WebApp to GitHub Pages
+authors: Mahesh
+created_at: 2019-05-12
+tags: [flutter, technology, software, medium]
+---
+
+### Taking Flutter Beyond Mobile
+
+In my [previous post](/blog/building-first-flutter-web-page), I did show you How you can build your First Flutter Webpage. Now that once you developed your beautiful webpage it's time to deploy it.
+Here's my [Flutterweb page](https://maheshmnj.github.io/apps/flutterweb/#/) by the way linked to my portfolio on GitHub Pages.
+
+![](https://cdn-images-1.medium.com/max/1600/1*C3fhupEPshPseB5PopynyQ.png)
+
+There are several ways and places to deploy the web page but what could be the best place to showcase your work other than GitHub pages? Well before you deploy it, if you have been following my previous post there's one more thing left to do.
+
+Go ahead to the root of your project and use the following command to do a production build to your app
+
+`flutter build web`
+
+what this basically means is the `dart2js` compiler converts the dart code into javascript(That's what most of the modern browsers understand) that can run in a browser. You can read more about the dart2js compiler [here](https://dart.dev/tools/dart2js).
+
+In the root folder of your project, you will see a build folder containing a web directory that contains all your release files.
+
+Now It's the time to set up the Github pages
+
+If you already have a GitHub page skip the First and the second step and go to the third step.
+
+1. Head over to Github and create a new repository named username.github.io, where the username is your username (or organization name) on GitHub.
+
+![](https://cdn-images-1.medium.com/max/1600/1*O9FJVW_Bs4ZjjoB3JQw55g.png)
+
+> Note: If the first part of the repository doesn't exactly match your username, it won't work, so make sure to get it right.
+
+2. Once you have created the repository push your files and folders under the build/web directory using git. Once you have pushed your files to yor repository your webpage will be available at this URL. 😃
+
+`http(s)://<username>.github.io/`
+
+and you don't need to follow any further steps that is all 😃.
+
+3. But If you already have a Github page running then you need to develop a Project page site, that means your web app will be available at a URL which looks like this `http(s)://<username>.github.io/yourwebapp`
+
+So, for this, you just need to create a new folder in the root of your repository.
+
+![](https://cdn-images-1.medium.com/max/1600/1*sYAKYluTbfnME8Vbaj5SHA.png)
+
+The red underlined folders are flutter web apps deployed on github pagesNote that this folder name will point to your webapp so name it wisely
+
+Now commit your files from your build/web folder(locally) into this newly created folder and cheers your web app will be available at the below URL.
+
+A Project Pages site for a personal account is available at `http(s)://<username>.github.io/<your newfolder name>`. A Project Pages site for an organization account is available at `http(s)://<orgname>.github.io/<your folder name>`.
+
+> Congratulations on Publishing your first FlutterWeb App
+
+Now that you have your web app live and running, I hope you must be happy now. 😃 Why not give me a Clap and make me happy too 😃. And also leave your web app links in the comments, I would love to see what you guys build.
+
+By the way here are a few links to the web apps that I have deployed using this approach
+
+- [Generative art](https://maheshmnj.github.io/art/)
+- [New Year 2020 animation](https://maheshmnj.github.io/apps/2020/#/)
+- [Flutter clock contest entry](https://maheshmnj.github.io/apps/clock)
+- [Neumorphic Design Tool](https://maheshmnj.github.io/apps/neumorphism)
+- [A WIP Paint App](https://maheshmnj.github.io/apps/paint)
+
+If this post helped you deploy your web app then don't forget to smash that Clap button, And yes you can click it more than once.
+
+Thanks for taking the time to read and have a great day love💙.
