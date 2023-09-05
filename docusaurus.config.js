@@ -12,6 +12,14 @@ const config = {
   customFields: {
     allPosts: [
       {
+        slug: "cupertino-picker-in-flutter",
+        title: "CupertinoPicker in Flutter",
+        authors: "Mahesh",
+        created_at: "2018-12-22",
+        featured: true,
+        tags: ['technology', 'software', 'medium', 'flutter']
+      },
+      {
         slug: "sync-files-between-windows-and-drive",
         title: "How to sync files in between computer and Google Drive Automatically",
         authors: "Mahesh",

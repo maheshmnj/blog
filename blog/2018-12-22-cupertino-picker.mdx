@@ -1,0 +1,283 @@
+---
+slug: cupertino-picker-in-flutter
+title: CupertinoPicker in Flutter
+authors: Mahesh
+created_at: 2018-12-22
+tags: [flutter, technology, software, medium]
+---
+
+This is my first Story on Medium and it's about Flutter, If you are reading this, it probably means you must have heard about Flutter, Well for those who are not aware of it,
+
+> Flutter is Google's new Mobile Sdk that helps you build Awesome Mobile apps real Quick.
+
+Flutter Will change the way we use and experience Android apps.
+The coolest mobile apps so far we have seen has clicks and touches and gestures double taps and adding these interactions in a mobile app was so painful, But Flutter comes to the rescue and helps you build the most Beautiful app experiences across different platforms with the same codebase. you can experience one of the most Beautiful apps developed by Flutter Team here. Well, my Post is not about What flutter is, if you would like to know more about Flutter I recommend you reading [Deven Joshi's Post](https://medium.com/swlh/flutter-1-0-an-introduction-cb9540b2e1a) which gives a very good overview of Flutter.
+
+---
+
+In this story, I will show you How to implement different Cupertino Pickers in Flutter by the end of this story we will be implementing this,
+
+<center>
+  <img
+    src="https://cdn-images-1.medium.com/max/1600/1*BCxcOHk8Ui3sIvWemSzCvg.gif"
+    alt="Cupertino Picker in Flutter"
+  />
+</center>
+
+This is a basic flutter app that adds a "Hello World" text in the center of the screen
+
+```dart
+Scaffold(
+  body: Container(
+    color: Colors.blueGrey,
+    child: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text("Hello World")
+        ],
+      ),
+    ),
+  ),
+);
+```
+
+basic flutter widget with a hello world in the center of the screenNow let's remove the Text Widget and add a MaterialButton that opens an empty BottomSheet when Pressed, We will use this Button to show a CupertinoDatePicker.
+
+### CupertinoDatePicker
+
+export const ImageComponent = (props) => (
+  <div style={{ textAlign: "center" }}>
+    <img src={props.src} alt={props.caption} />
+    {props.caption && <Caption caption={props.caption} />}
+  </div>
+);
+
+export const Caption = (props) => (
+  <p style={{ display: "flex", color: "#636262", fontSize: "14px" }}>
+    {`${props.caption}`}
+  </p>
+);
+
+<center>
+  <ImageComponent src="https://cdn-images-1.medium.com/max/1600/1*5UgkrqtsfHyTDsiJAJ2F1w.jpeg" />
+</center>
+
+The CupertinoDatePicker is capable of Showing the DateTime, or the Date or only Time on the Picker as shown below.
+
+```dart
+MaterialButton(
+  child: Text(
+    "Cupertino date Picker",
+      style: TextStyle(color: Colors.white),
+    ),
+    color: Colors.redAccent,
+    onPressed: () {
+      showModalBottomSheet(
+        context: context,
+        builder: (BuildContext builder) {
+          return Container(
+            height: MediaQuery.of(context)
+            .copyWith().size.height / 3,
+          );
+       });
+    },
+ ),
+```
+
+<Caption caption="This code adds a simple Material Button and opens a ModalBottomSheet onpress the height of the Bottom Sheet is indicated by the height attribute that takes in 1/3 rd height of the Device." />
+
+Now let us add the child to the Container of the BottomSheet Now we will add the actual CupertinoDatePicker as the child it takes in a couple of Arguments and it's mandatory to pass in the onDateTimeChanged argument
+
+#### Required Arguments
+
+_onDateTimeChanged_: this is a Callback called when the selected date and/or time changes, and it must not be null, it takes in an Argument of type DateTime that gives the changed DateTime every time this method is called. In simple words, this gets called every time the picker is scrolled.
+
+```dart
+onDateTimeChanged: (DateTime newdate) {
+    print(newdate);
+},
+```
+
+watch out the DebugConsole it should print the selected DateTime every time you scroll the picker.
+
+#### Optional Arguments
+
+_initialDateTime:_ the time that is selected when the picker is shown you can set it to current date and time by assigning it to DateTime.now().
+
+_use24hFormat:_ Takes in a Boolean Value either or True or False to set The 24 hr Time Format depending on the value.
+
+_maximumDate:_ The Maximum date you can Scroll the Picker Specified by the type `DateTime()`,
+e.g new DateTime(2018,12,30), would allow us to scroll until Dec 30 2018 ,you can also specify the time on that Date separated by Commas DateTime(2018,12,30,11,30).
+The DateTime() class takes in following arguments
+
+```dart
+DateTime(int year,[int month = 1,int day = 1,int hour = 0,int minute = 0,int second = 0,int millisecond = 0,int microsecond = 0])
+```
+
+> Note that the arguments in [] are Optional
+
+_minimumYear:_ takes in the minimum year in Integer you wanna scroll from
+
+_maximumYear:_ takes in the Maximum year in Integer you wanna scroll up too.
+
+_minuteInterval:_ The interval between two successive minute pickers should be an integer factor of 60, e.g minuteInterval:2 would increment minute picker by 2
+
+_mode:_ The format of the Picker, whether you want to show only Date or DateTime or only Time on the Picker, you can provide one of the following options
+
+```dart
+CupertinoDatePickerMode.dateAndTime,
+CupertinoDatePickerMode.date
+CupertinoDatePickerMode.time
+```
+
+```dart
+Container(
+  height: MediaQuery.of(context).copyWith().size.height / 3,
+  child: CupertinoDatePicker(
+    initialDateTime: DateTime.now(),
+    onDateTimeChanged: (DateTime newdate) {
+          print(newdate);
+    },
+    use24hFormat: true,
+    maximumDate: new DateTime(2018, 12, 30),
+    minimumYear: 2010,
+    maximumYear: 2018,
+    minuteInterval: 1,
+    mode: CupertinoDatePickerMode.dateAndTime,
+));
+```
+
+### CupertinoTimerPicker
+
+The TimePicker Widget shows only time on the picker
+
+#### required Arguments
+
+_onTimerDurationChanged:_ Callback called when the timer duration changes. It gets called every time you scroll the TimePicker and the changed value is received in the arguments of type Duration. SetState to reload the Widget tree when the updated state has to be rendered on the screen.
+
+```dart
+onTimerDurationChanged: (Duration changedtimer) {
+    SetState((){});
+}
+```
+
+if you want the timer to retain the timer previously scrolled you need to create a variable of type Duration and keep reassigning the value.
+
+```dart
+Duration initialtimer = new Duration();
+```
+
+And then set the value of initalTimerDuration to initialtimer which holds previously scrolled value, everytime the onTimerDurationChanged is called we store the changedtimer (i.e current selected value) in initialtimer. now if you scroll the timer and then again open the picker you should see the timer selected to previously scrolled value.
+
+```dart
+initialTimerDuration: initialtimer,
+onTimerDurationChanged: (Duration changedtimer) {
+  SetState(() {
+    initialtimer = changedtimer;
+  });
+}
+```
+
+#### Optional Arguments
+
+_mode:_ the Format of the Picker which displays the picker in one of the following formats
+
+1. hours minutes seconds
+2. hours minutes
+3. minutes seconds
+
+```dart
+   CupertinoTimerPickerMode.hms
+   CupertinoTimerPickerMode.hm
+   CupertinoTimerPickerMode.ms
+```
+
+_minuteInterval:_ the difference between two successive minute pickers should be a positive integer factor of 60.
+_secondInterval:_ the difference between two successive second pickers should be a positive integer factor of 60.
+_initialTimerDuration:_ The time Duration that is displayed when the picker is shown you can initialize it to zero by assigning Duration.zero or assigning it to a duration variable to retain the previous timer.
+
+> Note: the initialtimer is a variable of type Duration and is used to retain the previous timer.
+
+### CupertinoPicker
+
+This Widget helps us Creates a picker from a concrete list of children. and provides quite a few customizations. and we can add different widgets to our pickers.
+
+<center>
+  <ImageComponent src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*L2A5b6KR31yaDQSATD9_Vg.jpeg" />
+</center>
+
+#### required Arguments
+
+_itemExtent:_ specifies the height of each Widget child in the picker, must not be null and must be positive.
+_onSelectedItemChanged:_ An optional callback when the currently centered item changes.Value changes when the item closest to the center changes.
+
+#### Optional Arguments
+
+_diameterRatio:_ Relative ratio between this picker's height and the simulated cylinder's diameter. Smaller values create more pronounced curvatures in the scrollable wheel.
+
+_backgroundColor:_ The background color of the picker
+_magnification:_ to magnify the size of the widget 1.0 indicates the original size,
+_looping:_ The looping argument decides whether the child list loops and can be scrolled infinitely. If set to true, scrolling past the end of the list will loop the list back to the beginning. If set to false, the list will stop scrolling when you reach the end of the beginning.
+
+```dart
+Scaffold(
+  appBar: AppBar(
+    title: Text(
+          "CupertinoPicker",
+    textAlign: TextAlign.justify,
+    ),
+    backgroundColor: Colors.teal,
+    actions: <Widget>[
+    IconButton(
+      icon: Icon(Icons.send),
+      onPressed: () {},
+    )],
+    ),
+    body: Container(
+    child: CupertinoPicker(
+      magnification: 1.5,
+      backgroundColor: Colors.black87,
+      children: <Widget>[
+      Text(
+        "TextWidget",
+         style: TextStyle(
+          color: Colors.white, fontSize: 20),
+       ),
+    MaterialButton(
+      child: Text(
+       "Button Widget",
+        style: TextStyle(color: Colors.white),
+      ),
+    color: Colors.redAccent,
+    ),
+    IconButton(
+    icon: Icon(Icons.home),
+    color: Colors.white,
+    iconSize: 40,
+     onPressed: () {},
+     )
+    ],
+      itemExtent: 50, //height of each item
+      looping: true,
+      onSelectedItemChanged: (int index) {
+      selectitem = index;
+      },
+      ),
+    ));
+   });
+   },)
+  ],),
+),),
+);
+```
+
+You can find the complete source code here of the demo app that we just built
+If you have any questions feel free to comment below and if you liked this story and found this helpful don't forget to appreciate by a clap :)
+
+<ImageComponent src="https://miro.medium.com/v2/resize:fit:672/1*ixggNijuGtxYWJKNZQlQ0g.gif" />
+
+Since This post got a good response I tried implementing a custom Timepicker using the CupertinoPicker. You can find the source code to this here
+
+Thanks for taking the time to read. And if you have any questions or you think something is not right or could be improved feel free to drop a comment I would love to discuss it.
+Happy Fluttering
