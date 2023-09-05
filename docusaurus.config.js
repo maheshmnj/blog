@@ -12,6 +12,13 @@ const config = {
   customFields: {
     allPosts: [
       {
+        slug: "flutter-localization-on-the-fly",
+        title: "Flutter Localization on the Fly",
+        authors: "Mahesh",
+        created_at: "2021-03-13",
+        tags: ['flutter', 'technology', 'Localization', 'medium']
+      },
+      {
         slug: "search-as-you-type-in-flutter",
         title: "Search as you type in Flutter",
         authors: "Mahesh",
