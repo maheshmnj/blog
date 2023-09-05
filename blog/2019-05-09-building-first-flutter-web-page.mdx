@@ -1,0 +1,98 @@
+---
+slug: building-first-flutter-web-page
+title: Building your first Flutter web page
+authors: Mahesh
+created_at: 2019-05-09
+tags: [flutter, technology, software, medium]
+---
+
+import Images from "../src/components/common/Images.js";
+
+### Taking Flutter Beyond Mobile
+
+Flutter is a great way to build mobile apps for iOS and Android from a single codebase. But did you know that Flutter is expanding beyond mobile to run on desktop, web, TV, smartwatch and almost any device you can think of?
+
+Yes you read that right even on a smart Watch!! with some little hacking and play around And I hope we will soon get Flutter across all of these devices with a stable build. Well this post is only limited to Web so let us stick around with the topic and get started.
+Here are few things you need to Build your Flutter Web Page
+
+_Requirements_
+
+- Flutter 1.5.4
+- Dart 2.3
+- Dart Plugin V.3.0.0
+- Flutter Plugin V3.0.0
+
+Additionally, you may need to upgrade your IDE, I am using Vs Code and I am on the latest version 1.33.1
+
+_Installing tools that come handy with dart and flutter SDK (optional for this post ) backgroundColor_
+
+> And I would also recommend you to install some tools that come handy with flutter sdk, so that they can be accessed directly from the command line. We wont be using them right now but will require it later.
+
+> we will be setting the path for the pub tool in the environment variable in Windows (ofcourse)
+
+> _Pub_: Pub is the package manager for the Dart programming language, containing reusable libraries & packages for Flutter, AngularDart, and general Dart programs.
+> Go to the location where you have installed your dart sdk for me it is
+> `C:\Users\mahesh\AppData\Local\Temp\dart-sdk\2.2.0\dartsdk-windows-x64-release.zip\dart-sdk\bin`
+> copy the path and add to the path environment variale and you should be ready to use the pub tool in the command prompt.(restart cmd if it already running).
+> and hit pub on the command line you should get some results.
+
+![](https://cdn-images-1.medium.com/max/1600/1*SCu3a-IZyo8uPw0WcxokNQ.png)
+
+![](https://cdn-images-1.medium.com/max/1600/1*_EPsayT7PYYoH1isQTMuiw.png)
+
+Now that you have pub installed 😃 and ready to run. you need to install a webdev tool 😟
+
+> *webdev* : A command-line tool for developing and deploying web applications with Dart.
+> dont worry its easy to install and take only few seconds 😅 simply run this command
+> `pub global activate webdev`
+
+Once you are all set We are ready to get this party Started 😎
+
+open VS Code hit ctrl+shift+p to open the command Pallete and choose Flutter New Web Project
+
+![](https://cdn-images-1.medium.com/max/1600/1*36QAPeJnZp3Bzsqa4K_qMQ.png)
+
+Choose a Name For your project in lower case
+
+![](https://cdn-images-1.medium.com/max/1600/1*8IxgPZfn0VSq_Ot4BS7gYQ.png)
+
+Wait for it to download the required dependencies and hit F5 to run.
+
+> Alternatively to run from the command line,go to the root of the project folder and run the command
+
+`webdev serve`
+
+and open chrome browser at specified port number (e.g localhost:8080 by default)
+
+#### Boom 🚀🚀 !! your app is running in the browser
+
+![](https://cdn-images-1.medium.com/max/1600/1*8WAYUGpy9971tonFG1bw9Q.png)
+
+Here are a few things I want you to consider using Flutter for Web there are few problems with it as of today (09th May 2019)
+
+- Web support for Flutter is not yet stable, it's in technical preview and you may encounter lags and break things and may not work as expected.
+- Not all Flutter APIs are implemented on Flutter for the web yet. So you cannot expect to have all - Flutter Widgets ready for the web too.
+  The Flutter Web is designed to work only on Chrome Browsers as of today.
+
+I tried a few basic things that aren't working and need a 🔧. here are some of the snapshots
+
+<Images
+  length={2}
+  image1="https://cdn-images-1.medium.com/max/1600/1*iIzWUX1bIx9bWyMFQxre5A.png"
+  image2="https://cdn-images-1.medium.com/max/1200/1*WR5KZKBc7B6vEDo4ZNiFbg.png"
+/>
+As you can see in the above images, Icons on Button not visible. I added a Drawer
+on the left and a floating action button on the right.
+
+Some Important Links for your reference
+
+- [Flutter Beyond Mobile announcement Google IO19](https://www.youtube.com/watch?v=IyFZznAk69U)
+- [Flutter For Web Docs](https://flutter.dev/docs/get-started/flutter-for/web-devs)
+- [Flutter For Web](https://flutter.dev/multi-platform/web)
+
+I hope this post helped you out thanks for taking your 🕐 to read.
+If this post helped you out in any way, please feel free to give a 👏 and this will encourage me to write more… 😄
+
+Heres [How to deploy your Flutterweb app to Github Pages](https://medium.com/@maheshmnj/deploying-your-flutter-webapp-to-github-pages-111ff9e5cbc9).
+
+Bye for now and keep fluttering 😄

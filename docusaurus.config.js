@@ -12,6 +12,13 @@ const config = {
   customFields: {
     allPosts: [
       {
+        slug: "building-first-flutter-web-page",
+        title: "Building your first Flutter web page",
+        authors: "Mahesh",
+        created_at: "2019-05-19",
+        tags: ['flutter', 'technology', 'software', 'medium']
+      },
+      {
         slug: "cupertino-picker-in-flutter",
         title: "CupertinoPicker in Flutter",
         authors: "Mahesh",
