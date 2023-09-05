@@ -6,6 +6,8 @@ created_at: 2018-12-22
 tags: [flutter, technology, software, medium]
 ---
 
+import Caption from "../src/components/common/Caption.js";
+
 This is my first Story on Medium and it's about Flutter, If you are reading this, it probably means you must have heard about Flutter, Well for those who are not aware of it,
 
 > Flutter is Google's new Mobile Sdk that helps you build Awesome Mobile apps real Quick.
@@ -51,12 +53,6 @@ export const ImageComponent = (props) => (
     <img src={props.src} alt={props.caption} />
     {props.caption && <Caption caption={props.caption} />}
   </div>
-);
-
-export const Caption = (props) => (
-  <p style={{ display: "flex", color: "#636262", fontSize: "14px" }}>
-    {`${props.caption}`}
-  </p>
 );
 
 <center>
