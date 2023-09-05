@@ -6,6 +6,9 @@ created_at: 2018-02-24
 tags: [life, travel, blog]
 ---
 
+import ImageAndContent from "../src/components/common/ImageAndContent.js";
+import Images from "../src/components/common/Images.js";
+
 Yesterday was all about visiting a place away from the Hometown,No it wasn't a holiday nor we were on a Vacation but we wanted to spend some time to relax and have some fun and relieve our stress ,
 I haven't been doing much good in my academics,its not that I didn't try but things didn't worked out for me,I went into a passive state,I was about to give up,I felt like I am done may be I can't take it anymore,I spent hours working but wasn't as productive as expected, I was never so depressed as I was until yesterday but then I gave it a thought
 
@@ -15,27 +18,6 @@ It was more Important for me to keep moving and to be more positive,I knew that 
 
 I and my friends planned a short trip to a nearby place 100 kms away from the Hometown to Chakur,well known for the water Park but it has much more for people than just a water park,We started our journey around 8:00 in the Morning,On a pleasant and soothing morning with a cool wind passing by
 
-export const Images = (props) => (
-  <div
-    style={{
-      display: "flex",
-      flexDirection: "row",
-      flexWrap: "wrap",
-      alignItems: "center",
-    }}
-  >
-    {Array.from({ length: props.length }, (_, i) => (
-      <img
-        key={`image${i}`}
-        src={props[`image${i + 1}`]}
-        width={i == props.largeIndex ? "80%" : "400px"}
-        height="300px"
-        alt={`Image ${i + 1}`}
-      />
-    ))}
-  </div>
-);
-
 <Images
   length={3}
   largeIndex={2}
@@ -44,32 +26,16 @@ export const Images = (props) => (
   image3="https://steemitimages.com/1280x0/https://steemitimages.com/DQmR755TeDHepny3GMKsLVdL29U6SWwCAGuoeCkfMFNWsGL/IMG_20180315_092300_AO_HDR.jpg"
 />
 
-export const ImageAndContent = ({ children, color }) => (
-  <div
-    style={{
-      display: "flex",
-      flexDirection: "row",
-      flexWrap: "wrap",
-    }}
-  >
-    <p>
-      And after travelling for couple of km's we stopped by and took the
-      Breakfast at a Restaurant that serves all vegetarians,we started by taking
-      a light breakfast and it was a "Dahi Dhapate" served with a "chatni" thats
-      what they call it dahi which means a curd and dhapate well if you are
-      familiar with parathaas a kind of similar to that.We were served in a huge
-      plate it was quite good,well I just forgot to take a shot but fortunately
-      I found it from a a friend it looks something like this{" "}
-    </p>
-    <img
-      src="https://steemitimages.com/DQmX1hftFezqQ7YDtsdGHas1o4fHYVrhTu426DubCR2Y8Hf/capture.jpg"
-      width="400px"
-      height="200px"
-    />
-  </div>
-);
-
-<ImageAndContent />
+<ImageAndContent
+  image="https://steemitimages.com/DQmX1hftFezqQ7YDtsdGHas1o4fHYVrhTu426DubCR2Y8Hf/capture.jpg"
+  content={`And after travelling for couple of km's we stopped by and took the
+            Breakfast at a Restaurant that serves all vegetarians,we started by taking
+            a light breakfast and it was a "Dahi Dhapate" served with a "chatni" thats
+            what they call it dahi which means a curd and dhapate well if you are
+            familiar with parathaas a kind of similar to that.We were served in a huge
+            plate it was quite good, well I just forgot to take a shot But fortunately
+            I found it from a a friend it looks something like this`}
+/>
 
 After having a breakfast we started off and in an around 3 hours we were at our Destination,I
 had visited this place back then 4-5 years ago and I passed by every place here my
@@ -198,8 +164,6 @@ we rode on the Revolving tower and also took the camel ride ,there was a little 
   image2="https://steemitimages.com/1280x0/https://steemitimages.com/DQmdF8A2McjfTE4HBoqXysP4SEg5dnsCuduApr7o7Gfhm4u/IMG_20180315_163836_AO_HDR.jpg"
   image3="https://steemitimages.com/DQmZc1PX64cf6PFD4py7dY2GSktYeoXzhoRaTLKcksaLWkD/IMG_20180315_164214_AO_HDR.jpg"
 />
-
-IMG_20180315_164214_AO_HDR.jpg
 
 With the camel Ride ended our Journey,but for me the Journey has actually began I see this as a New Beginning, this reminds me an Inspiring words from Joel Osteen.
 
