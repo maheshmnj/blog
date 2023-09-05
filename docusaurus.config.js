@@ -12,6 +12,13 @@ const config = {
   customFields: {
     allPosts: [
       {
+        slug: "search-as-you-type-in-flutter",
+        title: "Search as you type in Flutter",
+        authors: "Mahesh",
+        created_at: "2020-02-10",
+        tags: ['flutter', 'technology', 'software', 'medium']
+      },
+      {
         slug: "flutter-automated-testing",
         title: "Flutter Automated Testing",
         authors: "Mahesh",

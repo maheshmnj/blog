@@ -1,0 +1,108 @@
+---
+slug: search-as-you-type-in-flutter
+title: Search as you type in Flutter
+authors: Mahesh
+created_at: 2020-02-10
+tags: [flutter, technology, software, medium]
+---
+
+import Images from "../src/components/common/Images.js";
+
+![Search as you Type in Flutter](https://cdn-images-1.medium.com/max/1600/1*5HzmFgEp2LOWuxP5GqXa0Q.png)
+
+Hello everyone in this post I will be implementing a search in Flutter, search is basically a basic requirement where you have a lot of content available and you want your users to get access to the content easily and efficiently. We won't be using any packages for this app except HTTP to make network requests. before we begin let me show you what we will be implementing by the end of this post.
+
+<Images
+  length={2}
+  image1="https://cdn-images-1.medium.com/max/1600/1*VfTG2qPybRlROlnML3cWpw.gif"
+  image2="https://cdn-images-1.medium.com/max/1600/1*n55yVEtrXYScR0TaHNzmBg.gif"
+/>
+
+Pardon me for this ugly-looking Grid I will invest some more time to make it look good later, this post is mainly focused only on the search functionality as of now.
+
+> This blog post assumes you have a high level understanding of streams, But I have still tried to explain the basic working of it through the diagram below
+
+I think it would be better to make you understand through a diagram how is data being loaded into the UI and how the search actually works before actually jumping into code. for this search, I will be making use of streams 😬.
+
+> Don't worry if you are afraid of streams because they are built for the Good.
+
+<center>
+<img src="https://cdn-images-1.medium.com/max/1600/1*LA-Fdk8skUJs2j2x0SnadA.jpeg" alt="Streams" width="50%"/>
+</center>
+
+so lets look at How the first part works How the UI is being loaded through streams and then we will jump to the main topic, if you are aware about streams and can understand the diagram feel free to skip this section and move on to the second one.
+
+If you see in the UI I have a tab bar on screen, so once I click on Random Users I am calling a function called fetchRandomUsers() which looks like this,
+
+![](https://cdn-images-1.medium.com/max/1600/1*WKmplhjwlbgDZy8Mb3qTRQ.png)
+
+which basically just makes a http request decodes the json and converts to list of RandomUserModel and the Last line above adds totalUsers to stream, I have wrapped the Grid UI in streamBuilder which means it will rebuild the UI whenever something has been added to stream in this case totalUsers is being added and the list will be received to UI in the form of snapshot.just remember the rule sink is where you add data, stream is where it is fetched out.
+
+![](https://cdn-images-1.medium.com/max/1600/1*RYouA8ljAU8NbkyBslVSrQ.png)
+
+if you see the highlighted code above thats where you receive your `list(List<RandomUserModel> totalUsers)` in the snapshot.we pass that snapshot to randomUsers Widget to build the Grid UI with that data. so thats how the data is being loaded using streams now lets come to the actually work.
+
+### LET'S IMPLEMENT THE SEARCH.
+
+![](https://cdn-images-1.medium.com/max/1600/0*Id9MSDdjguzgMEzH)
+
+In the UI we have a textfield it possesses a method called onChanged(), lets make use of it, this method will be called every time you type in a letter in it and it provides you with the text present in the search field,I will be calling another function _searchUser to apply our search logic. Like this
+
+```dart
+onChanged: (searchQuery) => _searchUser(searchQuery),
+```
+
+This is what the _searchUser method looks
+
+![](https://cdn-images-1.medium.com/max/1600/1*WvCyv6ArKjRLjA9r2dLTiw.png)
+
+Lets break it into steps to get this smooth
+
+1. I need a `List<RandomUserModel>` to store our searched List so lets create one,Note that I will be creating the list inside the method because we want our list to show only the current search result as this function is getting called every time we have an empty list.
+
+```dart
+void _searchUser(String searchQuery) {
+List<RandomUserModel> searchResult = [];
+```
+
+2. Next I am adding null to the stream that is because while the search is going on meanwhile I want to show some loading indicator, if you see above in streambuilder we have said when snapshot is null show loading,
+
+```dart
+userBloc.userController.sink.add(null);
+```
+
+3. Also remember that we also want to handle a conditions when the textfield is empty and when it is not, we want to show the complete list to the user when it is empty, remember that we have a list called totalUsers where all our data from network resides we can simply add it to stream and show the complete list and we don't want to process further.
+
+```dart
+if (searchQuery.isEmpty) {
+   userBloc.userController.sink.add(totalUsers);
+   return;
+}
+```
+
+4. Now when the search field is not empty and has some text in that case we will apply the search logic believe me its very simple, dart 🎯 is super friendly to apply even the complex logic with built-in functions and loops,the main task is to
+
+```dart
+search in totalUsers[] ==> store in searchResult[]
+```
+I want to apply search on users name (firstName and LastName) and if the search query contains that simply store the model in searchResult
+
+```dart
+totalUsers.forEach((user) {
+   if (user.first.toLowerCase().contains(searchQuery.toLowerCase())    ||user.last.toLowerCase().contains(searchQuery.toLowerCase())) {
+   searchResult.add(user);
+   }
+});
+```
+
+Notice that I am converting both searchQuery and user firstName or LastName to lowercase in case user searches for a user using Uppercase,it wouldn't match.
+
+5. that's it once our searchResult array is ready just add it to stream to show the result.
+
+```dart
+userBloc.userController.sink.add(searchResult);
+```
+
+And Boom 🔥 it works on the fly as you type, That's all from this blog hope this helps you in building a search for your next awesome app, if you get stuck or don't understand or feel I can improve leave a comment below, I would love to hear from you and if this post helped you in any way would you please give a clap 👏And don't forget to check out the [source code here](https://github.com/maheshmnj/Awesome-Flutter-Layouts/blob/master/lib/search.dart). 
+
+Cheers 😃! Have a great day and Happy Fluttering.
