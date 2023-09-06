@@ -1,0 +1,179 @@
+---
+slug: vscode-for-flutter-hacks
+title: VSCode for Flutter hacks that will blow your mind
+authors: Mahesh
+created_at: 2022-01-08
+tags: [flutter, software, hack, medium]
+---
+
+![](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*ldqkuW0Io9f1ej9Q2Ln6Mw.jpeg)
+
+When building software Productivity depends on various factors, including typing speed and accuracy. However, there are also many repetitive and mundane tasks that can be automated to save time. Using plugins and extensions in your IDE can help you work more efficiently. Among these, Visual Studio Code (VSCode) is a highly customizable editor that offers a wide range of useful extensions. While the hacks mentioned in this post are specific to Flutter, they can also be applied to other programming languages and frameworks in general.
+
+Here are the 4 ultimate vscode hacks to make you highly productive at work.
+
+### 1. Shortcuts for Code Snippets
+
+Often when writing code, we write a lot of Boilerplate and repetitive code, Writing such code can be time-consuming, irritating, and boring too. So to deal with this vscode allows you to create code snippets that you can preconfigure and fetch by writing some preconfigured keywords.
+
+To do this you will need to define code snippets in dart.json by pressing
+cmd/ctrl + shift + p -> User snippets-> dart.json
+
+![](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*zEXgjkDr63FNcR0JK6giVA.png)
+
+Here's a sample code snippet in dart.json to create a new widget, Notice the snippet also has $1, $2 as TabStops meaning when the code snippet is pasted the cursor (can be multiple) will be shown in order first at $1 and pressing Tab will shift to $2
+
+```json
+"New Stateful widget" :{
+    "prefix": "newwidgetsample",
+    "body":[
+        "class NewPage$1 extends StatefulWidget {",
+            "const NewPage$1({Key? key}) : super(key: key);",
+            "",
+            "@override",
+            "State<NewPage$1> createState() => _NewPage$1State();",
+            "}",
+            "",
+        "class _NewPage$1State extends State<NewPage$1> {",
+            "@override",
+            "Widget build(BuildContext context) {",
+               "return $Material(",
+                  "child: Container(",
+                     "color: Colors.red,",
+                  "),",
+               ");",
+             "}",
+         "}",
+         "",
+      ]
+},
+```
+
+Here's the output of the above code snippet
+
+<center>
+  <img
+    src="https://miro.medium.com/v2/resize:fit:1200/1*Ktbvjz66--LhgYo_SbBrcw.gif"
+    alt="New Widget Code Snippet"
+  />
+</center>
+
+You can read more about [creating your own code snippets here](https://code.visualstudio.com/docs/editor/userdefinedsnippets)
+
+### 2. Run tasks on project startup
+
+Often when we open a project in vscode it is very likely that we will run the application, And it is always better to get rid of the previous build output and execute a fresh build.
+
+So we do multiple things like
+
+- clean the project
+- fetch dependencies
+- Run build runners (if any)
+- Start building the app
+
+if you were to run these repetitive commands you would spend a significant amount of time or if the previous build could give an incorrect output at a time and you would spend time debugging the non-existing bug. So we can do a clean build. Even though the above tasks take a couple of seconds but imagine if you had a project which requires you to run some scripts or commands when running and if that is time-consuming then this hack can save you time. As soon as you launch the project in vscode you can just focus on the project and the chore tasks will keep running in the background.
+
+To automate this vscode has a built-in feature to run pre-configured commands. All you have to do is create a file called tasks.json under `.vscode` folder at the root of your project, which is basically a script of a set of commands to do the chore work.
+
+Here's a sample tasks.json file which is executed when you open a flutter project (Assuming this file is located at .vscode/tasks.json)
+
+```json
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "flutter",
+      "command": "flutter",
+      "group": "none",
+      "args": ["clean"],
+      "label": "flutter: flutter clean",
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
+      "problemMatcher": []
+    },
+    {
+      "type": "flutter",
+      "command": "flutter",
+      "group": "build",
+      "dependsOn": ["flutter: flutter clean"],
+      "args": ["pub", "get"],
+      "label": "flutter: flutter pub get",
+      "detail": "",
+      "runOptions": {
+        "runOn": "folderOpen"
+      }
+    },
+    {
+      "type": "flutter",
+      "command": "flutter",
+      "dependsOn": ["flutter: flutter pub get"],
+      "args": ["build", "web"],
+      "group": "build",
+      "label": "flutter: flutter build web",
+      "detail": "",
+      "runOptions": {
+        "runOn": "folderOpen"
+      }
+    }
+  ]
+}
+```
+
+Here's the sample output of the above tasks.json file, which runs when I open the flutter project.
+
+![](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*HvTFgUZ-LyjiMM9Bw9GZLg.png)
+
+```bash
+*  Executing task: /Users/mahesh/Documents/flutter/bin/flutter clean
+Cleaning Xcode workspace...                                      2,616ms
+Cleaning Xcode workspace...                                      2,654ms
+Deleting build...                                                    0ms
+Deleting .dart_tool...                                               7ms
+ *  Terminal will be reused by tasks, press any key to close it.
+*  Executing task: /Users/mahesh/Documents/flutter/bin/flutter clean
+Waiting for another flutter command to release the startup lock...
+Running "flutter pub get" in vocabhub...                         1,041ms
+ *  Terminal will be reused by tasks, press any key to close it.
+💪 Building with sound null safety 💪
+Compiling lib/main.dart for the Web...                             19.7s
+ *  Terminal will be reused by tasks, press any key to close it.
+```
+
+### 3. Hide unwanted project files from your project
+
+In large projects accessing code gets pretty difficult and there are always some meta files that you rarely or never touch, You may want to hide such files when you open the project in vscode. You could do that by defining a settings.json file in your root project .vscode/settings.json
+
+> Note that this settings.json applies only for this particular project to apply these settings to all projects you need to modify the global settings.json available via command palette (cmd+shift+p)
+
+Here's a sample `settings.json` file that shows folders to exclude from Explorer.
+
+```json
+{
+  "files.autoSaveDelay": 3000,
+  "files.exclude": {
+    "test": true,
+    ".*": true,
+    "web": false,
+    "build": true,
+    "windows": false,
+    "macos": false,
+    "ios": false
+  }
+}
+```
+
+### 4. Using Multiple versions of flutter SDK
+
+Sometimes we want to switch between multiple versions of flutter, This is especially helpful to flutter folks when you want to try out the new features or when contributing to open source without messing up your dev environment, For that, you might want to use fvm, But in case you don’t want to install any tool and would like to switch versions directly in your vscode then you could do that by installing multiple versions of the SDK and adding the path to the environment variable.
+The detailed steps for Linux, Windows, and Mac can be found in this [stackoverflow answer](https://stackoverflow.com/a/68047743/8253662)
+
+Following the steps in the StackOverflow link will allow you to switch between flutter versions by simply tapping at the bottom of the vscode window.
+
+![](https://miro.medium.com/v2/resize:fit:1400/format:webp/0*CHwTsAEkGxliiO8k.png)
+
+![](https://miro.medium.com/v2/resize:fit:1400/format:webp/0*bb_Y3fo-zMrZ0zv5.png)
+
+That's all from this post, Hope this helps you to be productive and adds some value.
+
+Happy Fluttering!
