@@ -1,0 +1,261 @@
+---
+slug: leveraging-clippath-in-flutter
+title: Leveraging ClipPath in Flutter
+authors: Mahesh
+created_at: 2021-12-18
+tags: [flutter, software, medium]
+---
+
+import Caption from "../src/components/common/Caption.js";
+
+![](https://cdn-images-1.medium.com/max/1600/1*1AtAJr6sy65s2_gquXRbIg.png)
+
+When it comes to drawing custom shapes in flutter we have custom paint and it works great. But what if you want to paint only a particular section of a widget? That's where ClipPath comes handy
+
+> ClipPath allows you to paint only a particular portion of your widget specified by the path
+
+The path can be of any shape as long as your math skills go hand in hand with your imagination to draw the custom desired shape. You don't have to be a polymath to build some cool stuff, we can still build amazing things with basic Geometrical shapes.
+
+<center>
+  <img
+    width="90%"
+    src="https://cdn-images-1.medium.com/max/1600/1*cqyst-McYXlwNLPGBUT9dQ.jpeg"
+  />
+</center>
+
+<Caption caption="Image is taken from dribble for demonstration purpose only, owned by Dan Stosich" />
+
+To demonstrate some cool examples with ClipPath, we will add some dynamic content by redrawing frames and adding nuances of Animations. Because Static is Boring.
+
+If you have no idea what the heck ClipPaths does then you should consider watching this video, Since No docs can explain you much better than this short Widget of the week video from the Flutter team. Also, Remember the above definition because we will leverage the definition of the ClipPath as we move along.
+
+<center>
+  <iframe
+    width="80%"
+    height="415"
+    src="https://www.youtube.com/embed/lHu02MWIPUY"
+    frameborder="0"
+    allow="autoplay; encrypted-media"
+    allowfullscreen
+  ></iframe>
+</center>
+
+Now that you have some understanding of ClipPath Lets dive in
+
+> "We understimate ClipPaths in flutter "
+
+The reason I say this is because of some of the examples that may look very complex or one would not ever imagine that they would use ClipPaths for such use cases. We will explore the use cases of ClipPath with the help of three examples.
+
+### ClipPaths in action
+
+Example 1: Torch effect (aka The Harry Potter effect)
+
+<center>
+  <img
+    width="90%"
+    src="https://cdn-images-1.medium.com/max/1600/1*m4TWwoRPaiZxsXVgBT2eXA.gif"
+  />
+</center>
+
+Of course, we do not have a magic wand to build this but we do have ClipPath lets break down how we can easily build this cool effect.
+There are three things here
+
+1. the background which is the hidden image (visible in a circle)
+2. The foreground which is the counter app (greyed out to reduce focus)
+3. And a Circle that exposes the background
+   Now forget what we just saw so far and come back to basics, what do we do when we have to show two widgets on top of each other?
+
+#### We use a STACK
+
+```dart
+Stack(
+  fit: StackFit.expand
+  children:[
+    ImageWidget(),
+    CounterApp(),
+  ]
+)
+```
+
+cool! that was the first step, and with this, we would get this output
+
+![](https://cdn-images-1.medium.com/max/1600/1*m-sMZdXmmWCtp3uB1zQqqQ.png)
+
+I know it just looks like we have loaded a regular counter App but there's a ImageWidget underneath trust me 😀. if you don't believe me let's bring in ClipPath to shade some light on it to actually make it visible. so let's wrap the CounterApp with a ClipPath and give it a simple circular path as the clipper.
+
+```dart
+ClipPath(
+  clipper: CircleClipper(
+   center: Offset(500, 400),
+   radius: 100,
+  ),
+  child: const CounterApp()
+),
+```
+
+The **CircleClipper** is a simple class extending from CustomClipper which takes in a center, radius, and returns the circular path
+
+```dartclass CircleClipper extends CustomClipper<Path> {
+CircleClipper({required this.center, required this.radius});
+final Offset center;
+final double radius;
+@override
+Path getClip(Size size) {
+  return Path()..addOval(
+      Rect.fromCircle(radius:radius,center: center));
+  }
+@override
+bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+  return true;
+ }
+}
+```
+
+and that's it with that you can see this is the output and with that, it should be clear that there is actually an image below the counter app. Remember the definition "ClipPath only paints the required portion of the widget in this case it's the CounterApp".
+
+![](https://cdn-images-1.medium.com/max/1600/1*U5uhknsu0MuknpCsg84wsA.png)
+
+Now, the only part left is to move the circle with the pointer. The movement is basically shifting the center of the circle. So as the mouse cursor moves we have to set the center of the circle to the coordinates of the mouse. And we can easily do this with the help of [MouseRegion](https://api.flutter.dev/flutter/widgets/MouseRegion-class.html) (A widget that tracks the movement of mice.) So by just wrapping the whole stack in a MouseRegion, you should get mouse events when the mouse is moved and you can update the position of the circle and that should be it.
+
+```dart
+void _updateLocation(PointerEvent details) {
+  setState(() {
+    dx = details.position.dx;
+    dy = details.position.dy;
+  });
+}
+Widget build(BuildContext context) {
+  return Scaffold(
+    body: MouseRegion(
+     cursor: SystemMouseCursors.click,
+     onHover: _updateLocation,
+     child: Stack(
+       alignment: Alignment.center,
+        fit: StackFit.expand,
+         children: [
+           ImageWidget(),
+           ClipPath(
+            clipper: CircleClipper(
+              center: Offset(dx, dy),
+              radius: 100,
+           ),
+             child: const CounterApp()),
+         ],
+       )
+   )
+ );
+}
+```
+
+<center>
+  <img
+    src="https://cdn-images-1.medium.com/max/1600/1*QBUOhZp4SUAtqjPa6ilEZQ.gif"
+    width="90%"
+  />
+</center>
+
+<Caption caption="This gif may look laggy as the recorded gif runs at 15 fps but the original app is much smoother" />
+
+### Example 2: Telegram dark theme animation
+
+<center>
+  <img src="https://cdn-images-1.medium.com/max/1600/1*evCvXVy4nQuoFeoHjOhBpw.gif" />
+</center>
+
+If you have used the telegram app you must be familiar with the cool animation effect when switching themes in telegram. The gif on the left shows you this animation. At first look, this might look complex but if we break it down again we can easily nail it. And of course we will implement this using ClipPath.
+The above transition is pretty much straightforward since you know how example 1 was built. If we break down the telegram animation.
+
+1. It has a widget in dark mode.
+2. A widget in a light mode
+3. both overlapped on top of Each other
+
+And on toggling the theme we are just painting the top widget using the ClipPath. So this is how roughly the body part of our widget tree looks
+
+```dart
+Stack(
+children: [
+ _body(1),
+ ClipPath(
+  clipper: CircularClipper(
+  radius, position),
+  child: _body(2)),
+ ],
+);
+```
+
+Both the widgets (\_body) at any given point will be the same except for their theme. So To identify them I am passing index values 1 and 2. And the position is basically the offset Indicating the Center point of the CircularClipper.
+
+```dart
+ThemeData getTheme(bool dark) {
+  if (dark)
+    return ThemeData.dark();
+  else
+    return ThemeData.light();
+}
+Widget _body(int index) {
+  return ValueListenableBuilder<bool>(
+    valueListenable: _darkNotifier,
+    builder: (BuildContext context, bool isDark, Widget? child) {
+      return Theme(
+        data: index == 2
+          ? getTheme(!isDarkVisible)
+          : getTheme(isDarkVisible),
+        child: widget.childBuilder(context, index, GlobalKey()));
+      });
+   }
+```
+
+And then wiring this up with animationController you get this cool animation effect.
+
+<center>
+  <img src="https://cdn-images-1.medium.com/max/1600/1*2NbVrmsDsx2s1Zsku9F3Bg.gif" />
+  <Caption caption="This gif is running at 30 fps and is not the exact representation of animation the actual animation is way more smoother at 60 fps" />
+</center>
+
+In order to reuse this animation effect, I wrote a wrapper widget around this which makes it pretty easy to use. You can find the complete source code to this widget on Github with example usage.
+
+### Example 3: Circular Navigation effect
+
+If you have guessed it, This will be the same animation as example 2 just that instead of changing the theme we will change the routes. To make the route transition simpler flutter provides us with PageRouteBuilder class, which you can directly import in your Widget and animate between routes. Below is the method I used to animate using a ClipPath.
+
+```dart
+Route _pushRoute(Widget child) {
+  return PageRouteBuilder(
+  transitionDuration: const Duration(milliseconds: 400),
+  reverseTransitionDuration: const Duration(milliseconds: 400),
+  opaque: false,
+  barrierDismissible: false,
+  pageBuilder: (context, animation, secondaryAnimation) =>  child,
+  transitionsBuilder: (context, animation, secondaryAnimation, child) {
+  final screenSize = MediaQuery.of(context).size;
+  Offset center = Offset(screenSize.width / 2, screenSize.height / 2);
+  double beginRadius = 0.0;
+  double endRadius = screenSize.height * 1.5;
+  final tween = Tween(begin: beginRadius, end: endRadius);
+  final radiusTweenAnimation = animation.drive(tween);
+  return ClipPath(
+    clipper: CircleRevealClipper(
+    radius: radiusTweenAnimation.value, center: center),
+    child: child,
+    );
+  },
+ );
+}
+```
+
+You can invoke a route transition as simple as this
+
+```dart
+Navigator.push(context, _pushRoute(YourWidget()));
+```
+
+and this is the output you get with the above transition.
+
+<center>
+  <img src="https://cdn-images-1.medium.com/max/1600/1*cXhlulVH-p21PdO8a12f3w.gif" />
+</center>
+
+
+And that's a wrap. You can find the complete [source code on Github](https://github.com/maheshmnj/Awesome-Flutter-Layouts/)
+
+Thanks for reading!

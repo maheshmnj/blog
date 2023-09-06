@@ -12,6 +12,13 @@ const config = {
   customFields: {
     allPosts: [
       {
+        slug: "leveraging-clippath-in-flutter",
+        title: "Leveraging ClipPath in Flutter",
+        authors: "Mahesh",
+        created_at: "2021-12-18",
+        tags: ['flutter', 'software', 'medium']
+      },
+      {
         slug: "managing-secrets-in-open-sourced-flutter-web",
         title: "Managing secrets in an open-sourced flutter web app",
         authors: "Mahesh",
