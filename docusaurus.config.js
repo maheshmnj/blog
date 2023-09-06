@@ -15,7 +15,7 @@ const config = {
         slug: "vscode-for-flutter-hacks",
         title: "VSCode for Flutter hacks that will blow your mind",
         authors: "Mahesh",
-        created_at: "2022-01-08",
+        created_at: "2023-01-08",
         tags: ['flutter', 'software', 'medium', 'hack']
       },
       {
