@@ -15,13 +15,23 @@ const config = {
         slug: "vscode-for-flutter-hacks",
         title: "VSCode for Flutter hacks that will blow your mind",
         authors: "Mahesh",
+        featured: false,
         created_at: "2023-01-08",
+        tags: ['flutter', 'software', 'medium', 'hack']
+      },
+      {
+        slug: "everything-about-the-bottomnavigationbar",
+        title: "Everything about the BottomNavigationbar in Flutter",
+        authors: "Mahesh",
+        featured: true,
+        created_at: "2022-05-30",
         tags: ['flutter', 'software', 'medium', 'hack']
       },
       {
         slug: "leveraging-clippath-in-flutter",
         title: "Leveraging ClipPath in Flutter",
         authors: "Mahesh",
+        featured: false,
         created_at: "2021-12-18",
         tags: ['flutter', 'software', 'medium']
       },
@@ -29,6 +39,7 @@ const config = {
         slug: "managing-secrets-in-open-sourced-flutter-web",
         title: "Managing secrets in an open-sourced flutter web app",
         authors: "Mahesh",
+        featured: false,
         created_at: "2021-03-13",
         tags: ['flutter', 'technology', 'Localization', 'medium']
       },
@@ -36,6 +47,7 @@ const config = {
         slug: "flutter-localization-on-the-fly",
         title: "Flutter Localization on the Fly",
         authors: "Mahesh",
+        featured: false,
         created_at: "2021-03-13",
         tags: ['flutter', 'technology', 'Localization', 'medium']
       },
@@ -43,6 +55,7 @@ const config = {
         slug: "search-as-you-type-in-flutter",
         title: "Search as you type in Flutter",
         authors: "Mahesh",
+        featured: false,
         created_at: "2020-02-10",
         tags: ['flutter', 'technology', 'software', 'medium']
       },
@@ -50,6 +63,7 @@ const config = {
         slug: "flutter-automated-testing",
         title: "Flutter Automated Testing",
         authors: "Mahesh",
+        featured: false,
         created_at: "2019-08-07",
         tags: ['flutter', 'technology', 'testing', 'medium']
       },
@@ -57,6 +71,7 @@ const config = {
         slug: "deploying-flutter-app-to-github-pages",
         title: "Deploying your Flutter WebApp to GitHub Pages",
         authors: "Mahesh",
+        featured: false,
         created_at: "2019-05-12",
         tags: ['flutter', 'technology', 'web', 'medium']
       },
@@ -64,6 +79,7 @@ const config = {
         slug: "building-first-flutter-web-page",
         title: "Building your first Flutter web page",
         authors: "Mahesh",
+        featured: false,
         created_at: "2019-05-09",
         tags: ['flutter', 'technology', 'web', 'medium']
       },

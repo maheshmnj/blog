@@ -1,0 +1,316 @@
+---
+slug: "everything-about-the-bottomnavigationbar"
+title: Everything about the BottomNavigationbar in Flutter
+authors: Mahesh
+created_at: 2022-05-30
+tags: [flutter, software, medium]
+---
+
+import Caption from "../src/components/common/Caption.js";
+
+This blog post covers 5 things you should take care of when using the BottomNavigationBar to enhance the user experience.
+
+<center>
+  <img
+    width="90%"
+    src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*hBxVz50OeidecahLhComUw.png"
+    alt="Everything about the BottomNavigationbar in Flutter"
+  />
+</center>
+
+When there are multiple important and highly accessed sections of the app we generally make use of the BottomNavigationBar. This is a very common widget and we all have seen and used it, day in and day out. This material design widget allows easy access to the important sections of our app with a single tap. Each section of the app may have subsections deeply nested and in such scenarios adding just a simple [BottomNavigationBar](https://api.flutter.dev/flutter/material/BottomNavigationBar-class.html) is not enough. When you have Nested Widgets to show inside a NavBar you should take care of a few things to make the end user’s experience better.
+
+Going forward we will interchangeably use the below terms to keep things simple.
+
+Navbar for BottomNavigationBar
+NavbarItem for BottomNavigationbarItem
+And NavbarDestination for the content of the NavBarItem.
+Take a look at this video demo to understand, what to expect out of this blog post
+
+<center>
+  <img src="https://miro.medium.com/v2/resize:fit:600/1*k_VYc1pqlgZWWm-Ui-gWHA.gif" />
+  <Caption caption="BottomNavigationBar demo" />
+</center>
+
+If you look closely at the video above, here are the five things that this blog post will cover
+
+1. Maintain the state of the BottomNavigationbar across tabs
+2. Hide NavBar during scroll for a larger content area
+3. Nested Navigation within BottomNavigationbar
+4. Add Transitions when switching between NavbarDestinations
+5. Double-tap the back button to exit on Android
+
+Before we take a look at implementing each of the above points. Let's write the minimal boilerplate that renders BottomNavigationBar on the screen.
+
+<center>
+  <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*4Pbxx1-oIfV1zeE3PwOy4Q.png" />
+</center>
+
+The above code snippet will render a BottomNavigationBar with three tabs, with each tab being a simple stateful widget. This is how the output looks
+
+<center>
+  <img src="https://miro.medium.com/v2/resize:fit:600/1*3XWfQMaFnF-1Nyy_NNvTxQ.gif"/>
+</center>
+
+
+The issue with the current code sample is, that the state of the widget is lost on changing the tab, if you noticed in the above output the scroll position and the entered text in the TextField are lost on changing the tab. This is because on changing the index of Navbar, we are replacing the body of the Scaffold with a widget. So to deal with it, this brings us to the first point mentioned above
+
+### 1. Maintaining the state across Tabs
+To maintain the state of each BottomNavigationBarItem we will make use of [IndexedStack](https://api.flutter.dev/flutter/widgets/IndexedStack-class.html) which is basically a [Stack](https://api.flutter.dev/flutter/widgets/Stack-class.html) that shows a single child from a list of children.
+
+<center>
+  <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*VdAQPhRl29Tw2g70SxY1rw.png"/>
+</center>
+
+Now with this small change, BottomNavigationBar maintains the state of the widget across tabs, The scroll Position of the text entered in the TextField is not lost and this is the output.
+
+<center>
+  <img src="https://miro.medium.com/v2/resize:fit:600/1*NfsT80bMr-FNA23aXKm2PQ.gif"/>
+</center>
+
+
+### 2. Hide BottomNavigationBar during scroll
+
+If you look at the previous output, around 20% of the viewport is covered by AppBar and the BottomNavigationbar. This is still fine on larger devices, But on small screen devices this percentage may be higher and the experience may be terrible due to the small content area. Also, note that the Navbar is only for changing tabs, and most of the time users will be interacting with the NavbarDestination so it makes sense to hide the Navbar when it is not required.
+
+**So the idea is to hide the Navbar when Scrolling downward and reveal it when Scrolling upward.** This wouldn’t affect if the content isn’t scrollable.
+
+So for this, we will write a wrapper around the BottomNavigationbar widget to handle the animation. We will call it **AnimatedNavBar**, which takes in a **NavBarNotifier** object to notify the change in the state of Navbar, List of children **menuItems**, and **onItemTapped** callback to update the Navbar state.
+
+<center>
+  <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*PQf6fo7opkE_UlnnwX5dvw.png"/>
+  <Caption caption="A wrapper around BottomNavigationBar" />
+</center>
+
+And this is the NavbarNotifier class, basically, a changeNotifier that maintains the state and updates the navbar on changes.
+
+<center>
+  <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*RLHpIG7tHuX0xJ3cZxqcgQ.png"/>
+  <Caption caption="Changenotifier to handle the state of the Navbar" />
+</center>
+
+So now, let us modify the widget tree a bit and use the AnimatedNavBar widget.
+
+
+<center>
+  <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*BgHp18N50VzHOcd2-HLLlg.png"/>
+</center>
+
+At this point, the Navbar is well equipped to animate nicely But before we see this in action we will have to work on the last piece, the idea we discussed above
+
+> So the idea is to hide the bar when Scrolling downward and reveal it when Scrolling upward. This wouldn’t affect if the content isn’t scrollable.
+
+For this, we will have to add a scrollListener to your scrollable content and update the Navbar state during scroll.
+
+<center>
+  <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*ZC1VfOMkAi7rJrRaJHU1xg.png"/>
+  <Caption caption="Listen to the scroll changes and update the Navbar state accordingly"/>
+</center>
+
+
+So the above code sample is pretty simple and self-explanatory, which basically listens to the scroll changes and updates the Navbar’s hidden state based on the scroll direction. With these changes, we should see the Navbar smoothly hiding off the viewport.
+
+<center>
+  <img src="https://miro.medium.com/v2/resize:fit:800/1*NaYdY1FfsPFCNBdx3wg_og.gif"/>
+  <Caption caption="Demo showing a listview of feeds and the navbar hiding on scroll"/>
+</center>
+
+### 3. Nested Navigation with BottomNavigationbar
+Our app so far works well, But it is uncommon to think that each NavbarItem will only have a single page. Because in our example where we have a list of items the user would want to tap on the item and navigate to another NavbarDestination keeping the Navbar intact and visible.
+
+Here's a rough diagram of How the pages are nested with each NavbarItem
+
+<center>
+  <img src="https://miro.medium.com/v2/resize:fit:1040/format:webp/1*P9350oR6SzOLcFUTOQNz1A.png"/>
+</center>
+
+To implement Nested Navigation we have to wrap three of the NavBarDestinations in a Navigator and assign them a key. (we will need this key for handling the nested routes).
+
+So the HomeMenu which looked like this before the Nested Navigator
+
+<center>
+  <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*vQo35eiQvQen8f86R8m_gA.png"/>
+</center>
+
+is now wrapped within a Navigator with its subroutes, We will do the same for the other two NavbarDestinations (ProductsMenu and ProfileMenu)
+
+<center>
+  <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*WBTJyxmi6s4JK6qLO_aEQg.png"/>
+</center>
+
+We will also make use of this navigate function which will be pretty handy while navigating and to decide whether we want to navigate to a nested route or push a route on top of the main Navigator using the parameter **isRootNavigator**.
+
+<center>
+  <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*e-svc-GWWz3uvfRbcnJ3WA.png"/>
+</center>
+
+Now that we have the nested routes in place, on launching the app each of the Navigator will navigate to `/`(the respective initial route of the Navigator). To navigate to a nested route from the initialRoute we will provide isRootNavigator:false in the navigate method specified above.
+
+
+```dart
+onTap: () {
+   navigate(context, FeedDetail.route, isRootNavigator: false,
+   arguments: {'id': index.toString()});
+},
+```
+
+at this point (after Navigating to nested route) if we press the back button all the routes will be popped and the app will exit. So to handle this we will make use of [WillPopScope](https://api.flutter.dev/flutter/widgets/WillPopScope-class.html) which will notify us when the back button on the Android device is pressed.
+
+> Whenever the back button is pressed, you will get a callback at [onWillPop](https://api.flutter.dev/flutter/widgets/WillPopScope/onWillPop.html), which returns a [Future](https://api.flutter.dev/flutter/dart-async/Future-class.html). If the Future returns true, the screen is popped.
+
+So now we will wrap the NavigationHandler in WillPopScope to receive back button pressed events and handle them in NavbarNotifier class.
+
+```dart
+class NavbarHandler extends StatefulWidget{
+ ...
+ ...
+@override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: () async {
+        final bool isExitingApp = await _navbarNotifier.onBackButtonPressed();
+        if (isExitingApp) {
+          return true;
+        } else
+          return false;
+      },
+      child: Material(
+      ...
+```
+
+And in the NavbarNotifier class, we will implement the definition for onBackButtonPressed, which will basically pop the route from the NestedNavigator using the key based on the current index of the Navbar and returns true if the rootNavigator will be popped and false otherwise, this ensures that the app will only get closed when we are at the root of the Nested Navigator stack.
+
+<center>
+  <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*voDoet_YTCrqX6XAVG1NEg.png"/>
+</center>
+
+With the above implementation, we can pop routes using the physical back button on Android.
+
+<center>
+  <img src="https://miro.medium.com/v2/resize:fit:600/1*cx17QSHmT0MbScm-3tslnw.gif"/>
+</center>
+
+
+### Nested Navigation similar to Instagram
+
+When the routes are deeply nested, going to the base route (first route)of the Navigator stack would require multiple back button clicks, to solve this issue we can implement a feature similar to Instagram where pressing on the same NavbarItem would take us to the base route. For this, we will add another function to our NavbarNotifier class which will basically pop all the routes in the navigator stack except the first based on the current index of the Navbar to pop the routes from the appropriate Navigator.
+
+<center>
+  <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*aoNvPjH7ylBbWfLMfnjc0A.png"/>
+  <Caption caption="Method to Pop all routes from the Nested Navigator stack based on the Index"/>
+</center>
+
+And we can invoke this function when the user taps on the current tab
+
+```dart
+child: AnimatedNavBar(
+         model: _navbarNotifier,
+         onItemTapped: (x) {
+           // User pressed  on the same tab twice
+           if (_navbarNotifier.index == x){
+              _navbarNotifier.popAllRoutes(x);
+           }
+           else {
+             _navbarNotifier.index = x;
+           }
+         },
+         menuItems: menuItemlist
+      ),
+```
+
+<center>
+  <img src="https://miro.medium.com/v2/resize:fit:600/1*xNViU_6pUKaP5tsjHcvwEg.gif"/>
+  <Caption caption="Navigate to the base route from a deeply nested route"/>
+</center>
+
+
+### 4. Transition between NavbarDestinations
+With the current implementation, if you try to switch the Navbar tabs, The tabs are being switched abruptly, we can improve this by smoothly fading between the NavbarDestinations using [FadeTransition](https://api.flutter.dev/flutter/widgets/FadeTransition-class.html). So to implement this we will declare the animationController and the animation in the **_NavBarHandlerState** class
+
+```dart
+ ...
+class _NavBarHandlerState extends State<NavBarHandler> with SingleTickerProviderStateMixin {
+...
+ late Animation<double> fadeAnimation;
+ late AnimationController _controller;
+ @override
+ void initState() {
+   super.initState();
+  _controller = AnimationController(
+    vsync: this,
+     duration: const Duration(milliseconds: 700),
+   );
+  fadeAnimation = Tween<double>(begin: 0.4, end: 1.0).animate(
+    CurvedAnimation(parent: _controller, curve: Curves.fastOutSlowIn),
+   );
+  ...
+```
+
+And then We will wrap each NavBarDestination in the FadeTransition inside the IndexedStack as below
+
+```dart
+...
+IndexedStack(
+  index: _navbarNotifier.index,
+  children: [
+    for (int i = 0; i < _buildBody.length; i++)
+      FadeTransition(
+        opacity: fadeAnimation, child: _buildBody[i])
+   ],
+),
+...
+```
+
+And finally, we will start the animation every time the NavBar’s current index changes
+
+
+```dart
+child: AnimatedNavBar(
+  model: _navbarNotifier,
+  onItemTapped: (x) {
+  // User pressed  on the same tab twice
+    if (_navbarNotifier.index == x) {
+      _navbarNotifier.popAllRoutes(x);
+    } else {
+      _navbarNotifier.index = x;
+      _controller.reset();
+     _controller.forward();
+    }
+ },
+```
+And here's the result
+
+<center>
+  <img src="https://miro.medium.com/v2/resize:fit:600/1*08wCOOPCe1C1l_2uqIYEEg.gif"/>
+  <Caption caption="Fading between NavbarDestinations"/>
+</center>
+
+
+This brings us to the last part of this blog post
+
+### 5. Double-tap the back button to exit on Android
+
+At this point, if you try to press the back button when on the base route of the Navigator stack, you will notice that the app closes, which is expected. But this doesn’t give a good user experience. To solve this we could implement the double-tap to close the app feature as found in most of the native android apps. This should be pretty straightforward to implement since we already have a willpopScope to track the back button press events. We just have to check if the time difference between two consecutive keypress events is less than the desired time Duration then exit the app. And this can be implemented as below.
+
+<center>
+  <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*hXyKRa5BAIOm2rPM_6d8vg.png"/>
+</center>
+
+And we get this desired result to warn users before exiting the app.
+
+<center>
+  <img src="https://miro.medium.com/v2/resize:fit:600/1*NRszUNzsN-HDlDmeJP1IDQ.gif"/>
+</center>
+
+
+So with this, we are at the end of the blog post. I hope this was fun reading and it will help you create great experiences in your flutter app.
+
+Source code for the demo app can be found here: https://gist.github.com/maheshmnj/894922ccb67f5fdc4ffb652e41916fa2
+
+Try the sample app in dartpad: https://dartpad.dev/?id=894922ccb67f5fdc4ffb652e41916fa2
+
+**Edit:** This has been published as a package on pub.dev as [navbar_router](https://pub.dev/packages/navbar_router) to handle all the boilerplate.
+
+If you have any questions or have any suggestions feel free to write them in the comments and I will definitely check them out.
+
+Thanks for reading and Happy Fluttering 💙.
