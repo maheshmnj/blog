@@ -12,6 +12,13 @@ const config = {
   customFields: {
     allPosts: [
       {
+        slug: "managing-secrets-in-open-sourced-flutter-web",
+        title: "Managing secrets in an open-sourced flutter web app",
+        authors: "Mahesh",
+        created_at: "2021-03-13",
+        tags: ['flutter', 'technology', 'Localization', 'medium']
+      },
+      {
         slug: "flutter-localization-on-the-fly",
         title: "Flutter Localization on the Fly",
         authors: "Mahesh",
