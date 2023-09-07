@@ -10,10 +10,13 @@ import BlogList from '../components/Posts';
 function HomepageHeader() {
   return (
     <header className={styles.heroBanner}>
+      {/* <div className="coverimage">
+        <img src="https://github.com/maheshmnj/blog/assets/31410839/610df08c-44ff-4358-b867-a3d781c4087e" alt="cover" />
+      </div> */}
       <p style={{
         fontSize: '1.4rem',
-      }}> Hello there! I'm Mahesh. Welcome to my personal blog. Here, I share my insights and reflections on life, career, and the world of technology. Everything I have ever written on the web at one place.<br /> Feel free to explore and enjoy!</p>
-      <h2 className={styles.gradient}>Almost ready giving final touch come back soon!</h2>
+      }}> Hello there! I'm Mahesh. Welcome to my personal blog.<br/> Here, I share my insights and reflections on life, career, and the world of technology. Everything I have ever written on the web at one place.<br/> Feel free to explore and enjoy!</p>
+      {/* <h2 className={styles.gradient}>Almost ready giving final touch come back soon!</h2> */}
       <div className={styles.buttons}>
         <Button
           onClick={() => {
