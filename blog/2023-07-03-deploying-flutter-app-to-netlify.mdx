@@ -1,0 +1,140 @@
+---
+slug: deploying-flutter-app-to-netlify
+title: Deploying futter app to Netlify Continuous deployment
+authors: Mahesh
+created_at: 2023-07-03
+tags: [flutter, web, medium, CICD]
+---
+
+import Caption from "../src/components/common/Caption.js";
+
+Flutter to Netlify: Seamlessly Deploy Your App with Continuous Deployment Delight!
+
+<center>
+  <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*XkO4tftFG1JpqFf9G60mVA.png" />
+</center>
+
+Developing apps can feel overwhelming and take up a lot of time. On top of that, deploying web applications can be an added challenge. As developers, our focus should be on creating and improving our products, not getting stuck in the complexities of deployment. In this blog post, I’ll walk you through a straightforward process of deploying your Flutter app on Netlify using GitHub actions. For those who are not aware
+
+> GitHub Actions is a continuous integration and continuous delivery (CI/CD) platform that allows you to automate your build, test, and deployment pipeline
+
+Whether you’re using Flutter or any other web framework, this post will provide you with simple steps to effortlessly deploy your app without any hassle.
+
+We will be using [Netlify actions](https://github.com/marketplace/actions/netlify-actions) which will run the Github workflow for every commit and deploy our web app. We will be deploying this [flutter-palm](https://github.com/maheshmnj/flutter-palm) project which is basically a chat app powered by the [Google Palm Api](https://developers.generativeai.google/products/palm).
+
+The app is available for use here https://palmchat.netlify.app
+
+<center>
+  <img width="80%" src="https://cdn-images-1.medium.com/max/1600/1*kT8OBsN2bJ4H-_yyROS66w.png"/>
+  <Caption caption="Screenshot of the deployed app"/>
+</center>
+
+
+To set up Continuous deployment in your project first you need to create a new site on Netlify https://app.netlify.com/start or you may also use the Netlify CLI, if you feel comfortable with it. Go to your team's Sites page, open the Add New Site menu, and create a new site it should be pretty straightforward if you feel stuck see https://docs.netlify.com/welcome/add-new-site/
+There are multiple ways of creating a site
+
+- Import an existing project from a Git repository
+- Select a prebuilt site from Netlify Templates
+- Deploy local project files manually using Netlify's deploy Dropzone
+
+Once you have your site created we need two things
+
+1. **OAuth Token** is required to authorize workflow (which we will create in a moment) to deploy your site. Visit the [Oauth access token](https://app.netlify.com/user/applications#personal-access-tokens) and create a new token.
+2. **Site Id** to identify unique to your site you can find your site id under `Site Settings` -> `General` -> `Site details` -> `Site id`
+
+We will need to provide these tokens to our workflow site. Don't worry we won't directly hardcode them in the script rather we will make use of Github secrets to store them and use them as variables in our workflow script.
+Go to your project repository under `Settings` -> `secrets and variables` -> `actions` -> create a new repository secret 
+
+And we will store our Netlify Oauth token and SiteId here.
+
+<center>
+  <img width="80%" src="https://cdn-images-1.medium.com/max/1600/1*o2olYFtw1slFVYI9vhE3FQ.png"/>
+  <Caption caption="The screenshot shows three secrets added in my repository API_KEY, Token, Site id"/>
+</center>
+
+Once you have your secrets added note down the names of your secret because we will use them in our workflow script.
+
+Now it's time to set up the Github workflow.
+
+1. In the root of your project create a **workflows** directory under **.github**, for me the directory path will be `palmchat/.github/workflows`
+2. Create a file named **workflow.yml** (name it whatever you like)
+3. Paste the below [workflow script](https://github.com/maheshmnj/flutter-palm/blob/main/.github/workflows/workflow-merge.yml), most part of it is self-explanatory, But I will still try to explain whats cooking
+
+```yaml
+name: Deploy to netlify on merge
+"on":
+  push:
+    branches:
+      - main
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v2
+        with:
+          # flutter-version: '3.3.10'
+          channel: "stable"
+      - run: flutter clean
+      - run: flutter pub get
+      - run: flutter pub run build_runner build --delete-conflicting-outputs
+      - run: flutter build web --release --dart-define=API_KEY=${{secrets.API_KEY}}
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v1.1
+        with:
+          publish-dir: "./build/web"
+          production-branch: main
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy from GitHub Actions"
+          enable-pull-request-comment: false
+          enable-commit-comment: true
+          overwrites-pull-request-comment: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        timeout-minutes: 1
+```
+
+1. The above script (named "Deploy to Netlify on merge") executes every time we make a commit on the main branch.
+2. It gets a stable version of flutter SDK (since we are trying to build a flutter app) using this action subosito/flutter-action@v2.
+3. It runs the flutter commands required to clean and build the release.
+4. We then run the actual part which this blog post is about deploying to Netlify
+
+
+```yaml
+- name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v1.1
+        with:
+          publish-dir: "./build/web"
+          production-branch: main
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy from GitHub Actions"
+          enable-pull-request-comment: false
+          enable-commit-comment: true
+          overwrites-pull-request-comment: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        timeout-minutes: 1
+```
+
+The important part here is to check your **production-branch** name and path to **publish-dir** where your release build will be, after running the build in the previous step (`flutter build web` … in this case) 
+
+And finally, we define the env environment variables basically the secrets we added to Github to be used in this script.
+
+Once we have this setup try making a commit to your repository and you should see your Github actions workflow running.
+
+<center>
+  <img width="80%" src="https://cdn-images-1.medium.com/max/1600/1*QLXvxCL8T_BaKC0pmfBspw.png"/>
+  <Caption caption="Previous workflow runs and their status"/>
+</center>
+
+Once the workflow succeeds you should see your website deployed to your domain specified in Netlify (https://palmchat.netlify.app in this case If it ever fails you can always look at the logs to figure out the error.
+
+Additionally, if you want to handle your web app urls see https://github.com/flutter/flutter/issues/89763#issuecomment-925040018
+
+I hope this blog post will help you grab a coffee while this workflow is busy deploying your web app to Netlify, if you have any questions or have problems deploying your web app feel free to write your queries in the comments and I would be happy to help.
+
+Thanks for reading and have a happy time deploying :)
+
+Curious about How to deploy a flutter web app to Github Pages check out my other blog here [Deploying your Flutter WebApp to GitHub Pages](/blog/deploying-flutter-app-to-github-pages)

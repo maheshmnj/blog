@@ -20,6 +20,14 @@ const config = {
         tags: ['flutter', 'software', 'medium']
       },
       {
+        slug: "deploying-flutter-app-to-netlify",
+        title: "Deploying futter app to Netlify Continuous deployment",
+        authors: "Mahesh",
+        featured: true,
+        created_at: "2023-07-03",
+        tags: ['flutter', 'web', 'medium', 'CICD']
+      },
+      {
         slug: "vscode-for-flutter-hacks",
         title: "VSCode for Flutter hacks that will blow your mind",
         authors: "Mahesh",
@@ -119,7 +127,7 @@ const config = {
         slug: "relaxing-short-trip",
         title: "A relaxing short trip",
         authors: "Mahesh",
-        featured: true,
+        featured: false,
         created_at: "2018-02-24",
         tags: ['life', 'travel', 'blog']
       },
@@ -244,25 +252,29 @@ const config = {
       style: 'dark',
       links: [
         {
-          title: 'Community',
+          title: 'Social',
           items: [
             {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/users/8253662/mahesh-jamdade',
+              label: 'Medium',
+              href: 'https://maheshmnj.medium.com/',
             },
             {
               label: 'Twitter',
               href: 'https://twitter.com/maheshmnj',
+            },
+            {
+              label: 'Threads',
+              href: 'https://threads.net/@maheshmnj',
             },
           ],
         },
         {
           title: 'More',
           items: [
-            // {
-            //   label: 'Blog',
-            //   to: '/blog',
-            // },
+            {
+              label: 'Stack Overflow',
+              href: 'https://stackoverflow.com/users/8253662/mahesh-jamdade',
+            },
             {
               label: 'GitHub',
               href: 'https://github.com/maheshmnj',
@@ -270,7 +282,7 @@ const config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Mahesh Jamdade. Built with Docusaurus 💛`,
     },
     colorMode: {
       defaultMode: 'dark',
