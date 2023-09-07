@@ -1,0 +1,140 @@
+---
+slug: creating-ultra-gradients-in-flutter
+title: Creating Ultra Gradients in Flutter
+authors: Mahesh
+created_at: 2022-05-30
+tags: [flutter, software, medium]
+---
+
+![](https://miro.medium.com/v2/resize:fit:2000/format:webp/1*gTJB0n7CN5pUqoPTjRxGxg.png)
+
+Choosing the right background and surface colors in your app is always challenging and **plain backgrounds are boring**, especially when you are building apps with Flutter. Flutter was built to create beautiful experiences so why spend time building boring apps?
+
+I have been working on a mobile app that supports different color schemes along with dark mode (thanks to [Material 3 support for Flutter](https://docs.flutter.dev/ui/design/material)) to cater to the needs of the user and adapt to user preferences. But one thing that really makes the experience bland is the plain backgrounds and surfaces. We could have used Linear, Radial Gradients but choosing the right color to support multiple color themes and the dark mode is tedious and limited, Ultra gradient opens up a wide spectrum of colors and makes the content visible well, even in the dark mode.
+
+By the end of this blog post, you will learn to create this animating ultra gradient in Flutter.
+
+<center>
+  <img
+    src="https://miro.medium.com/v2/resize:fit:1156/1*oY2buOGBCp1-nsRZPw2D4w.gif"
+    alt="Ultra Gradient"
+    width="300"
+    height="600"
+  />
+</center>
+
+I came across this tweet the other day, which shows how to add ultra gradients in Figma I took that approach to flutter and the result turned out to be beautiful.
+
+<center>
+    <img width="575" alt="image" src="https://github.com/maheshmnj/blog/assets/31410839/06f19ca0-01b2-4e83-9a09-06a92d32682b"/>
+</center>
+
+At first glance it might seem challenging to implement this type of gradient without any third-party asset, However, if we follow the breakdown of intricacies provided by Mans in his tweets, achieving it becomes much more feasible.
+
+So let's dive into the code and bring it into practice. We first start with a new flutter project with the usual counter app.
+
+<center>
+    <img src="https://miro.medium.com/v2/resize:fit:2000/format:webp/1*iskQ9Twt1SI2vg1CtMzsGQ.png"/>
+</center>
+
+Now Since we are trying to create a background for our app we Should make the code reusable so we will create a Background Widget let's name it UltraBackground that takes a widget as input. An UltraBackground may need access to the default material colors so we will use Material Widget on top.
+
+Since the ultra gradient is basically a layer beneath our widgets we will use a Stack to layout widgets on top of each other. With this change, your code should look something like this (Although no change in the output so far)
+
+<center>
+    <img width="80%" src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*UdzGPzGHMmXzo5qaK6jRKg.png"/>
+</center>
+
+To start we need some background color to be painted for the ultra gradient to show up when the blobs are painted. So We will paint a background with a “black” Color. We can do this with the help of [CustomPainter class](https://api.flutter.dev/flutter/rendering/CustomPainter-class.html).
+
+<center>
+    <img width="80%" src="https://cdn-images-1.medium.com/max/1600/1*VJJadIX4ZVS3J2apOpm6oA.png"/>
+</center>
+
+This should make the entire screen black making the content invisible and that is fine for now
+
+<center>
+    <img width="30%" src="https://cdn-images-1.medium.com/max/1600/1*JhYFkaNHTZrQscacBjkgMw.png"/>
+</center>
+
+Now let's draw Some Abstract Shapes that we want to paint in the background, We will draw one abstract shape using a bezier curve and a square.
+
+<center>
+    <img width="80%" src="https://cdn-images-1.medium.com/max/1600/1*ExRLHXPkxlk3OK-oM4KAvw.png"/>
+</center>
+
+Now Apply a blur to these shapes using
+
+```dart
+paint.maskFilter = MaskFilter.blur(BlurStyle.normal, 100);
+```
+
+Add the above line before we paint these two shapes for the blur effect to be applied to them. With the above implementation, we should see these two shapes drawn with a blur effect.
+
+<center>
+    <img width="30%" src="https://cdn-images-1.medium.com/max/1600/1*qfQxxZ1aJq8oOszBu5I48w.png"/>
+</center>
+
+
+Now let's add some Contrasting shapes to the canvas, For simplicity we will draw an ellipse, A circle, and a Triangle.
+
+<center>
+    <img width="80%" src="https://cdn-images-1.medium.com/max/1600/1*5kwvvLNF9FYULBtOw0KM1w.png"/>
+</center>
+
+With the above change, you should see the below output.
+
+<center>
+    <img width="30%" src="https://cdn-images-1.medium.com/max/1600/1*XiBXh4V6Ig6WFmmzgYiuEw.png"/>
+</center>
+
+Now let's apply a blur effect to these shapes and set the blend mode to overlay for these three shapes and we should see the Ultra Gradient in effect. We can do this by just adding the two lines in `drawContrastingBlobs`
+
+```dart
+void drawContrastingBlobs(Canvas canvas, Size size, Paint paint) {
+    paint.maskFilter = MaskFilter.blur(BlurStyle.normal, 30);
+    paint.blendMode = BlendMode.overlay;
+    drawCircle(canvas, size, paint);
+    drawTriangle(canvas, size, paint);
+    drawEllipse(canvas, size, paint);
+  }
+```
+
+And we should see the following gradient on the Screen.
+
+<center>
+    <img width="30%" src="https://cdn-images-1.medium.com/max/1600/1*XJcZP550QQkUhagFzsWkRg.png"/>
+</center>
+
+The result of the effect is totally dependent on the choice of colors and the Opacity. Let's take this a bit further and pair it with animation to make the effect dynamic. If we move the shapes around we should see different colors blending together to produce a dynamic gradient.
+
+For that, we first need to decide the path these shapes will travel around we will draw a bezier curve for these shapes to smoothly move around.
+
+so let's paint some paths on the screen to get a clear picture of their trajectory. The purple path is for Ellipse, Orange is for Circle and Green is for Triangle, These three shapes will move to and fro along this path.
+
+<center>
+    <img width="30%" src="https://cdn-images-1.medium.com/max/1600/1*CZ5i5CAm8qlzVkTRhI04Lg.png"/>
+</center>
+
+So the last part we need to do is we need to change the position of these shapes along the path, But How do we identify the position of these shapes at a particular instance? Fortunately, flutter provides us with [ComputeMetrics](https://api.flutter.dev/flutter/dart-ui/Path/computeMetrics.html) Api which basically gives us the details about the path and we can use it to find the offset of a widget where it lies along the path at a particular instance and pair it with animation to smoothly move it along the trajectory. Putting it all together you should see the shapes moving this way.
+
+<center>
+    <img width="30%" src="https://cdn-images-1.medium.com/max/1600/1*onC8ic7pmGgDhjq-h_Xj5g.gif"/>
+</center>
+
+We will also apply a blur effect between the canvas and the child for the generating colors to smoothly blend well together.
+
+<center>
+    <img width="60%" src="https://cdn-images-1.medium.com/max/1600/1*9O3LhKwmycuYF_KakXMckw.png"/>
+</center>
+
+And finally applying the mask and the blur effect we should see this output
+
+<center>
+    <img width="40%" src="https://cdn-images-1.medium.com/max/1600/1*oY2buOGBCp1-nsRZPw2D4w.gif"/>
+</center>
+
+The complete code sample is available in a [Github gist](https://gist.github.com/maheshmnj/d5cb45a3d73ebb1299c1f1206ee84425). Don't forget to explore the entire open-source project on [Github](https://github.com/maheshmnj/vocabhub/tree/v0.7.5) for a deeper understanding. Additionally, you can experience the app firsthand on the [Playstore](https://play.google.com/store/apps/details?id=com.vocabhub.app).
+ 
+Thanks for taking the time to read hope this helps you create stunning backgrounds for your app.
+Happy Fluttering!

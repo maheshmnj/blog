@@ -12,6 +12,14 @@ const config = {
   customFields: {
     allPosts: [
       {
+        slug: "creating-ultra-gradients-in-flutter",
+        title: "Creating Ultra Gradients in Flutter",
+        authors: "Mahesh",
+        featured: false,
+        created_at: "2023-08-15",
+        tags: ['flutter', 'software', 'medium']
+      },
+      {
         slug: "vscode-for-flutter-hacks",
         title: "VSCode for Flutter hacks that will blow your mind",
         authors: "Mahesh",
