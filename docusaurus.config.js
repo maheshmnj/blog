@@ -15,7 +15,7 @@ const config = {
         slug: "creating-ultra-gradients-in-flutter",
         title: "Creating Ultra Gradients in Flutter",
         authors: "Mahesh",
-        featured: false,
+        featured: true,
         created_at: "2023-08-15",
         tags: ['flutter', 'software', 'medium']
       },
@@ -96,7 +96,7 @@ const config = {
         title: "CupertinoPicker in Flutter",
         authors: "Mahesh",
         created_at: "2018-12-22",
-        featured: true,
+        featured: false,
         tags: ['technology', 'software', 'medium', 'flutter']
       },
       {
