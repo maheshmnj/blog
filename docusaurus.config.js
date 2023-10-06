@@ -13,7 +13,7 @@ const config = {
     allPosts: [
       {
         slug: "the-genetic-algorithm",
-        title: "The Genetic Algorithm for Travelling Salesman Problem",
+        title: "The Genetic Algorithm and The Travelling Salesman Problem",
         authors: "Mahesh",
         featured: true,
         created_at: "2020-10-06",
