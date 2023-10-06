@@ -16,7 +16,7 @@ const config = {
         title: "The Genetic Algorithm and The Travelling Salesman Problem",
         authors: "Mahesh",
         featured: true,
-        created_at: "2020-10-06",
+        created_at: "2023-10-06",
         tags: ['algorithm', 'artificial intelligence']
       },
       {
