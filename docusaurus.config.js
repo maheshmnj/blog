@@ -12,6 +12,14 @@ const config = {
   customFields: {
     allPosts: [
       {
+        slug: "the-genetic-algorithm",
+        title: "The Genetic Algorithm for Travelling Salesman Problem",
+        authors: "Mahesh",
+        featured: true,
+        created_at: "2020-10-06",
+        tags: ['algorithm', 'artificial intelligence']
+      },
+      {
         slug: "creating-ultra-gradients-in-flutter",
         title: "Creating Ultra Gradients in Flutter",
         authors: "Mahesh",
@@ -23,7 +31,7 @@ const config = {
         slug: "deploying-flutter-app-to-netlify",
         title: "Deploying futter app to Netlify Continuous deployment",
         authors: "Mahesh",
-        featured: true,
+        featured: false,
         created_at: "2023-07-03",
         tags: ['flutter', 'web', 'medium', 'CICD']
       },
@@ -201,7 +209,6 @@ const config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
-
   presets: [
     [
       '@docusaurus/preset-classic',
@@ -228,7 +235,6 @@ const config = {
       }),
     ],
   ],
-
   themeConfig:
   {
     // Replace with your project's social card
