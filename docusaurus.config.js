@@ -136,7 +136,7 @@ const config = {
         title: "The story behind every software development process",
         authors: 'Mahesh',
         created_at: '2018-02-24',
-        featured: true,
+        featured: false,
         tags: ['technology', 'software', 'agile']
       },
       {
