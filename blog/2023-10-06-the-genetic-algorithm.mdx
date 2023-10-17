@@ -10,14 +10,14 @@ import Caption from "../src/components/common/Caption.js";
 import Headline from "../src/components/blog/Headline";
 
 <center>
-  <img src="https://github.com/maheshmnj/rsvp-corsairs/assets/31410839/83d02279-2687-4048-95b5-97fd40c35cf3"/>
+  <img src="https://github.com/maheshmnj/rsvp-corsairs/assets/31410839/83d02279-2687-4048-95b5-97fd40c35cf3" />
 </center>
 
 So far all of my blog posts have revolved around widgets, flutter, Open Source, and software development. But this time I am taking a different direction, it's about an algorithm I studied as part of my master's course work Artificial Intelligence. I have had the privilege to study many different algorithms throughout my academics and work and have used them day in and day out, But I find this algorithm fascinating, and interesting for its nature, It is inspired by the phenomenon of Natural selection. The same phenomenon on which evolution is based. Brace yourself because this will be a lengthy blog post and probably difficult to understand, But I will try my best to keep things simple.
 
 ## Introduction
 
-**Genetic Algorithm** is a problem-solving strategy inspired by the way living things evolve and adapt over time. It's a computer-based method used to find good solutions to HARD problems, especially when finding the very best answer is really hard. Going forward I will clarify what exactly I meant by **HARD problems**. 
+**Genetic Algorithm** is a problem-solving strategy inspired by the way living things evolve and adapt over time. It's a computer-based method used to find good solutions to HARD problems, especially when finding the very best answer is really hard. Going forward I will clarify what exactly I meant by **HARD problems**.
 
 We have all heard the popular phrase _"Survival of the Fittest"_
 
@@ -27,14 +27,14 @@ We understand this fittest theory in terms of evolution and you will see this be
 
 ## The Problem
 
-<Headline 
-weight="normal"
-align="center"
-text="So what exactly is The Traveling Salesman Problem (TSP)?" />
-<br/>
+<Headline
+  weight="normal"
+  align="center"
+  text="So what exactly is The Traveling Salesman Problem (TSP)?"
+/>
+<br />
 
 The problem states
-
 
 > Given a list of cities and the distances between each pair of cities, what is the shortest possible route that visits each city exactly once and returns to the origin city?
 
@@ -144,7 +144,7 @@ Let's go through the steps of the algorithm we defined above
 
 ### Initialization
 
-The **randomizeCities** method is responsible for generating a list of initial populations. It works in a way that it randomizes all the vertices except the start*city and then appends the start_city at the beginning and end of the generated population. **Remember** in TSP the salesman must return to the \_original city (start city).
+The **randomizeCities** method is responsible for generating a list of initial populations. It works in a way that it randomizes all the vertices except the start\*city and then appends the start_city at the beginning and end of the generated population. **Remember** in TSP the salesman must return to the \_original city (start city).
 
 <center>
   <img
@@ -163,9 +163,9 @@ But the question is
   size="1.2rem"
   text="How many fits to select from the population and What exactly do we mean by fit?"
 />
-<br/>
+<br />
 
-In the context of the **Travelling Salesman problem**, fitness is basically the distance of the path (in other problems it would mean different e.g. in the Sandwich recipe the taste score given to each sandwich implies the fitness value). We intend to achieve the shortest path in TSP. So, the population with the shortest path would be deemed fit. And to select the number of fits we have already defined a fit factor called **fit_selection_rate** (in the range 0-1) to avoid overflow). 
+In the context of the **Travelling Salesman problem**, fitness is basically the distance of the path (in other problems it would mean different e.g. in the Sandwich recipe the taste score given to each sandwich implies the fitness value). We intend to achieve the shortest path in TSP. So, the population with the shortest path would be deemed fit. And to select the number of fits we have already defined a fit factor called **fit_selection_rate** (in the range 0-1) to avoid overflow).
 
 <center>
   <img
@@ -175,7 +175,6 @@ In the context of the **Travelling Salesman problem**, fitness is basically the 
   <Caption caption="" />
 </center>
 
-
 ### Fitness Calculation
 
 So we calculate the fitness of our entire population using computeFitness and add the number_of_fits_to_carryover number of population from the current generation to newPopulation. 
@@ -183,16 +182,28 @@ But the newPopulation we generate in each generation must have a population of s
 
 ### Selection
 
-CrossOver is a process to produce offspring by combining the traits of parents. But,
- How do we decide which parents to select for crossover?
-We do this with the help of Tournament selection, This is the selection step in GA that determines which parents to select from the existing population for reproduction, This is an important step since selecting the right parent ensures the fit traits/genes are passed on to the next generation. Tournament Selection is a commonly used method for selecting the parents who will participate in the tournament. 
+CrossOver is a process to produce offspring by combining the traits of parents.
+But,
+
+<Headline
+  weight="normal"
+  align="center"
+  text="How do we decide which parents to select for crossover?"
+/>
+<br />
+We do this with the help of Tournament selection, This is the selection step in
+GA that determines which parents to select from the existing population for
+reproduction, This is an important step since selecting the right parent ensures
+the fit traits/genes are passed on to the next generation. Tournament Selection
+is a commonly used method for selecting the parents who will participate in the
+tournament. 
 
 This step is pretty much simple, we run a tournament among a subset of the population (of tournamentSize). This subset is randomly selected and the tournament selection is executed multiple times until the number of parents participating in the crossover are selected. The selection criteria is basically to select the most fit individual among the subset of the population.
 
 ### Crossover
 
 Now Once we have two parents participating in crossover we need to decide how the crossover takes place to produce the offspring that is as fit as its parents. The idea of crossover is to select genes from both parents and add them to the offspring ensuring the genes in the offspring are unique. The goal is to generate diverse offspring with a combination of genetic material from both parents, potentially leading to improved solutions in the search space.
-There are multiple methods of crossover such as partially mapped crossover, order crossover, etc with one-point and multiple-point crossovers. 
+There are multiple methods of crossover such as partially mapped crossover, order crossover, etc with one-point and multiple-point crossovers.
 
 1. [Partially Mapped CrossOver (PMX)](https://medium.com/r/?url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FCrossover_%28genetic_algorithm%29%23Partially_mapped_crossover_%28PMX%29)
 
@@ -203,10 +214,10 @@ Let's say we have these two parents from the Tournament selection
     width="80%"
     src="https://github.com/maheshmnj/rsvp-corsairs/assets/31410839/178e3474-2eb1-484b-ad79-83ce76ecf9bc"
   />
-  <Caption caption="Parents participating in Crossover"/>
+  <Caption caption="Parents participating in Crossover" />
 </center>
 
-Parents participating in Crossoverand we want them to cross over to produce offspring. The steps for this cross-over are 
+Parents participating in Crossoverand we want them to cross over to produce offspring. The steps for this cross-over are
 
 1. Select the points to cross over we can choose a single point or two points to divide the array into halves, let's select two points for our case the choice of selection is random (computed using **computeTwoPointIndexes** method in the source code)
 
@@ -215,35 +226,33 @@ Parents participating in Crossoverand we want them to cross over to produce offs
     width="80%"
     src="https://github.com/maheshmnj/rsvp-corsairs/assets/31410839/98278770-b671-4748-927e-35259977a0de"
   />
-  <Caption caption="Two-point indexes to copy the genes to offspring"/>
+  <Caption caption="Two-point indexes to copy the genes to offspring" />
 </center>
 
-
 2. Copy the genes between the two points from parent 1 to the offspring at the same location as the parent
-
 
 <center>
   <img
     width="80%"
     src="https://github.com/maheshmnj/rsvp-corsairs/assets/31410839/749351cf-1306-4f9b-9ae2-fb8ea14fe5cb"
   />
-  <Caption caption="genes copied from parent 1 to Offspring"/>
+  <Caption caption="genes copied from parent 1 to Offspring" />
 </center>
 
 3. Look for genes that have not been copied in the corresponding segment of parent 2, starting at the first position in the crossover point. Gene I is the first uncopied Gene from parent 2( …, I, B, F, …) Copy I to Offspring at the location where E appears in Parent 2.
 
 The next gene in (… I, B, F … ) is B, but since it is already present in Offspring we will skip it,
 
-The next gene is F, It should be copied to the position occupied by B in parent 2, But that position is already occupied by C in the Offspring, so F will be copied to the position occupied by C in parent 2. 
+The next gene is F, It should be copied to the position occupied by B in parent 2, But that position is already occupied by C in the Offspring, so F will be copied to the position occupied by C in parent 2.
 
-With this change, our Offspring will be 
+With this change, our Offspring will be
 
 <center>
   <img
     width="80%"
     src="https://github.com/maheshmnj/rsvp-corsairs/assets/31410839/ec6172cb-6e1d-47c4-bfc4-023db3dd9b16"
   />
-  <Caption caption=""/>
+  <Caption caption="" />
 </center>
 
 4. The remaining elements of offspring are copied from parent 2 in the same order as they appear in parent 2.
@@ -253,9 +262,8 @@ With this change, our Offspring will be 
     width="80%"
     src="https://github.com/maheshmnj/rsvp-corsairs/assets/31410839/0016738e-365d-4c0c-82cc-efe15ecc885d"
   />
-  <Caption caption=""/>
+  <Caption caption="" />
 </center>
-
 
 The final Offspring generated after crossover is 'IGHECBFDJ'
 
@@ -266,18 +274,17 @@ The final Offspring generated after crossover is 'IGHECBFDJ'
     width="80%"
     src="https://github.com/maheshmnj/rsvp-corsairs/assets/31410839/46728f3a-1f76-40b9-ad9c-e20651ebbb25"
   />
-  <Caption caption="Parents Participating in Order Crossover"/>
+  <Caption caption="Parents Participating in Order Crossover" />
 </center>
 
 1. Select the points to cross over we must choose two or more points to divide the array into multiple halves. We will select the same indexes for simplicity, the choice of selection is random.
-
 
 <center>
   <img
     width="80%"
     src="https://github.com/maheshmnj/rsvp-corsairs/assets/31410839/4ddca7bb-ed10-4a0b-9242-e10eb17d3d99"
   />
-  <Caption caption="Two-point indexes to copy the genes to offspring"/>
+  <Caption caption="Two-point indexes to copy the genes to offspring" />
 </center>
 
 2. Copy the genes within the crossover indexes to Offspring in the same position as they appear in parent 1
@@ -287,20 +294,20 @@ The final Offspring generated after crossover is 'IGHECBFDJ'
     width="80%"
     src="https://github.com/maheshmnj/rsvp-corsairs/assets/31410839/bfd69fe6-3938-43db-b520-6bef6a5bd625"
   />
-  <Caption caption=""/>
+  <Caption caption="" />
 </center>
 
-3. Now for each element in Parent 2 copy the missing genes to Offspring in the same order as they appear. e.g. The first element not present in Offspring from parent 2 is G so G appears in the first position of Offspring, the second missing element is H so it appears next, and so on. So the newly generated Offspring is  
+3. Now for each element in Parent 2 copy the missing genes to Offspring in the same order as they appear. e.g. The first element not present in Offspring from parent 2 is G so G appears in the first position of Offspring, the second missing element is H so it appears next, and so on. So the newly generated Offspring is
 
 <center>
   <img
     width="80%"
     src="https://github.com/maheshmnj/rsvp-corsairs/assets/31410839/188d9983-1bed-4855-9795-62a5246a5169"
   />
-  <Caption caption="Generated Offspring after Order Crossover"/>
+  <Caption caption="Generated Offspring after Order Crossover" />
 </center>
 
-  coming back to our implementation we will use Order Crossover to keep things simple. 
+coming back to our implementation we will use Order Crossover to keep things simple.
 
 > Notice the crossover implementation we are keeping the Offspring_length short by 2 to eliminate start_city from the start and end of the path. And adding it back once the offspring is generated (before return).
 
@@ -309,19 +316,19 @@ The final Offspring generated after crossover is 'IGHECBFDJ'
     width="80%"
     src="https://github.com/maheshmnj/rsvp-corsairs/assets/31410839/35be5a5d-3ff7-4af6-b943-ad9815205b79"
   />
-  <Caption caption=""/>
+  <Caption caption="" />
 </center>
 
 ### Mutation
 
-The last step of the Genetic Algorithm for the current generation is Mutation, The idea of mutation is to make some random changes in the genes of the new Offspring. The primary purpose of mutation is to maintain diversity in the population. Without mutation, the genetic algorithm might get stuck with a local optimum where all individuals are quite similar. 
+The last step of the Genetic Algorithm for the current generation is Mutation, The idea of mutation is to make some random changes in the genes of the new Offspring. The primary purpose of mutation is to maintain diversity in the population. Without mutation, the genetic algorithm might get stuck with a local optimum where all individuals are quite similar.
 
 <center>
   <img
     width="80%"
     src="https://github.com/maheshmnj/rsvp-corsairs/assets/31410839/2b9e3fcd-bae6-44b2-8f7e-6d2cce4fa873"
   />
-  <Caption caption=""/>
+  <Caption caption="" />
 </center>
 
 And then for each iteration, we replace our old population with newPopulation obtained to achieve a better solution with every iteration. But there will be a point where the algorithm will converge even after introducing randomness in mutation, meaning Further iterations/generations cannot give a better solution so we stop the generations with the converged solution.
@@ -335,11 +342,11 @@ Putting it all together we will get the following output
     width="80%"
     src="https://github.com/maheshmnj/rsvp-corsairs/assets/31410839/ef4acf4d-1e7c-4d19-bd40-60c0fa5ebfdb"
   />
-  <Caption caption="The smaller values of population size and generations are only used to keep the output short"/>
+  <Caption caption="The smaller values of population size and generations are only used to keep the output short" />
 </center>
 
 If you have made it to the end thank you so much for reading, hope this algorithm helped you understand the genetic algorithm and more importantly it gave you an idea of how it can be used to solve hard problems.
 
-You can find the complete source code for this problem [here](https://medium.com/r/?url=https%3A%2F%2Fgithub.com%2Fmaheshmnj%2FPOPULAR_CODING_Questions_Solution%2Fblob%2Falgorithms%2Falgorithms%2Fgenetic.py). 
+You can find the complete source code for this problem [here](https://medium.com/r/?url=https%3A%2F%2Fgithub.com%2Fmaheshmnj%2FPOPULAR_CODING_Questions_Solution%2Fblob%2Falgorithms%2Falgorithms%2Fgenetic.py).
 
 Thanks for reading!
