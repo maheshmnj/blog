@@ -24,7 +24,7 @@ export default function FeaturedList(props) {
                             title={`${post.title}`}
                             description={post.description}
                             path={`/blog/${post.slug}`}
-                            date={post.created_at}
+                            date={post.created_at()}
                         />
                     </div>
                 })

@@ -4,7 +4,9 @@ import { useColorMode } from '@docusaurus/theme-common';
 import styles from '../../pages/index.module.css';
 
 export default function FeaturedCard(props) {
-    const date = new Date(props.date).toLocaleDateString("en-US", {
+    const date = new Date(props.date);
+    date.setUTCHours(0, 0, 0, 0);
+    const formattedDate = new Date(props.date).toLocaleDateString("en-US", {
         year: "numeric",
         month: "long",
         day: "numeric",
@@ -29,7 +31,7 @@ export default function FeaturedCard(props) {
                     fontSize: '0.8rem',
                     fontWeight: 'weight: 400',
                 }}
-            >{date}</small>
+            >{formattedDate}</small>
         </div>
     </div>
 

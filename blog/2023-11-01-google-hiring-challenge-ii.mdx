@@ -161,6 +161,7 @@ So allocating a matrix is not a good approach and would never work at all, But s
     width="80%"
   />
 </center>
+<Caption caption="The picture shows the traverse path for location(6,5)" />
 
 The idea was pretty simple we would traverse the first row until x+y+1, because the pattern of numbers we know is along the diagonal so to find any number x, y we have to at least travel (x+y+1) along X.
 e.g if we were to figure out position (6, 5) we would traverse 12 locations on the first row and traverse our way up (in a staircase fashion) until we reach our target y = 5 and decrease our result by 1 for every step up, until we reach x = 6. This is how our traverse path would be for input (6,5)
