@@ -133,7 +133,7 @@ const config = {
       },
       {
         slug: "sync-files-between-windows-and-drive",
-        title: "How to sync files in between computer and Google Drive Automatically",
+        title: "How to sync files between computer and Google Drive Automatically",
         authors: "Mahesh",
         created_at: "2018-08-17",
         featured: false,
