@@ -84,6 +84,7 @@ export default function BlogList(props) {
                     </div>
                 } else {
                     return <div key={index}>
+                        <div style={{ height: '30px' }}></div>
                         <h2>{date.getFullYear()}</h2>
                         <PostCard
                             index={index}
