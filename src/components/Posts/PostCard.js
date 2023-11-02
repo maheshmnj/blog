@@ -5,7 +5,7 @@ function PostCard(props) {
     date.setUTCHours(0, 0, 0, 0);
     const formattedDate = new Date(props.date).toLocaleDateString("en-US", {
         year: "numeric",
-        month: "long",
+        month: "short",
         day: "numeric",
     });
     return <div className="postcard" onClick={() => {
