@@ -12,12 +12,20 @@ const config = {
   customFields: {
     allPosts: [
       {
+        slug: "google-hiring-challenge-2",
+        title: "Demystifying Google's Secret Hiring Challenge-II",
+        authors: "Mahesh",
+        featured: false,
+        created_at: "2023-11-01",
+        tags: ['programming', 'hiring', 'medium']
+      },
+      {
         slug: "google-hiring-challenge-1",
         title: "Demystifying Google's Secret Hiring Challenge-I",
         authors: "Mahesh",
         featured: true,
         created_at: "2023-10-13",
-        tags: ['programming', 'hiring','medium']
+        tags: ['programming', 'hiring', 'medium']
       },
       {
         slug: "the-genetic-algorithm",

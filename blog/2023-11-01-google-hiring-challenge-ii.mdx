@@ -1,0 +1,755 @@
+---
+slug: google-hiring-challenge-2
+title: Demystifying Google's Secret Hiring Challenge-II
+authors: Mahesh
+created_at: 2023-11-01
+tags: [programming, hiring, medium]
+---
+
+import Caption from "../src/components/common/Caption.js";
+import Headline from "../src/components/blog/Headline";
+
+This blog post is the continuation of my previous blog [Demystifying Google’s Secret Hiring Challenge-I](./google-hiring-challenge-1), where I shared How I got invited to the Google’s Foobar challenge.
+
+<center>
+  <img src="https://github.com/maheshmnj/searchfield/assets/31410839/87e313b1-1169-4fdb-a237-4ab2c574e987" />
+</center>
+
+In this blog, I will share about what were the actual challenges How I solved them, and most importantly did I make it to the end of this challenge. Keep reading to find out.
+
+If you haven’t read my previous blog, to sum up
+
+> The Foobar challenge consists of five levels of algorithmic and pattern problems 9 in total, that can be completed in either Python or Java. Level 1 & 5 has one problem each, Level 2 & 4 has two problems each, and Level 3 has three problems
+
+This challenge allows the use of Python or Java as the programming, I am quite familiar with Python and have been using it quite often recently, so I chose it as my programming language of choice.
+
+So the first problem of this challenge was _Braille Translation_. Here’s the First problem description
+
+### Braille Translation (Problem1, Level 1)
+
+```none
+"Braille, Translation!
+===========
+Braille is a writing system used to read by touch instead of by sight.
+Each character is composed of 6 dots in a 2x3 grid, where each dot can
+either be a bump or be flat (no bump). You plan to translate the signs
+around the space station to Braille so that the minions under Commander
+Lambda's command can feel the bumps on the signs and "read" the text with
+their touch. The special printer which can print the bumps onto the signs
+expects the dots in the following order:
+1 4
+2 5
+3 6
+
+So given the plain text word "code", you get the Braille dots:
+
+11 10 11 10
+00 01 01 01
+00 10 00 00
+
+where 1 represents a bump and 0 represents no bump. Put together, code becomes
+the output string 100100101010100110100010.
+
+Write a function solution(plaintext) that takes a string parameter and returns
+a string of 1's and 0's representing the bumps and absence of bumps in the
+input string. Your function should be able to encode the 26 lowercase letters,
+handle capital letters by adding a Braille capitalization mark before that
+character, and use a blank character (000000) for spaces.
+All signs on the space station are less than fifty characters long and use only
+letters and spaces.
+```
+
+#### Short description of the problem
+
+Given a string input with letters and underscores, convert it to a braille-encoded string.
+
+<center>
+  <img
+    src="https://github.com/maheshmnj/blog/assets/31410839/883fb9ec-a8e3-454a-a355-bad5bc937a35"
+    width="80%"
+  />
+</center>
+<Caption caption="Picture showing braille alphabets from pharmabraille.com" />
+
+Taking a quick look at the [Braille alphabets](https://www.pharmabraille.com/pharmaceutical-braille/the-braille-alphabet/), it is evident that they do not follow any pattern which means we will need to store the mapping of letters in an array.
+
+The key thing to remember is that, **“Braille distinguishes capital and small letters by adding a special character before the alphabet, represented as Dot 6 meaning the 6th dot will be raised which is equivalent to “000001”** in our code”. Since the input will only contain alphabets and space, we only need to handle the case for uppercase letters using ASCII value.
+
+<center>
+  <img
+    src="https://github.com/maheshmnj/blog/assets/31410839/6d99e03c-958c-48f6-bd2c-a78fb3bc8f14"
+    width="80%"
+  />
+</center>
+
+With this code, all the test cases pass and we head on to level 2
+
+### Bunny Worker Locations (Problem1, Level 2)
+
+```none
+Bunny Worker Locations
+======================
+Keeping track of Commander Lambda's many bunny workers is starting to get
+tricky. You've been tasked with writing a program to match bunny worker IDs
+to cell locations.
+
+The LAMBCHOP doomsday device takes up much of the interior of Commander
+Lambda's space station, and as a result the work areas have an unusual
+layout. They are stacked in a triangular shape, and the bunny workers
+are given numerical IDs starting from the corner, as follows:
+
+| 7
+| 4 8
+| 2 5 9
+| 1 3 6 10
+
+Each cell can be represented as points (x, y), with x being the distance from
+the vertical wall, and y being the height from the ground.
+For example, the bunny worker at (1, 1) has ID 1, the bunny worker at (3, 2)
+has ID 9, and the bunny worker at (2,3) has ID 8. This pattern of numbering
+continues indefinitely (Commander Lambda has been adding a LOT of workers).
+
+Write a function solution(x, y) which returns the worker ID of the bunny at
+location (x, y). Each value of x and y will be at least 1 and no greater
+than 100,000. Since the worker ID can be very large, return your solution
+as a string representation of the number.
+```
+
+#### Short description of the problem
+
+_The problem states that “given input (x, y), the program should return the number in that location e.g (4, 5) should return 32_
+
+This problem also seemed easy since I could see the pattern, but it took me almost a day to pass all the test cases, only because I missed an important detail in the problem.
+
+The given sequence in the problem is an indefinite pattern expanding on top of the given pattern, it would look like the below,
+
+<center>
+  <img
+    src="https://github.com/maheshmnj/blog/assets/31410839/cece4f6e-782f-46d9-87c1-d47ff22b7a27"
+    width="80%"
+  />
+</center>
+<Caption caption="The diagonal lines indicate the numbers increasing diagonally (pattern 1)" />
+
+There are two important patterns to notice
+
+1. the numbers are increasing along the diagonal of the matrix.
+2. The difference between two elements in the same row is increasing by a constant and that constant increases for each position along x.
+   e.g notice elements in row 3,
+   4 + 4 = 8, 8 + 5 = 13, 13 + 6 = 19 and so on
+
+I used a naive approach and allocated a matrix of size (x+y, x+y), filled the values of the max(x, y) size of the matrix, and then tried returning the result. However, with this approach, some of the test cases were failing. I was pretty confident that the matrix was right.
+The comment at the bottom of the code shows the matrix formed
+
+<center>
+  <img
+    src="https://github.com/maheshmnj/blog/assets/31410839/be8ab0d7-91e1-4ceb-ad91-8808a52a6988"
+    width="80%"
+  />
+</center>
+
+I reread the problem and this was the crucial part of the problem that I was missing **“Each value of x and y will be at least 1 and no greater than 100,000.”** I realized that space complexity was the issue. Because I was still occupying [x+y] X [x+y] size of the matrix, this means if a particular element in the matrix takes 4 bytes of memory (since int takes 4 bytes) then for a large input in the worst case
+x = 100,000 we are allocating 200,000 x 200,000 size of the matrix
+
+Which would roughly take 200,000 x 200,000 x 4 bytes of memory which is approximately **160 GB** 🤯
+
+So allocating a matrix is not a good approach and would never work at all, But since we know the pattern in the matrix, we can keep track of the position traverse through the target positions, and keep track of the result.
+
+<center>
+  <img
+    src="https://github.com/maheshmnj/blog/assets/31410839/087e65aa-0239-4fb2-9f85-a6ad4da46069"
+    width="80%"
+  />
+</center>
+
+The idea was pretty simple we would traverse the first row until x+y+1, because the pattern of numbers we know is along the diagonal so to find any number x, y we have to at least travel (x+y+1) along X.
+e.g if we were to figure out position (6, 5) we would traverse 12 locations on the first row and traverse our way up (in a staircase fashion) until we reach our target y = 5 and decrease our result by 1 for every step up, until we reach x = 6. This is how our traverse path would be for input (6,5)
+
+**Traverse along X:** 1— 12, until we reach (12, 1)
+
+**Step up:** Step up and step back along the diagonal until we reach target Y=5(repeat) (11,2), (10, 3), (9, 4), (8, 5),
+
+**Traverse back along X until X= 6:** (7, 5), (6,5) stop when we reach the target.
+
+During this traverse, we keep track of the result and the current location, with this approach the code passed all the test cases and did not have any overhead in terms of memory.
+
+<center>
+  <img
+    src="https://github.com/maheshmnj/blog/assets/31410839/70e8deff-0339-4716-a084-d0c4dd6b133c"
+    width="80%"
+  />
+</center>
+
+### Power Hungry (Problem 2, Level 2)
+
+```none
+"Power, Hungry!
+===========
+Commander Lambda's space station is HUGE. And huge space stations take a LOT
+of power. Huge space stations with doomsday devices take even more power.
+To help meet the station's power needs, Commander Lambda has installed solar
+panels on the station's outer surface. But the station sits in the middle of
+a quasar quantum flux field, which wreaks havoc on the solar panels. You and
+your team of henchmen have been assigned to repair the solar panels, but you'd
+rather not take down all of the panels at once if you can help it, since they
+do help power the space station and all!
+
+You need to figure out which sets of panels in any given array you can take
+offline to repair while still maintaining the maximum amount of power output
+per array, and to do THAT, you'll first need to figure out what the maximum
+output of each array actually is. Write a function solution(xs) that takes a
+list of integers representing the power output levels of each panel in an
+array, and returns the maximum product of some non-empty subset of those
+numbers. So for example, if an array contained panels with power output
+levels of [2, -3, 1, 0, -5], then the maximum product would be found by
+taking the subset: xs[0] = 2, xs[1] = -3, xs[4] = -5, giving the product
+2*(-3)*(-5) = 30. So solution([2,-3,1,0,-5]) will be "30".
+
+Each array of solar panels contains at least 1 and no more than 50 panels,
+and each panel will have a power output level whose absolute value is no
+greater than 1000 (some panels are malfunctioning so badly that they're
+draining energy, but you know a trick with the panels' wave stabilizer that
+lets you combine two negative-output panels to produce the positive output
+of the multiple of their power values). The final products may be very large,
+so give the solution as a string representation of the number.
+
+Languages
+=========
+
+To provide a Python solution, edit solution.py
+To provide a Java solution, edit Solution.java
+
+Test cases
+==========
+Your code should pass the following test cases.
+Note that it may also be run against hidden test cases not shown here.
+
+-- Python cases --
+Input:
+solution.solution([2, 0, 2, 2, 0])
+Output:
+    8
+
+Input:
+solution.solution([-2, -3, 4, -5])
+Output:
+    60
+
+-- Java cases --
+Input:
+Solution.solution({2, 0, 2, 2, 0})
+Output:
+    8
+
+Input:
+Solution.solution({-2, -3, 4, -5})
+Output:
+    60
+```
+
+#### Short description of the problem
+
+_Given an array, we have to find a subset of the array such that the product is maximum, the catch here is the resulting array elements do not necessarily have to be a consecutive subset. e.g. for the given test case [2, 0, 2, 2, 0] the subset is {2, 2, 2} resulting in 8._
+
+<center>
+  <img
+    src="https://github.com/maheshmnj/blog/assets/31410839/6f7bb94e-1417-472c-a1da-8f1f2156d899"
+    width="80%"
+  />
+</center>
+
+In the best-case scenario when the array contains all positive integers then our subset would be the product of all elements in the array. But the challenge here is to handle cases when the array contains zero and negative numbers.
+
+**Let us handle the negative case first**, We know multiplying an even number of negative numbers would give a positive result, so if the array contains an even number of negative numbers we don’t have to do anything, and the approach of multiplying all the numbers would work, But for the case when the number of negative numbers is odd we need to remove one negative number from it and we would choose the one with max value (min in magnitude)
+e.g. if xs = [-2, 5,0, 7, 8, 0, -1, -10], we would remove -1.
+
+resulting in xs = [-2, 5, 0, 7, 8, 0, -10]
+
+And for zeros, we can simply ignore them, because multiplying a zero, would bring down our result to zero.
+
+Now as we multiply our product will abruptly fluctuate between negative and positive, so we keep track of max and min products and choose the maximum of max_product, min_product, and xs[i]
+
+With this approach, Level 3 unlocks!
+
+### Bomb Baby (Problem 1, Level 3)
+
+```none
+"Bomb, Baby!
+===========
+You're so close to destroying the LAMBCHOP doomsday device you can taste it!
+But in order to do so, you need to deploy special self-replicating bombs
+designed for you by the brightest scientists on Bunny Planet. There are two
+types: Mach bombs (M) and Facula bombs (F). The bombs, once released into the
+LAMBCHOP's inner workings, will automatically deploy to all the strategic
+points you've identified and destroy them at the same time.
+
+But there's a few catches. First, the bombs self-replicate via one of two
+
+distinct processes:
+- Every Mach bomb retrieves a sync unit from a Facula bomb; for every Mach
+bomb, a Facula bomb is created;
+- Every Facula bomb spontaneously creates a Mach bomb.
+
+For example, if you had 3 Mach bombs and 2 Facula bombs, they could either
+produce 3 Mach bombs and 5 Facula bombs, or 5 Mach bombs and 2 Facula bombs.
+The replication process can be changed each cycle.
+
+Second, you need to ensure that you have exactly the right number of Mach and
+Facula bombs to destroy the LAMBCHOP device. Too few, and the device might
+survive. Too many, and you might overload the mass capacitors and create a
+singularity at the heart of the space station - not good!
+
+And finally, you were only able to smuggle one of each type of bomb - one Mach,
+one Facula - aboard the ship when you arrived, so that's all you have to
+start with. (Thus it may be impossible to deploy the bombs to destroy the
+LAMBCHOP, but that's not going to stop you from trying!)
+
+You need to know how many replication cycles (generations) it will take to
+generate the correct amount of bombs to destroy the LAMBCHOP. Write a function
+solution(M, F) where M and F are the number of Mach and Facula bombs needed.
+Return the fewest number of generations (as a string) that need to pass
+before you'll have the exact number of bombs necessary to destroy the
+LAMBCHOP, or the string "impossible" if this can't be done! M and F will be
+string representations of positive integers no larger than 10^50.
+
+For example, if M = "2" and F = "1", one generation would need to pass,
+so the solution would be "1". However, if M = "2" and F = "4", it would not
+be possible.
+
+Languages
+=========
+
+To provide a Java solution, edit Solution.java
+To provide a Python solution, edit solution.py
+
+Test cases
+==========
+Your code should pass the following test cases.
+Note that it may also be run against hidden test cases not shown here.
+
+-- Java cases --
+Input:
+Solution.solution('4', '7')
+Output:
+    4
+
+Input:
+Solution.solution('2', '1')
+Output:
+    1
+
+-- Python cases --
+Input:
+solution.solution('4', '7')
+Output:
+    4
+
+Input:
+solution.solution('2', '1')
+Output:
+    1
+```
+
+#### Short description of the problem
+
+The problem states that given target values of Mach and Facula Bomb, the output should return the number of cycles required to reach the target. At any instance of the cycle, we must do the following
+
+- For every Mach bomb, a Facula bomb is created;
+- Every Facula bomb spontaneously creates a Mach bomb.
+  we need to start with initial values of m = 1 and f = 1 increase m and f as per the condition and stop when the target is reached.
+
+We do a reverse approach we start with a target and reduce it down as per the conditions. By reduction if we reach m =1 and f =1 that means the target can be reached, and if at any point if either m < 1 or f < 1 that means we cannot reach the target.
+
+<center>
+  <img
+    src="https://github.com/maheshmnj/blog/assets/31410839/0652c786-3709-4823-97f8-f3f2de700607"
+    width="80%"
+  />
+</center>
+
+### Queue to do (Problem 2, Level 3)
+
+```none
+You're almost ready to make your move to destroy the LAMBCHOP doomsday device,
+but the security checkpoints that guard the underlying systems of the LAMBCHOP
+are going to be a problem. You were able to take one down without tripping any
+alarms, which is great! Except that as Commander Lambda's assistant, you've
+learned that the checkpoints are about to come under automated review, which
+means that your sabotage will be discovered and your cover blown
+-- unless you can trick the automated review system.
+
+To trick the system, you'll need to write a program to return the same
+security checksum that the bunny trainers would have after they would have
+checked all the workers through. Fortunately, Commander Lambda's desire for
+efficiency won't allow for hours-long lines, so the trainers at the
+checkpoint have found ways to quicken the pass-through rate.
+Instead of checking each and every worker coming through, the bunny
+trainers instead go over everyone in line while noting their worker IDs,
+then allow the line to fill back up. Once they've done that they go over
+the line again, this time leaving off the last worker. They continue doing
+this, leaving off one more worker from the line each time but recording
+the worker IDs of those they do check, until they skip the entire line, at
+which point they XOR the IDs of all the workers they noted into a checksum
+and then take off for lunch. Fortunately, the workers' orderly nature causes
+them to always line up in numerical order without any gaps.
+
+For example, if the first worker in line has ID 0 and the security checkpoint
+line holds three workers, the process would look like this:
+
+0 1 2 /
+3 4 / 5
+6 / 7 8
+where the trainers' XOR (^) checksum is 0^1^2^3^4^6 == 2.
+
+Likewise, if the first worker has ID 17 and the checkpoint holds four workers,
+the process would look like:
+
+17 18 19 20 /
+21 22 23 / 24
+25 26 / 27 28
+29 / 30 31 32
+
+which produces the checksum 17^18^19^20^21^22^23^25^26^29 == 14.
+
+All worker IDs (including the first worker) are between 0 and 2000000000
+inclusive, and the checkpoint line will always be at least 1 worker long.
+
+With this information, write a function solution(start, length) that will
+cover for the missing security checkpoint by outputting the same checksum
+the trainers would normally submit before lunch. You have just enough time
+to find out the ID of the first worker to be checked (start) and the length
+of the line (length) before the automatic review occurs, so your program must
+generate the proper checksum with just those two values.
+
+#### Languages
+
+To provide a Java solution, edit Solution.java
+To provide a Python solution, edit solution.py
+
+#### Test cases
+
+Your code should pass the following test cases.
+Note that it may also be run against hidden test cases not shown here.
+
+-- Java cases --
+Input:
+Solution.solution(17, 4)
+Output:
+    14
+
+Input:
+Solution.solution(0, 3)
+Output:
+    2
+
+-- Python cases --
+Input:
+solution.solution(0, 3)
+Output:
+    2
+
+Input:
+solution.solution(17, 4)
+Output:
+    14
+```
+
+#### Short description of the problem
+
+Given an integer start and the length of the queue in the pattern we have to find the xor of all the numbers on the left of the forward slash
+
+17 18 19 20 /
+21 22 23 / 24
+25 26 / 27 28
+29 / 30 31 32
+e.g for the above pattern start = 17 , length = 4 the output should be xor of `17^18^19^20^21^22^23^25^26^29` resulting in 14
+
+This seemed like an easy problem compared to the problems we have solved so far, We know the starting number and the length of the first row, so at first I tried to loop through each queue length(4, 3, 2, 1) and xor the numbers one by one but this approach again ran into time complexity issue (As it has always been😕), since each number could be as large as “2000000000".
+
+<center>
+  <img
+    src="https://github.com/maheshmnj/blog/assets/31410839/32b6cb67-fe1c-4ee6-878c-287fc532063d"
+    width="80%"
+  />
+</center>
+<Caption caption="When I think I have found a solution to the problem, Optimization hits in face." />
+
+I looked for some online resources to efficiently XOR an array of consecutive numbers (each queue at a time) and found that the XOR of a range of numbers follows a pattern.
+
+```none
+result of 0 - 0: 0
+result of 0 - 1: 1
+result of 0 - 2: 3
+result of 0 - 3: 0
+result of 0 - 4: 4
+result of 0 - 5: 1
+result of 0 - 6: 7
+result of 0 - 7: 0
+result of 0 - 8: 8
+result of 0 - 9: 1
+result of 0 - 10: 11
+result of 0 - 11: 0
+result of 0 - 12: 12
+result of 0 - 13: 1
+result of 0 - 14: 15
+result of 0 - 15: 0
+result of 0 - 16: 16
+result of 0 - 17: 1
+result of 0 - 18: 19
+result of 0 - 19: 0
+result of 0 - 20: 20
+result of 0 - 21: 1
+result of 0 - 22: 23
+result of 0 - 23: 0
+result of 0 - 24: 24
+```
+
+1. **A number 1 less than multiples of 4 always returns 0**
+2. **Numbers divisible by 4 have the same result** meaning if we would XOR a range 0–4 i.e 0 ^ 1^ 2 ^ 3 ^ 4 results would be 4, similarly 0–12 would be 12, and so on
+3. **A number 1 greater than multiples of 4 always returns 1**
+   i.e XOR of range 0-1,0-5,0-9,0-13, and so on results in 1
+4. **A number 2 greater than multiples of 4 always returns number + 1**
+   i.e XOR of 0–6 = 7, 0 — 10 = 11, 0 - 14 = 15,
+   This pattern will allow us to find the XOR of a range in O(1) and save tonnes of computation. But, you might be wondering How we would use this information to find the XOR of a range of numbers that don’t start with 0.
+
+e.g in our problem, we have to find the XOR of our first queue 17–20, So the idea is to **XOR the result of XOR(0–16) and XOR(0–20)**,
+But, You might ask if you will,
+
+<Headline text="Why does this work?" />
+
+Because the XOR operator ^ follows two important properties,
+
+1. **XOR property:** A ^ A = 0 for any number A. In other words, XORing a number with itself results in 0.
+2. **Associative property:** The XOR operation is associative, meaning the order in which you XOR a set of numbers does not affect the result.
+   e.g (A ^ B) ^ C = A ^ (B ^ C).
+
+so if you were to find XOR of (0 - A-1) ^(0 — A+10) then the range (0– A-1) would cancel out resulting in 0, and you would get the XOR of the range (A - A+10), That’s why the XOR of the ranges 0–16 and 0–20 gives you the XOR of the numbers in the range 17–20.
+
+_Apparently, Had I known these facts about bit manipulation, this would have saved me a couple of days. But this test is evident a Google search never hurts._
+
+<center>
+  <img
+    src="https://github.com/maheshmnj/blog/assets/31410839/12483f7f-e7f2-426b-99ee-d3b8b0e3aed6"
+    width="80%"
+  />
+</center>
+
+With this, I reached the last problem of level 3
+
+### Fuel Injection Perfection (Problem 3, Level 3)
+
+```none
+### Fuel Injection Perfection
+=========================
+Commander Lambda has asked for your help to refine the automatic quantum antimatter fuel injection system for the LAMBCHOP doomsday device. It's a great chance for you to get a closer look at the LAMBCHOP -- and maybe sneak in a bit of sabotage while you're at it -- so you took the job gladly.
+
+Quantum antimatter fuel comes in small pellets, which is convenient since the many moving parts of the LAMBCHOP each need to be fed fuel one pellet at a time. However, minions dump pellets in bulk into the fuel intake. You need to figure out the most efficient way to sort and shift the pellets down to a single pellet at a time.
+
+The fuel control mechanisms have three operations:
+
+1) Add one fuel pellet
+2) Remove one fuel pellet
+3) Divide the entire group of fuel pellets by 2 (due to the destructive energy released when a quantum antimatter pellet is cut in half, the safety controls will only allow this to happen if there is an even number of pellets)
+
+Write a function called solution(n) which takes a positive integer as a string and returns the minimum number of operations needed to transform the number of pellets to 1. The fuel intake control panel can only display a number up to 309 digits long, so there won't ever be more pellets than you can express in that many digits.
+
+For example:
+solution(4) returns 2: 4 -> 2 -> 1
+solution(15) returns 5: 15 -> 16 -> 8 -> 4 -> 2 -> 1
+Quantum antimatter fuel comes in small pellets, which is convenient since the many moving parts of the LAMBCHOP each need to be fed fuel one pellet at a time. However, minions dump pellets in bulk into the fuel intake. You need to figure out the most efficient way to sort and shift the pellets down to a single pellet at a time.
+
+The fuel control mechanisms have three operations:
+
+1) Add one fuel pellet
+2) Remove one fuel pellet
+3) Divide the entire group of fuel pellets by 2 (due to the destructive energy released when a quantum antimatter pellet is cut in half, the safety controls will only allow this to happen if there is an even number of pellets)
+
+Write a function called solution(n) which takes a positive integer as a string and returns the minimum number of operations needed to transform the number of pellets to 1. The fuel intake control panel can only display a number up to 309 digits long, so there won't ever be more pellets than you can express in that many digits.
+
+For example:
+solution(4) returns 2: 4 -> 2 -> 1
+solution(15) returns 5: 15 -> 16 -> 8 -> 4 -> 2 -> 1
+
+Languages
+=========
+
+To provide a Python solution, edit solution.py
+To provide a Java solution, edit Solution.java
+
+Test cases
+==========
+Your code should pass the following test cases.
+Note that it may also be run against hidden test cases not shown here.
+
+-- Python cases --
+Input:
+solution.solution('15')
+Output:
+    5
+
+Input:
+solution.solution('4')
+Output:
+    2
+
+-- Java cases --
+Input:
+Solution.solution('15')
+Output:
+    5
+
+Input:
+Solution.solution('4')
+Output:
+    2
+```
+
+#### Short description of the problem
+
+Give an input number as a string, find the fastest way to reduce it to 1. You can only do one of the following operations in each step add 1, subtract 1, or divide by 2.
+e.g 15 can be reduced to 1 in 5 steps
+15 -> (15+1)16 ->(16/2) 8 ->(8/4) 4 -> (4/2) 2 -> 1
+
+The difficulty of this problem is not to find a solution but to get the solution running within the time limit in short to optimize it.
+
+Note that using this solution the problem is still running with an 87-character long input when our input program should be capable of handling 309 digits long input.
+
+<center>
+  <img
+    src="https://github.com/maheshmnj/blog/assets/31410839/202e63d0-15d9-4699-b207-90cf02f480bc"
+    width="80%"
+  />
+</center>
+<Caption caption="this was an incorrect approach" />
+
+It's been almost 4 days now and the solution is still stuck with this approach only 5/10 tests are passing.
+
+<center>
+  <img
+    src="https://github.com/maheshmnj/blog/assets/31410839/d58667e7-4864-4140-b9cf-64fe0ff1e111"
+    width="80%"
+  />
+</center>
+
+**Dividing the number is the fastest way to reduce it to 1**
+
+32- >16->8-> 4 -> 2 -> 1
+
+**so if a number is even we directly divide it, but when a number is odd we have to decide whether to add or subtract 1, this decision should be based on how close the number is to the power of 2.**
+
+But, this was the wrong approach, for instance, consider n = 13, it is close to 16 so we would add 1
+
+13 = 13+1 =14 -> 14/2 = 7 -> 7+1 = 8 -> 8/2 = 4 -> 4/2 = 2 ->2/2 = 1 => **6 steps**
+
+But actually, it should be reduced in 5 steps
+13 = 13–1 = 12 -> 12/2 = 6 -> 6/2 = 3 -> 3–1 = 2 -> 2/2 = 1 => **5 steps**
+
+When a number is even it is obvious we will only divide the number into half, the challenge here is only with odd numbers whether to add or subtract,
+
+So I turned to **bit manipulation** to solve this problem, Take a look at these binary numbers and their corresponding bitwise AND operation with the next consecutive number
+
+```none
+0     0  => 00 & 1=0
+1     1  => 01 & 2=0
+10    2  => 02 & 3=2
+11    3  => 03 & 4=0
+100.  4  => 04 & 5=4
+101   5  => 05 & 6=4
+110.  6  => 06 & 7=6
+111   7  => 07 & 8=0
+1000  8  => 08 & 9=8
+1001  9  => 09 & 10=8
+1010  10 => 10 & 11=10
+1011  11 => 11 & 12=8
+1100  12 => 12 & 13=12
+1101  13 => 13 & 14=12
+1110  14 => 14 & 15=14
+1111  15 => 15 & 16=0
+10000 16 => 16 & 17=16
+10001 17 => 17 & 18=16
+10010 18 => 18 & 19=18
+10011 19 => 19 & 20=16
+10100 20 => 20 & 21=20
+10101 21 => 21 & 22=20
+10110 22 => 22 & 23=22
+10111 23 => 23 & 24=16
+11000 24 => 24 & 25=24
+11001 25 => 25 & 26=24
+11010 26 => 26 & 27=26
+11011 27 => 27 & 28=24
+11100 28 => 28 & 29=28
+11101 29 => 29 & 30=28
+11110 30 => 30 & 31=30
+11111 31 => 31 & 32=0
+None
+```
+
+If you notice here the bitwise AND of two consecutive numbers where one of the numbers has all their bit set (1) is 0
+
+e.g 3 = “11”, 3 & 4 = 0, 7 = “111”, 7 & 8 = 0, 15 = “1111” , 15 & 16 = 0
+
+Our goal is to divide the number as many times as possible meaning trying to convert the odd to even by adding/ subtracting the number by 1, we decide this based on the bitwise AND with its neighboring number, in order to get more trailing zeros.
+e.g we have n = 13.
+In binary, this is represented as “1101” ,
+
+- n+1 = 14, which is 1110 in binary.
+- n-1 = 12, which is 1100 in binary.
+- n-2 = 11, which is 1011 in binary.
+
+Calculate (n+1 & n):13 & 14 is 1101 & 1110, which is 1100= 12
+Calculate (n-1 & n-2):12 & 11 is 1100 & 1011, which is 1000 = 8
+Now, compare the two results: 12 > 8 so we check whether adding 1 or subtracting 1 results in more trailing zeros, Because every time we divide the number by 2 we lose a trailing zero.
+
+<center>
+  <img
+    src="https://github.com/maheshmnj/blog/assets/31410839/49e69834-8075-4351-a383-32d3d42321d0"
+    width="80%"
+  />
+</center>
+
+I understand this might be a bit confusing and perhaps difficult for me to put into words, If you would prefer a video explanation this youtube video (In Hindi) is a great resource for understanding this behavior of binary numbers
+
+On completing level 3, You will be prompted to share your personal details which will be shared with the Google Staff Recruiter.
+
+Again sharing these details does not guarantee an interview. If there is a suitable position that fits your skills and interests the recruiter may reach out to you.
+
+<center>
+  <img
+    src="https://github.com/maheshmnj/blog/assets/31410839/0e666899-b9c1-4da4-a315-e725feb0956a"
+    width="80%"
+  />
+</center>
+After submitting the details I moved to level 4, But the problem seemed pretty difficult
+to understand in the first place and definitely time-consuming. I also felt I spent
+enough time and could not take it further. So I gave up on level 4. But regardless
+the challenges were fun to solve, It gave me a good idea of where I stand and helped
+me learn a few topics I was unaware of. (Problem statement for level 4 on my Github)
+<center>
+  <img
+    src="https://github.com/maheshmnj/blog/assets/31410839/877b8736-676d-4866-8b4c-6fccce4bea53"
+    width="80%"
+  />
+</center>
+
+### Key Takeaways
+
+Things that I learned from this Foobar challenge.
+
+1. Don’t always code to solve, everyone can do it, code to optimize.
+2. Don’t forget the basics, Bit manipulation is a great way to optimize.
+3. Look for patterns everywhere with eyes and mind wide open.
+4. What looks simple from the outside is fairly complicated on the inside.
+5. We will never be prepared, when the opportunity knocks just take it.
+6. Take the challenge without worrying about the end result.
+7. Don’t try to fit into a role you are incapable of, It’s unfair to you, It is unfair to the employer.
+
+You can find all the solutions with the problem statements on
+[my Github](https://github.com/maheshmnj/POPULAR_CODING_Questions_Solution/tree/master/foobar).
+
+If this post helped you with some new info, Don’t forget to give claps and do you know you can clap multiple times to appreciate the work?
+
+Don’t forget to follow so that you get notified on my new blog posts.
+
+<br />
+
+Happy Coding!
