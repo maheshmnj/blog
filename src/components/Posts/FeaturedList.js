@@ -7,8 +7,6 @@ import siteConfig from '../../../docusaurus.config';
 export default function FeaturedList(props) {
     var localPosts = siteConfig.customFields.allPosts;
     const featured = localPosts.filter(post => post.featured === true);
-    console.log("localPosts", localPosts);
-    console.log("featured", featured);
     if (featured.length === 0) {
         return <></>
     }
@@ -24,7 +22,7 @@ export default function FeaturedList(props) {
                             title={`${post.title}`}
                             description={post.description}
                             path={`/blog/${post.slug}`}
-                            date={post.created_at()}
+                            date={post.created_at}
                         />
                     </div>
                 })
