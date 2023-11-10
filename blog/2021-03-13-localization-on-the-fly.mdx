@@ -27,15 +27,17 @@ Or
 
 _what if you want to add support for a new language or remove an existing language support?_
 
-In such cases we will need to make changes in the code and even with a single character change in the code, you will have to rebuild and redeploy your app as flutter doesn't support hot update, so updating an app seems daunting.So In this post, I am gonna show you How I solved this problem using the approach shown below in one of the production apps and wanted to share it with you.
-The approach I will show you is less of a solution but more of "naive" workaround,If you know how to work with Http Requests and maintain the state of the app with provider, This would be a piece of cake for you.
-And this will get the work done without making a single line of change in code once it is implemented(unless you want to add new localized Strings to the app). Unfortunately, I cannot show you that mobile app, but don't worry I have a sample application built for this blog post which uses this approach.To Give you a test of the sample application this is how it looks.
+In such cases we will need to make changes in the code and even with a single character change in the code, you will have to rebuild and redeploy your app as flutter doesn't support [hot update](https://github.com/flutter/flutter/issues/14330) as of today, so updating an app seems daunting.So In this post, I am gonna show you How I solved this problem using the approach shown below in one of the production apps and wanted to share it with you.
+The approach I will show you is less of a solution and more of "naive" workaround, If you know how to work with HTTP Requests and maintain the state of the app with a provider, This would be a piece of cake for you.
+This will get the work done without making a single line of change in code once it is implemented(unless you want to add new localized Strings to the app). Unfortunately, I cannot show you that mobile app, but don't worry I have a sample application built for this blog post that uses this approach. To Give you a test of the sample application this is how it looks.
 
 ![](https://cdn-images-1.medium.com/max/1600/1*2Lti-56fOt5MD_hcEp52Cg.gif)
 
 ### Lets Approach the solution
 
-The things that we localize in a app are basically strings,we Identify each string uniquely with a key,So basically the data which has to be dynamically changed is a JSON object. This JSON data would lie somewhere in your backend which could fetch using network request. You could also store it locally on your phone but remember we want a dynamic solution to update the languages during runtime. If we were to localize the app in Spanish the json object would look something like this.
+The things that we localize in an app are basically strings, we Identify each string uniquely with a key, So basically the data that has to be dynamically changed is a JSON object. This JSON data would lie somewhere in your backend which could fetch using network request. You could also store it locally on your phone but remember we want a dynamic solution to update the languages during runtime. 
+
+If we were to localize the app in Spanish the json object would look something like this.
 
 ```json
 {
@@ -63,8 +65,9 @@ if we had multiple languages we could just change the values and keep the keys t
 ```
 
 Alternatively, we could just have one JSON object in a single response, and to get a correct translation we could just pass a query param in a request to let the backend know that we are requesting a JSON object of a particular language and it would return you the correct translation object.
-so once we have this JSON object ready we could just make an HTTP request decode the response and display it on the Ui, problem solved right?
-No! Also, don't forget the variables, Sometimes we also have variables within our static strings which could be numbers, dates and other types.
+so once we have this JSON object ready we could just make an HTTP request decode the response and display it on the UI, problem solved right?
+No. Also, don't forget the variables, we also have variables within our static strings which could be numbers, dates, and other types.
+
 for instance, consider this flutter code
 
 ```dart
@@ -84,7 +87,7 @@ so for such strings, we need to make sure these variables go within those transl
 input: Hey, This app is built using ${toolKit} for ${platform}.
 ```
 
-Here's the function which does this for us.
+Here's the function that does this for us.
 
 ![](https://cdn-images-1.medium.com/max/1600/1*jdpoDGZhMz-j_i43NzvTTQ.png)
 
@@ -101,11 +104,12 @@ output:Hey, This app is built using flutter for MacOs.
 ```
 
 Also, remember the order of the arguments in the Argument list `List<String>` should be the same as they appear in the translation sentence.
+
 And the last thing to remember is we should fetch these translations before the app starts in order to prevent any issues And show a loader or the app splash screen whatever you prefer. You can also make use of the shared preferences to store the user's language preference which can be used to fetch the correct language on the next app launch.
 
 ### Let's build the sample app
 
-Now that you understood the approach (I assume) let's build the sample app.
+Now that you understand the approach (I assume) let's build the sample app.
 Since you are looking for a solution for localization I assume you know how to build layouts in flutter so I won't be covering that part.
 so let's create the flutter project and run this command in your terminal
 
@@ -113,7 +117,7 @@ so let's create the flutter project and run this command in your terminal
 flutter create .
 ```
 
-Now add these dependencies in your pubspec.yaml, I have used the json_annotation and dev_dependencies just to generate the toMap and FromJson methods but these dependencies are not mandatory.
+Now add these dependencies in your `pubspec.yaml`, I have used the json_annotation and dev_dependencies just to generate the toMap and FromJson methods but these dependencies are not mandatory.
 
 ```yaml
 dependencies:
@@ -180,7 +184,8 @@ LocaleModel() {
 This function basically makes a network request and stores the translations in the state of the app in these two Map Objects \_translation and \_selectedTranslation.
 The \_translation holds the consolidated Map object (with All languages) that we discussed above and \_selectedTranslation holds the strings of the current translation being shown in the app. we need \_translation in order to fetch the translation on changing the language this prevents us from making an extra API call, we directly fetch it from the state and refresh the app without making the user to wait for the changes to take effect.
 Now let's see how we are making use of these translations
-Lets take a look at description for the User which has three parameters in it city,state,country
+
+Let's take a look at the description for the User which has three parameters in *city*, *state*, *country*
 
 ![](https://cdn-images-1.medium.com/max/1600/1*9sAdI3bgA6RrQbsx-ty66w.png)
 
@@ -228,6 +233,8 @@ This approach allows you to
   Things it lacks: Numbers,Dates and Currencies translation but we can always have custom functions for these or this could also be backend driven within the same translation object.
   That said we are at the end of this blog post hope you like this approach, And if you have any questions or critiques feel free to drop them below in the comments I would love to discuss. And don't forget to smash the 👏🏼 button until it warns.The more you clap the more it inspires me to bring some great blog posts.
   And you can always
-- play with the source code here
-- checkout the demo app here.
-  Thank you for taking your time to read this long post and keep fluttering 💙.
+
+- play with the [source code here](https://github.com/maheshmnj/localization_on_the_fly)
+- checkout the [demo app here.](https://maheshmnj.github.io/localization)
+
+Thank you for taking the time to read this long post and keep fluttering 💙.
