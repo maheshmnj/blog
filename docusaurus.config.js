@@ -1,8 +1,9 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const lightCodeTheme = require('prism-react-renderer').themes.github;
+const darkCodeTheme = require('prism-react-renderer').themes.dracula;
+
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -205,7 +206,6 @@ const config = {
       },
     ]
   },
-  // Set the production url of your site here
   url: 'https://blog.maheshjamdade.com',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
@@ -214,10 +214,21 @@ const config = {
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'maheshmnj', // Usually your GitHub org/user name.
   projectName: 'blog', // Usually your repo name.
-
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-
+  // plugins: [
+  //   async function myPlugin(context, options) {
+  //     return {
+  //       name: "docusaurus-tailwindcss",
+  //       configurePostCss(postcssOptions) {
+  //         // Appends TailwindCSS and AutoPrefixer.
+  //         postcssOptions.plugins.push(require("tailwindcss"));
+  //         postcssOptions.plugins.push(require("autoprefixer"));
+  //         return postcssOptions;
+  //       },
+  //     };
+  //   },
+  // ],
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
   // to replace "en" with "zh-Hans".

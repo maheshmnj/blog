@@ -25,7 +25,6 @@ export default function BlogList(props) {
             }
         });
     };
-    console.log("posts=", allPosts);
     useEffect(() => {
         var localPosts = siteConfig.customFields.allPosts;
         localPosts.forEach((post) => {

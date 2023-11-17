@@ -182,7 +182,7 @@ this step checks if these three widgets are present on screen, you need to look 
 1. Type of statement (Given/Then/When)
 2. how many widget keys or identifiers in statements and their types
 
-(e.g in above step we have 3 widget keys of type string each) so while implementing the step my class will extend from a class Given3WithWorld<String, String, String, FlutterWorld> so the step file looks someting likes this lets take a look at each step
+(e.g in above step we have 3 widget keys of type string each) so while implementing the step my class will extend from a class `Given3WithWorld<String, String, String, FlutterWorld>` so the step file looks someting likes this lets take a look at each step
 
 ```dart
 import 'package:flutter_driver/flutter_driver.dart';
@@ -253,7 +253,7 @@ class ClickLoginButton extends Then1WithWorld<String, FlutterWorld> {
 }
 ```
 
-so if you still didn't get it the statement is of type "Then" with 1 paramter of type String so its extends from Then1WithWorld<String, FlutterWorld> then we found the widget using its key in the input parameter and told the driver to tap on the widget.
+so if you still didn't get it the statement is of type "Then" with 1 paramter of type String so its extends from `Then1WithWorld<String, FlutterWorld>` then we found the widget using its key in the input parameter and told the driver to tap on the widget.
 
 `await FlutterDriverUtils.tap(world.driver, loginfinder);`
 
