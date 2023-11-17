@@ -1,13 +1,11 @@
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import React, { useState } from 'react';
-import styles from './posts.module.css';
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import FeaturedList from './FeaturedList';
 import Headline from './Headline';
 import PostCard from './PostCard';
-const { useColorMode } = require('@docusaurus/theme-common');
+import styles from './posts.module.css';
 
-export default function BlogList(props) {
+export const BlogList = (props) => {
     const { siteConfig } = useDocusaurusContext();
     //  make a api call to get all posts
     const [allPosts, setPosts] = useState([])
@@ -102,6 +100,8 @@ export default function BlogList(props) {
         </div>
     </div>
 }
+
+export default BlogList;
 
 
 export function Tags(props) {

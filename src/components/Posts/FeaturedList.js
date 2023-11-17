@@ -1,10 +1,11 @@
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import React from 'react';
 import FeaturedCard from './FeaturedCard';
 import './FeaturedList.css';
 import Headline from './Headline';
-import siteConfig from '../../../docusaurus.config';
 
 export default function FeaturedList(props) {
+    const { siteConfig } = useDocusaurusContext();
     var localPosts = siteConfig.customFields.allPosts;
     const featured = localPosts.filter(post => post.featured === true);
     if (featured.length === 0) {

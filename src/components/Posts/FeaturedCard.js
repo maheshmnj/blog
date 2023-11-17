@@ -13,7 +13,6 @@ export default function FeaturedCard(props) {
     });
     const dark = useColorMode().colorMode === 'dark';
     return <div key={props.index}
-
         style={{
             boxShadow: `0 0 10px ${dark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.1)'
                 }`

@@ -1,11 +1,14 @@
-import React from 'react';
-import clsx from 'clsx';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import Navbar from '../components/Navbar';
-import styles from './index.module.css';
+import React from "react";
+import clsx from "clsx";
+import Layout from "@theme/Layout";
+import Link from "@docusaurus/Link";
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import HomepageFeatures from "../components/HomepageFeatures";
+import styles from "./index.module.css";
 import '../components/Posts/posts.module.css';
-import Layout from '@theme/Layout';
-import BlogList from '../components/Posts';
+import Navbar from '../components/Navbar';
+import BlogList from "../components/Posts/BlogList";
+
 
 function HomepageHeader() {
   return (
