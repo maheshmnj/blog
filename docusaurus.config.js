@@ -13,12 +13,20 @@ const config = {
   customFields: {
     allPosts: [
       {
+        slug: "exploring-project-idx",
+        title: "Your DEV environment in your browser with Project IDX",
+        authors: "Mahesh",
+        featured: false,
+        created_at: "2024-01-09",
+        tags: ["programming", "deve", "medium"]
+      },
+      {
         slug: "google-hiring-challenge-2",
         title: "Demystifying Google\'s Secret Hiring Challenge- II",
         authors: "Mahesh",
         featured: false,
         created_at: "2023-11-01",
-        tags: ["programming", "hiring", "medium"]
+        tags: ["programming", "blog"]
       },
       {
         slug: "google-hiring-challenge-1",
