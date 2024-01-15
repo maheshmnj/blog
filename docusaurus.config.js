@@ -275,7 +275,7 @@ const config = {
     // Replace with your project"s social card
     image: "img/docusaurus-social-card.jpg",
     navbar: {
-      title: "Mahesh\"s Blog",
+      title: "Mahesh\'s Blog",
       logo: {
         // alt: "My Site Logo",
         src: "https://maheshjamdade.com/img/profile_pic.jpg",
