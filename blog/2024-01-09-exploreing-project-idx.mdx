@@ -5,23 +5,30 @@ authors: Mahesh
 more_data:
   - featured: false
 created_at: "2024-01-09T00:00:00Z"
-tags: [programming,blog]
+tags: [programming, blog]
 ---
+
 import Caption from "../src/components/common/Caption.js";
 
-#### Google's new in-browser IDE for full-stack development
+Google's new in-browser IDE for full-stack development
 
 ![](https://cdn-images-1.medium.com/max/1600/1*10AS2Fl-8PskB54IYW3wJw.png)
 
-I have been using ![Project IDX](https://idx.dev) for a month now and I find it very helpful, I have always felt the need for it. Now I no longer need to carry my laptop with me, and can continue my work exactly where I left off on any machine. You can run large projects right in your browser with the same experience as you would, locally on your machine anytime, anywhere on the go with IDX. For those who are not aware
+### Project IDX
+
+I have been using [Project IDX](https://idx.dev) for a month now, And It has been a great exprience, I have always felt the need for having my development environment wherever I go and whatever machine I use. And IDX solves this problem with their new inbrowser development solution using IDX. Now you no longer need to carry your laptop with you, you can continue your work exactly where you left it off on any machine. You can run large projects right in the browser and have the the same development experience as you would when running locally on your machine anytime, anywhere on the go with IDX. For those who are not aware
 
 > Project IDX is an experimental initiative from Google to do full-stack development in a browser-based workspace. It is powered by [virtual machines](https://cloud.google.com/workstations?hl=en) running in Google Cloud.
 
-It comes with a bunch of workspace templates for different frameworks for building web apps and It also supports building apps with Flutter (more on that ahead) or you can also import your existing project from a repository. A total of two workspaces can be created as of today.
+### Getting Started
+
+Project IDX is currently in development and is not publicly available at this time However you can join the waitlist by enrolling here https://idx.dev/. Once you get access to it you will be notified via email. As of today It comes with a bunch of workspace templates for different frameworks for building web apps and It also supports building apps with Flutter (more on that ahead) or you can also import your existing project from a repository. A total of two workspaces can be created as of today.
 
 ![](https://cdn-images-1.medium.com/max/1600/1*386qFwQtOulTRkTACN4YCA.png)
 
-Let's take a closer look to experience all the cool features IDX offers firsthand. Once we choose to create a web app, IDX offers starter project templates of the most popular web frameworks like React, Angular, Svelte,  and more.
+### IDX for web apps
+
+Let's take a closer look to experience all the cool features IDX offers firsthand. Once we choose to create a web app, IDX offers starter project templates of the most popular web frameworks like React, Angular, Svelte, and more.
 
 ![](https://cdn-images-1.medium.com/max/1600/1*zhFxyDLrZEV91fe2KOz_hw.png)
 
@@ -34,33 +41,29 @@ To quickly run a demo app I took the very popular [matrix animation art from cod
 ![](https://cdn-images-1.medium.com/max/1600/1*N_3TfqFRyjXbBrBXsC2nNA.gif)
 Every project in the IDX workspace requires a monospace.json (created by default for a new project) file at the root of your project in order to launch a virtual device. Here's a [sample monospace.json](https://pastelog.netlify.app/logs/c18e0e60-aa42-11ee-bebc-4998c6ff0e28) file with running android/ios/web previews. One you create that file with the previews configuration you need to hard reset IDX (ctrl/cmd + shift + p -> IDX: hard reset)to start the preview with the new configuration
 
-![](https://cdn-images-1.medium.com/max/1600/1*NNv-Nd5SHcMlTmD-uxMSMQ.png)
+> All commands of IDX can be accessed from the command palette by pressing ctrl/cmd + shift + p
+> and by typing "IDX"
 
-All commands of IDX can be accessed from the command palette by pressing ctrl/cmd + shift + p
+### IDX AI Assistant
 
-![](https://cdn-images-1.medium.com/max/1600/1*94e9GDf0sONMLz0bEUuvQQ.png)
-
-#### IDX AI Assistant
+"\<IDX demo here]\>"
 
 Now that AI has become part of our lives, AI code assistant is crucial to any modern IDE, IDX Workspace also has an AI to assist you with your code powered by [codey](https://cloud.google.com/vertex-ai/docs/generative-ai/code/code-models-overview) and [palm 2](https://ai.google/discover/palm2/). It can do a lot of things for you like adding comments to a selected piece of code, generating code, explaining code, and much more.
 
-![](https://cdn-images-1.medium.com/max/1600/1*AKwDeGvGZ3w097mRlbpsPg.png)
-https://cdn-images-1.medium.com/max/1600/1*AKwDeGvGZ3w097mRlbpsPg.png)
-
 It also has this small yet sweet feature where it inserts the generated code in your file at the position of the cursor.
-
 
 ![](https://cdn-images-1.medium.com/max/1600/1*_6ZRlUNmaN1PJfOC08h0vA.gif)
 
-#### Emulators for Flutter
+### IDX for Flutter
 
 One of the most important things when developing mobile apps is having a virtual device this is what separates IDX from other cloud IDEs, the ability to run virtual devices for Android and IOS right in your browser. This is a huge deal, considering the complexities involved in getting the virtual devices running and the amount of resources these devices consume.
 
-<img src="https://cdn-images-1.medium.com/max/1600/1*SHn154gaD-g5BomF3g3F0g.png"/>
+<img src="https://cdn-images-1.medium.com/max/1600/1*SHn154gaD-g5BomF3g3F0g.png" />
 
-### Devtools
+### Devtools for Flutter
 
-Development is not merely a code editor it comes with a lot of overhead like the ability to use plugins to preview and test your app in a virtual environment. 
+Development is not merely a code editor it also requires Devtools to debug and inspect your code. IDX also supports Devtools for Flutter which is a huge plus for Flutter developers. It also has a built-in terminal for running commands and a built-in git client for version control, everything VSCode has to offer right in your browser.
+However I couldn't get the Devtools to work for my Flutter project, I am not sure if it's a bug or I am missing something here. But I saw folks on twitter using it so I am assuming it's a bug.
 
 Some of the improvements/issues that I think are missing or require a fix
 Android emulator should be resizable to have more space for the editor

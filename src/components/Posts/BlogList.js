@@ -46,14 +46,12 @@ export const BlogList = (props) => {
                 alignItems: 'center',
             }
         }>
-            {console.log("tags=", tags)}
             <div className={styles.filterContainer}>
                 <Headline title="All Posts" size="large" />
                 <div style={{ width: '20px' }}></div>
                 <Tags
                     selectedTag={selectedTag}
                     tags={tags} onTagClick={(x) => {
-                        console.log("tag clicked", x);
                         setSelected(x)
                         fetchPosts(x)
                     }} />
