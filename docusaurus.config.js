@@ -181,18 +181,18 @@ const config = {
         tags: ["bitcoin", "cryptocurrency", "blockchain", "thoughts"]
       },
       {
-        slug: "india-bans-crypto",
-        title: "The FUD about the Crypto Fall, India bans Crypto!",
+        slug: "bitcoin-bubble-burst",
+        title: "Is Bitcoin Bubble about to burst?",
         authors: "Mahesh",
         created_at: "2020-05-01",
         featured: false,
         tags: ["bitcoin", "cryptocurrency", "blockchain", "thoughts"]
       },
       {
-        slug: "bitcoin-bubble-burst",
-        title: "Is Bitcoin Bubble about to burst?",
+        slug: "india-bans-crypto",
+        title: "The FUD about the Crypto Fall, India bans Crypto!",
         authors: "Mahesh",
-        created_at: "2020-05-01",
+        created_at: "2018-02-02",
         featured: false,
         tags: ["bitcoin", "cryptocurrency", "blockchain", "thoughts"]
       },
@@ -258,11 +258,12 @@ const config = {
           blogSidebarCount: 0,
           routeBasePath: "blog",
           include: ["**/*.{md,mdx}"],
+          postsPerPage: 'ALL',
           editUrl:
             "https://github.com/maheshmnj/blog/tree/main/",
           feedOptions: {
             type: "json",
-          }
+          },
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),

@@ -25,6 +25,7 @@ export const BlogList = (props) => {
     };
     useEffect(() => {
         var localPosts = siteConfig.customFields.allPosts;
+        console.log(localPosts.length)
         localPosts.forEach((post) => {
             if (post.tags) {
                 post.tags.forEach((tag) => {
