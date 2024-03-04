@@ -4,7 +4,7 @@ title: A Positive Vibe 2018, You are not enough Motivated !
 authors: Mahesh
 more_data:
   - featured: false
-created_at: "2018-01-03T00:00:00Z"
+created_at: 2018-01-03
 tags: [life, motivation]
 ---
 
