@@ -7,7 +7,6 @@ import '../components/Posts/posts.module.css';
 import Navbar from '../components/Navbar';
 import BlogList from "../components/Posts/BlogList";
 
-
 function HomepageHeader() {
   return (
     <header className={`${styles.heroBanner}`}>
@@ -18,7 +17,7 @@ function HomepageHeader() {
         fontSize: '1.4rem',
       }}> Hello there! I'm Mahesh. Welcome to my personal blog. Here, I share my insights and reflections on life, career and code. Everything I have ever written on the web at one place.<br /> Feel free to explore and enjoy!</p>
       {/* <h2 className={styles.gradient}>Almost ready giving final touch come back soon!</h2> */}
-      <div className={styles.buttons}>
+      <div className={`${styles.buttons}`}>
         <Button
           onClick={() => {
             window.open("https://maheshjamdade.com/", "_blank")
@@ -53,7 +52,7 @@ export function Button(props) {
   return (
     <button
       onClick={props.onClick}
-      className="button button--secondary button--md  ">
+      className="text-lg button cursor-pointer bg-gradient-to-br from-green-300 to-blue-800 hover:from-green-400 hover:to-blue-900 text-white font-bold py-2 px-6 rounded-lg border-0">
       {props.children}
     </button>
   );
