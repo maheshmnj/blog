@@ -1,9 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import Layout from "@theme/Layout";
-import Link from "@docusaurus/Link";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import HomepageFeatures from "../components/HomepageFeatures";
 import styles from "./index.module.css";
 import '../components/Posts/posts.module.css';
 import Navbar from '../components/Navbar';
@@ -55,7 +53,7 @@ export function Button(props) {
   return (
     <button
       onClick={props.onClick}
-      className="button button--secondary button--sm  ">
+      className="button button--secondary button--md  ">
       {props.children}
     </button>
   );
